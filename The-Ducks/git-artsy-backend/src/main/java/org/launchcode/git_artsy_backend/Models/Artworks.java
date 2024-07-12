@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend.Entity;
+package org.launchcode.git_artsy_backend.Models;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Artworks {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
@@ -20,7 +19,7 @@ public class Artworks {
     private Float price;
     private String imageUrl;
 
-    @Column(updatable = false)
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

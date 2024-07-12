@@ -1,14 +1,10 @@
-package org.launchcode.git_artsy_backend.Dto;
+package org.launchcode.git_artsy_backend.Models.dto;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
 
 public class ArtworksDto {
-
     private Integer productId;
     //private Artist artist;
     private String title;
@@ -16,7 +12,7 @@ public class ArtworksDto {
     private Float price;
     private String imageUrl;
 
-    @Column(updatable = false)
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
