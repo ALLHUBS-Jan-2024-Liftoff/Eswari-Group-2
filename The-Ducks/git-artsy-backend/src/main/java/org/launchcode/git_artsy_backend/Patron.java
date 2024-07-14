@@ -1,7 +1,6 @@
 package org.launchcode.git_artsy_backend;
 
 import jakarta.persistence.Entity;
-import org.apache.catalina.User;
 
 @Entity
 public abstract class Patron extends User {
