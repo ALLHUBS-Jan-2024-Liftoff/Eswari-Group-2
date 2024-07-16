@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from './Login';
-import ArtworksPopup from './Artwork';
+import Login from './LoginLandingPage/Login';
+import ArtworksPopup from './LoginLandingPage/Artwork';
 
 const LandingLogin = () => {
   return (

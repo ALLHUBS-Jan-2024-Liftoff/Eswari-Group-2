@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../cssforpages/Artwork.css';
 
+//Artwork Slide Method
 const ArtworksPopup = () => {
   const [artworks, setArtworks] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -10,6 +11,8 @@ const ArtworksPopup = () => {
     fetchArtworks(); 
   }, []);
 
+
+//Fetching Artworks from external API and limiting to 20 images
   const fetchArtworks = async () => {
     try {
       const response = await axios.get('https://api.artic.edu/api/v1/artworks?page=1&limit=20');
@@ -24,6 +27,7 @@ const ArtworksPopup = () => {
     }
   };
 
+//Sliding through the images in a 2 second rotation
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(prevIndex => (prevIndex + 1) % artworks.length);

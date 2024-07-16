@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import LandingLogin from './components/LoginLanding';
-import ArtworksPopup from './components/Artwork';
+import ArtworksPopup from './components/LoginLandingPage/Artwork';
 
 const App = () => {
   
