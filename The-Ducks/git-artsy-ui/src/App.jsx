@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import LandingLogin from './components/LoginLanding';
-import ArtworksPopup from './components/LoginLandingPage/Artwork';
+import LandingLogin from './components/LoginLandingPage/LoginLanding';
+
 
 const App = () => {
   
@@ -11,6 +11,8 @@ const App = () => {
   return (
     <div>
       <LandingLogin />
+      {/* TODO add routes and paths 
+      and add ArtworksPopup to Landing Login*/}
       {/* <ArtworksPopup /> */}
     </div>
   );

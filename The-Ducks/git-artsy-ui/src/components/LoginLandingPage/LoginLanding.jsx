@@ -1,16 +1,19 @@
 import React from 'react';
-import Login from './LoginLandingPage/Login';
-import ArtworksPopup from './LoginLandingPage/Artwork';
+import Login from './Login';
+import ArtworksPopup from './Artwork';
+import '../styling.css';
+import Banner from '../Banner';
+import './LoginLanding.css';
 
 const LandingLogin = () => {
   return (
     <div className="app-container">
-        {/* Header Part Coding */}
+        <Banner />
       <div className="login-container">
          <Login /> 
       </div>
       <div className="popup-container">
-        <ArtworksPopup />
+        {/* <ArtworksPopup /> */}
       </div>
       {/* Footer Part */}
     </div>
