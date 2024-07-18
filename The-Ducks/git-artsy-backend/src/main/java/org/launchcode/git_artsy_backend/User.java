@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 
-@Entity
+
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public abstract class User {
     @Id
     private Long userId;
 
@@ -29,6 +29,20 @@ public class User {
     @Column(nullable = false)
     private Timestamp updatedAt;
 
+    //constructor
+
+
+    public User(Long userId, String username, String email, String password, String role, Timestamp createdAt, Timestamp updatedAt) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    //timestamp setter
     @PrePersist
     protected void onCreate() {
         createdAt = new Timestamp(System.currentTimeMillis());
@@ -39,6 +53,7 @@ public class User {
         updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
+    //getters setters
     public Long getUserId() {
         return userId;
     }

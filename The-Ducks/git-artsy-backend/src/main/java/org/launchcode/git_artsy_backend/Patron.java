@@ -2,10 +2,18 @@ package org.launchcode.git_artsy_backend;
 
 import jakarta.persistence.Entity;
 
+import java.sql.Timestamp;
+
 @Entity
-public abstract class Patron extends User {
+public class Patron extends User {
     private String profilePictureUrl;
     private String bio;
+
+    public Patron(Long userId, String username, String email, String password, String role, Timestamp createdAt, Timestamp updatedAt, String profilePictureUrl, String bio) {
+        super(userId, username, email, password, role, createdAt, updatedAt);
+        this.profilePictureUrl = profilePictureUrl;
+        this.bio = bio;
+    }
 
     // Getters and setters
     public String getProfilePictureUrl() {
