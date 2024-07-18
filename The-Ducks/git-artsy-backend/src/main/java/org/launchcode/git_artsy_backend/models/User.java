@@ -2,16 +2,18 @@ package org.launchcode.git_artsy_backend.models;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
 
-public class User {
+@MappedSuperclass
+public abstract class User {
 
     @Id
     @GeneratedValue
-    private int user_id;
+    private Long user_id;
 
     @NotEmpty
     private String username;
@@ -28,31 +30,31 @@ public class User {
         PATRON
     }
 
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
 
     //Initiates user_id count
-
     public User() {}
 
+    //Constructor
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.created_at = LocalDateTime.now();
-        this.updated_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
 
     //Getters and setters for above variables
 
-    public int getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
 
@@ -72,24 +74,28 @@ public class User {
         this.email = email;
     }
 
-    //ONLY GETTER FOR PASSWORD
     public String getPassword() {
         return password;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 }
