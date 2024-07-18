@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/The-Ducks.iml" filepath="$PROJECT_DIR$/.idea/The-Ducks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/git-artsy-backend.main.iml" filepath="$PROJECT_DIR$/.idea/modules/git-artsy-backend.main.iml" />
     </modules>
   </component>
 </project>

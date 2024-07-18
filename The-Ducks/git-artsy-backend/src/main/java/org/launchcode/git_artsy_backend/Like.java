@@ -34,6 +34,16 @@ public class Like {
         createdAt = new Timestamp(System.currentTimeMillis());
     }
 
+    public Like(Long likeId, Patron patron, Product product, Timestamp createdAt) {
+        this.likeId = likeId;
+        this.patron = patron;
+        this.product = product;
+        this.createdAt = createdAt;
+    }
+
+    //No arg Const
+    public Like() {}
+
     // Getters and setters for all fields
     public Long getLikeId() {
         return likeId;

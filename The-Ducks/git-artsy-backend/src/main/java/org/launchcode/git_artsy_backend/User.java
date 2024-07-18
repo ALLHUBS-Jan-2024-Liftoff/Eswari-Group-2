@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
     @Column(nullable = false, unique = true)

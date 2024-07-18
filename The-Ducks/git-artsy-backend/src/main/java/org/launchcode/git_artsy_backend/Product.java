@@ -55,6 +55,20 @@ public class Product {
         updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
+    public Product(Long productId, Artist artist, String title, String description, Double price, String imageUrl, Timestamp createdAt, Timestamp updatedAt) {
+        this.productId = productId;
+        this.artist = artist;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    // No-argument constructor
+    public Product() {}
+
     // Getters and setters for all fields
     public Long getProductId() {
         return productId;

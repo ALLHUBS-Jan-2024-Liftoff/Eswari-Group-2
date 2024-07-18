@@ -1,11 +1,18 @@
 package org.launchcode.git_artsy_backend;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import org.springframework.data.annotation.Id;
 
 import java.sql.Timestamp;
 
 @Entity
 public class Patron extends User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String profilePictureUrl;
     private String bio;
 
