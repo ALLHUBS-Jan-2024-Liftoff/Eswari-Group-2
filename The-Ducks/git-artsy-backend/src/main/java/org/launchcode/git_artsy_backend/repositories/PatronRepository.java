@@ -1,2 +1,7 @@
-package org.launchcode.git_artsy_backend.repositories;public interface PatronRepository {
+package org.launchcode.git_artsy_backend.repositories;
+
+import org.launchcode.git_artsy_backend.models.Patron;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PatronRepository extends JpaRepository<Patron, Long> {
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Artist extends User{
     @Id
     @GeneratedValue
-    private int artist_id;
+    private Long artist_id;
 
     private String profile_picture_url;
 
@@ -27,7 +27,7 @@ public class Artist extends User{
     public Artist() {}
 
     //Artist constructor
-    public Artist(String username, String email, String password, int artist_id, String profile_picture_url, String bio, String website, LocalDateTime created_at, LocalDateTime updated_at) {
+    public Artist(String username, String email, String password, Long artist_id, String profile_picture_url, String bio, String website, LocalDateTime created_at, LocalDateTime updated_at) {
         super(username, email, password);
         this.artist_id = artist_id;
         this.profile_picture_url = profile_picture_url;
@@ -40,11 +40,11 @@ public class Artist extends User{
 
     //Getters and setter for above variables
 
-    public int getArtist_id() {
+    public Long getArtist_id() {
         return artist_id;
     }
 
-    public void setArtist_id(int artist_id) {
+    public void setArtist_id(Long artist_id) {
         this.artist_id = artist_id;
     }
 

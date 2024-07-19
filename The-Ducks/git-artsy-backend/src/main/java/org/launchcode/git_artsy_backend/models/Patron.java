@@ -11,7 +11,7 @@ public class Patron extends User {
 
     @Id
     @GeneratedValue
-    private int patron_id;
+    private Long patron_id;
 
     private String profile_picture_url;
 
@@ -26,7 +26,7 @@ public class Patron extends User {
     public Patron() {}
 
     //Patron constructor
-    public Patron(String username, String email, String password, int patron_id, String profile_picture_url, String bio, LocalDateTime created_at, LocalDateTime updated_at) {
+    public Patron(String username, String email, String password, Long patron_id, String profile_picture_url, String bio, LocalDateTime created_at, LocalDateTime updated_at) {
         super(username, email, password);
         this.patron_id = patron_id;
         this.profile_picture_url = profile_picture_url;
@@ -38,11 +38,11 @@ public class Patron extends User {
 
     //Getters and setter for above variables
 
-    public int getPatron_id() {
+    public Long getPatron_id() {
         return patron_id;
     }
 
-    public void setPatron_id(int patron_id) {
+    public void setPatron_id(Long patron_id) {
         this.patron_id = patron_id;
     }
 
