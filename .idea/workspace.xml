@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd6ee6b-5525-49de-8a6a-a511e629cd85" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Controllers/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Controllers/TagController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/Tag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/ArtworksRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/ArtworksRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/JpaRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/TagRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/TagRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,8 +55,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
