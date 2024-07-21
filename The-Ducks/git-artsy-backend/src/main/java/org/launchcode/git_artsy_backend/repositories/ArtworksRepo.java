@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend.Repo;
+package org.launchcode.git_artsy_backend.repositories;
 
 
 import org.launchcode.git_artsy_backend.Models.Artworks;
