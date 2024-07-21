@@ -1,6 +1,4 @@
-package org.launchcode.git_artsy_backend.Models.dto;
-
-import jakarta.persistence.Column;
+package org.launchcode.git_artsy_backend.models.dto;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,6 @@
-package org.launchcode.git_artsy_backend.Controllers;
+package org.launchcode.git_artsy_backend.controllers;
 
-import org.launchcode.git_artsy_backend.Models.Artworks;
+import org.launchcode.git_artsy_backend.models.Artworks;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
