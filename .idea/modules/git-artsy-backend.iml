@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="git-artsy-backend" external.linked.project.path="$MODULE_DIR$/../../The-Ducks/git-artsy-backend" external.root.project.path="$MODULE_DIR$/../../The-Ducks/git-artsy-backend" external.system.id="GRADLE" external.system.module.group="org.launchcode" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../The-Ducks/git-artsy-backend">
+      <sourceFolder url="file://$MODULE_DIR$/../../The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Controllers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../The-Ducks/git-artsy-backend/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../The-Ducks/git-artsy-backend/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

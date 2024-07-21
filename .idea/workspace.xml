@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd6ee6b-5525-49de-8a6a-a511e629cd85" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/Banner.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/SignUpPage/SignUpPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/styling.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/Artwork.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/Artwork.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/LoginLanding.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/LoginLanding.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/cssforpages/Artwork.css" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/cssforpages/Artwork.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/cssforpages/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/cssforpages/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/cssforpages/LoginLanding.css" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/cssforpages/LoginLanding.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/CommissionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,14 +21,41 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/The-Ducks/git-artsy-backend">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="git-artsy-backend" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="git-artsy-backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="git-artsy-backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -54,20 +72,51 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2jOnHMrDrIGyp76k7cKfaF4heN5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.git-artsy-backend [bootRun].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "loginlandingpage",
+    "git-widget-placeholder": "23-backend-patron-users-can-post-a-commission-request-to-artists",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/lorrax/Desktop/Coding/LaunchCode/LiftOff2024/The-Ducks"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.launchcode.git_artsy_backend.Repo" />
+    </key>
+  </component>
   <component name="RunManager">
+    <configuration name="git-artsy-backend [bootRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/The-Ducks/git-artsy-backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="bootRun" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="The-Ducks" />
       <method v="2">
@@ -81,11 +130,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.git-artsy-backend [bootRun]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
         <option value="jdk-17.0.10-corretto-17.0.10-3183f394aec4-96c0d24d" />
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
       </set>
     </attachedChunks>
   </component>
