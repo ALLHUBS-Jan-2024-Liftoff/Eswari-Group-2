@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @EnableJpaRepositories
 @Repository
-public interface ArtworksRepo  extends JpaRepository<Artworks, Integer> {
+public interface ArtworksRepo  extends CrudRepository<Artworks, Integer> {
 
 }

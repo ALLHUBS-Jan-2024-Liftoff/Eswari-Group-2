@@ -25,21 +25,25 @@ public class Tag {
 
     // Getter for tagId
     public Long getTagId() {
+
         return tagId;
     }
 
     // Setter for tagId
     public void setTagId(Long tagId) {
+
         this.tagId = tagId;
     }
 
     // Getter for name
     public String getName() {
+
         return name;
     }
 
     // Setter for name
     public void setName(String name) {
+
         this.name = name;
     }
 }
