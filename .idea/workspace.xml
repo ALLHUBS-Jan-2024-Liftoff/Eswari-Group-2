@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd6ee6b-5525-49de-8a6a-a511e629cd85" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/Banner.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/SignUpPage/SignUpPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/styling.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/Artwork.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/Artwork.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/LoginLanding.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/LoginLanding.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/cssforpages/Artwork.css" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/cssforpages/Artwork.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/cssforpages/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/cssforpages/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/cssforpages/LoginLanding.css" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/components/LoginLandingPage/cssforpages/LoginLanding.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-ui/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +44,7 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2jOnHMrDrIGyp76k7cKfaF4heN5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -62,7 +53,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "loginlandingpage",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "create-user-model",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/lorrax/Desktop/Coding/LaunchCode/LiftOff2024/The-Ducks"
   }
