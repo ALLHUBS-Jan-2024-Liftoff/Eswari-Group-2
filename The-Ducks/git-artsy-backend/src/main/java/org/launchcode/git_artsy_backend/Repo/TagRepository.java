@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 
  // Repository interface for Tag entities.
-
-
 @Repository
 public interface TagRepository extends CrudRepository<Tag, Long> {
 
