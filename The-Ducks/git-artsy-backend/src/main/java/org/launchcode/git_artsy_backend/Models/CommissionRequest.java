@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend;
+package org.launchcode.git_artsy_backend.models;
 
 
 /**
