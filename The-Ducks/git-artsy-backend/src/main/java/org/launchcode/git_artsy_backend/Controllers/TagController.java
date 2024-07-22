@@ -5,28 +5,21 @@ import org.launchcode.git_artsy_backend.Models.Tag;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Controller for managing Tags.
- * This class provides methods to handle HTTP requests for creating, reading, updating, and deleting tags.
- */
+//Controller for managing Tags.
+
 public class TagController {
 
     // List to store tags in memory (replace with database logic in a real application)
     private List<Tag> tags = new ArrayList<>();
 
-    /**
-     * Retrieves all tags.
-     * @return a list of all tags.
-     */
+    //Retrieves all tags.
+
     public List<Tag> getAllTags() {
         return tags;
     }
 
-    /**
-     * Retrieves a tag by its ID.
-     * @param id the ID of the tag to retrieve.
-     * @return the tag with the specified ID, or null if not found.
-     */
+    // Retrieves a tag by its ID.
+
     public Tag getTagById(Long id) {
         for (Tag tag : tags) {
             if (tag.getTagId().equals(id)) {
@@ -36,22 +29,15 @@ public class TagController {
         return null;
     }
 
-    /**
-     * Creates a new tag.
-     * @param tag the tag to create.
-     * @return the created tag.
-     */
+    //Creates a new tag.
+
     public Tag createTag(Tag tag) {
         tags.add(tag);
         return tag;
     }
 
-    /**
-     * Updates an existing tag.
-     * @param id the ID of the tag to update.
-     * @param newTag the new tag data.
-     * @return the updated tag, or null if not found.
-     */
+    //Updates an existing tag.
+
     public Tag updateTag(Long id, Tag newTag) {
         for (Tag tag : tags) {
             if (tag.getTagId().equals(id)) {
@@ -62,12 +48,9 @@ public class TagController {
         return null;
     }
 
-    /**
-     * Deletes a tag by its ID.
-     * @param id the ID of the tag to delete.
-     * @return true if the tag was deleted, false if not found.
-     */
-    public boolean deleteTag(Long id) {
+    // Deletes a tag by its ID.
+    
+    boolean deleteTag(Long id) {
 
         return tags.removeIf(tag -> tag.getTagId().equals(id));
     }

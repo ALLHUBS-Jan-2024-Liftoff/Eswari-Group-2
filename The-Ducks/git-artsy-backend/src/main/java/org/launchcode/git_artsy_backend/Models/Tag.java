@@ -1,10 +1,8 @@
 package org.launchcode.git_artsy_backend.Models;
 
-/**
- * Represents a Tag in the application.
- * This class contains fields for the tag's ID and name.
- * It will be used to tag products/artworks for categorization or searching purposes.
- */
+//This class contains fields for the tag's ID and name.
+// It will be used to tag products/artworks for categorization or searching purposes.
+
 public class Tag {
 
     // Unique identifier for each tag
