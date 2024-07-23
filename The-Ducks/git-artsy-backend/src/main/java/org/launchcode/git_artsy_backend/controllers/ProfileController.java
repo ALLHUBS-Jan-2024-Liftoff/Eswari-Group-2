@@ -1,7 +1,7 @@
 package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Profile;
-import org.launchcode.git_artsy_backend.repo.ProfileRepo;
+import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,7 +76,7 @@ public class ProfileController {
         Optional<Profile> existingArtistProfile = profileRepo.findById(id);
         if (existingArtistProfile.isPresent()) {
             try {
-                ProfileRepo.deleteById(id);
+                profileRepo.deleteById(id);
                 return ResponseEntity.ok().build();
             } catch (Exception e) {
                 e.printStackTrace();
