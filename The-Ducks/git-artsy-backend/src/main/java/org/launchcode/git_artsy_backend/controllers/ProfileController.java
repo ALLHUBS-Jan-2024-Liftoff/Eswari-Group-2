@@ -1,7 +1,7 @@
-package org.launchcode.git_artsy_backend.Controllers;
+package org.launchcode.git_artsy_backend.controllers;
 
-import org.launchcode.git_artsy_backend.Models.ArtistProfile;
-import org.launchcode.git_artsy_backend.Repo.ArtistProfileRepo;
+import org.launchcode.git_artsy_backend.models.Profile;
+import org.launchcode.git_artsy_backend.repo.ProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,15 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/artist-profiles")
 @CrossOrigin(origins = "http://localhost:8082")
-public class ArtistProfileController {
+public class ProfileController {
     @Autowired
-    private ArtistProfileRepo artistProfileRepo;
+    private ProfileRepo profileRepo;
 
-    @PostMapping("/new")
-    public ResponseEntity<ArtistProfile> createArtistProfile(@RequestBody ArtistProfile artistProfile) {
+    public ResponseEntity<Profile> createArtistProfile(@RequestBody Profile artistProfile) {
         artistProfile.setCreatedAt(LocalDateTime.now());
         artistProfile.setUpdatedAt(LocalDateTime.now());
         try {
-            ArtistProfile savedArtistProfile = artistProfileRepo.save(artistProfile);
+            Profile savedArtistProfile = profileRepo.save(artistProfile);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedArtistProfile);
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,14 +32,14 @@ public class ArtistProfileController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<ArtistProfile>> getAllArtistProfiles() {
-        List<ArtistProfile> artistProfiles = artistProfileRepo.findAll();
+    public ResponseEntity<List<Profile>> getAllArtistProfiles() {
+        List<Profile> artistProfiles = profileRepo.findAll();
         return ResponseEntity.ok(artistProfiles);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArtistProfile> getArtistProfileById(@PathVariable Long id) {
-        Optional<ArtistProfile> optionalArtistProfile = artistProfileRepo.findById(id);
+    public ResponseEntity<Profile> getArtistProfileById(@PathVariable Integer id) {
+        Optional<Profile> optionalArtistProfile = profileRepo.findById(id);
         if (optionalArtistProfile.isPresent()) {
             return ResponseEntity.ok(optionalArtistProfile.get());
         } else {
@@ -49,10 +48,10 @@ public class ArtistProfileController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ArtistProfile> updateArtistProfile(@PathVariable Long id, @RequestBody ArtistProfile updatedArtistProfile) {
-        Optional<ArtistProfile> existingArtistProfile = artistProfileRepo.findById(id);
+    public ResponseEntity<Profile> updateArtistProfile(@PathVariable Integer id, @RequestBody Profile updatedArtistProfile) {
+        Optional<Profile> existingArtistProfile = profileRepo.findById(id);
         if (existingArtistProfile.isPresent()) {
-            ArtistProfile artistProfileToUpdate = existingArtistProfile.get();
+            Profile artistProfileToUpdate = existingArtistProfile.get();
             artistProfileToUpdate.setName(updatedArtistProfile.getName());
             artistProfileToUpdate.setLocation(updatedArtistProfile.getLocation());
             artistProfileToUpdate.setEmail(updatedArtistProfile.getEmail());
@@ -61,7 +60,7 @@ public class ArtistProfileController {
             artistProfileToUpdate.setBioDescription(updatedArtistProfile.getBioDescription());
             artistProfileToUpdate.setUpdatedAt(LocalDateTime.now());
             try {
-                ArtistProfile savedArtistProfile = artistProfileRepo.save(artistProfileToUpdate);
+                Profile savedArtistProfile = profileRepo.save(artistProfileToUpdate);
                 return ResponseEntity.ok(savedArtistProfile);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -73,11 +72,11 @@ public class ArtistProfileController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteArtistProfile(@PathVariable Long id) {
-        Optional<ArtistProfile> existingArtistProfile = artistProfileRepo.findById(id);
+    public ResponseEntity<Void> deleteArtistProfile(@PathVariable Integer id) {
+        Optional<Profile> existingArtistProfile = profileRepo.findById(id);
         if (existingArtistProfile.isPresent()) {
             try {
-                artistProfileRepo.deleteById(id);
+                ProfileRepo.deleteById(id);
                 return ResponseEntity.ok().build();
             } catch (Exception e) {
                 e.printStackTrace();

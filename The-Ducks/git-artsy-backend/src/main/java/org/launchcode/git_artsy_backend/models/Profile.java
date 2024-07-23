@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend.Models;
+package org.launchcode.git_artsy_backend.models;
 
 import jakarta.persistence.*;
 
@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "artist_profiles")
-public class ArtistProfile {
+public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id", nullable = false)
@@ -38,10 +38,10 @@ public class ArtistProfile {
 
     private LocalDateTime updatedAt;
 
-    public ArtistProfile() {
+    public Profile() {
     }
 
-    public ArtistProfile( String name, String location, String email, String phone, String profilePic, String bioDescription) {
+    public Profile( String name, String location, String email, String phone, String profilePic, String bioDescription) {
 //        User user,
 //        this.user = user;
         this.name = name;
@@ -56,11 +56,11 @@ public class ArtistProfile {
 
     // Getters and setters
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
