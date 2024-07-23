@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
 //import './cssforpages/Login.css'
+import { Link } from "react-router-dom";
 
 
-//TODO include page link on line 28
 //Login box
 const Login = () => {
     return ( 
@@ -27,7 +27,7 @@ const Login = () => {
                 </div>
             </form>
             <div className="footer">
-                Not a member? <a>Sign up here!</a>
+                Not a member? <a><Link to='/signup'>Sign up here!</Link></a>
             </div>
         </div>
     )

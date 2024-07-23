@@ -9,12 +9,10 @@ const App = () => {
   
 
   return (
-    <div>
+    
       <LandingLogin />
-      {/* TODO add routes and paths 
-      and add ArtworksPopup to Landing Login*/}
-      {/* <ArtworksPopup /> */}
-    </div>
+  
+  
   );
 };
 
