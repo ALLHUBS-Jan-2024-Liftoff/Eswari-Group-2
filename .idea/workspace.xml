@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3bd6ee6b-5525-49de-8a6a-a511e629cd85" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Controllers/CommissionRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Controllers/CommissionRequestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/CommissionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/CommissionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/CommissionRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/CommissionRequestRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,13 +36,7 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="git-artsy-backend" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="git-artsy-backend" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -85,6 +81,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "23-backend-patron-users-can-post-a-commission-request-to-artists",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/lorrax/Desktop/Coding/LaunchCode/LiftOff2024/The-Ducks"
   }
@@ -139,7 +136,6 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-3183f394aec4-96c0d24d" />
         <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
       </set>
     </attachedChunks>
