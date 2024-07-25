@@ -1,10 +1,13 @@
 package org.launchcode.git_artsy_backend.Models;
 
 
+import jakarta.persistence.Entity;
+
 /**
  * Represents a commission request in the application.
  */
 
+@Entity
 public class CommissionRequest {
 
     private Long id;

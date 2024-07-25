@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd6ee6b-5525-49de-8a6a-a511e629cd85" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/git-artsy-backend.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Controllers/ArtworksController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Controllers/CommissionRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Controllers/CommissionRequestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/Artworks.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/CommissionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/CommissionRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Models/dto/ArtworksDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/ArtworksRepo.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/CommissionRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/The-Ducks/git-artsy-backend/src/main/java/org/launchcode/git_artsy_backend/Repo/CommissionRequestRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +84,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Gradle.git-artsy-backend [bootRun].executor": "Run",
+    "Gradle.git-artsy-backend [bootRun].executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "23-backend-patron-users-can-post-a-commission-request-to-artists",
