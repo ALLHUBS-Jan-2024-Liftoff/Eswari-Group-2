@@ -6,13 +6,14 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Artworks {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "artist_id", nullable = false)
-//    private Artist artist;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     private String title;
     private String description;
@@ -24,12 +25,11 @@ public class Artworks {
 
     private LocalDateTime updatedAt;
 
+
     public Artworks() {}
 
-    public Artworks( String title, String description, Float price, String imageUrl) {
-        //Artists artist
-        //this.artist = artist;
-
+    public Artworks(User user, String title, String description, Float price, String imageUrl) {
+        this.user = user;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -45,14 +45,14 @@ public class Artworks {
     public void setProductId(Integer productId) {
         this.productId = productId;
     }
-//
-//    public Artist getArtist() {
-//        return artist;
-//    }
-//
-//    public void setArtist(Artist artist) {
-//        this.artist = artist;
-//    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getTitle() {
         return title;

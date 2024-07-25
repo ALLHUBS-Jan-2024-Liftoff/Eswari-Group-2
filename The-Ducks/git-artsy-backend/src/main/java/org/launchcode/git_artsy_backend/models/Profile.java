@@ -12,9 +12,9 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -41,9 +41,8 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile( String name, String location, String email, String phone, String profilePic, String bioDescription) {
-//        User user,
-//        this.user = user;
+    public Profile(User user, String name, String location, String email, String phone, String profilePic, String bioDescription) {
+        this.user = user;
         this.name = name;
         this.location = location;
         this.email = email;
@@ -64,13 +63,13 @@ public class Profile {
         this.id = id;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getName() {
         return name;

@@ -1,7 +1,10 @@
 package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Artworks;
+import org.launchcode.git_artsy_backend.models.User;
+import org.launchcode.git_artsy_backend.models.dto.ArtworksDto;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
+import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +23,30 @@ public class ArtworksController {
     @Autowired
     private ArtworksRepo artworkRepo;
 
+    @Autowired
+    private UserRepository userRepo;
+
     @PostMapping("/new")
-    public Artworks createArtwork(@RequestBody Artworks artwork) {
-        artwork.setCreatedAt(LocalDateTime.now());
-        artwork.setUpdatedAt(LocalDateTime.now());
-        try {
-            return artworkRepo.save(artwork);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to create artwork");
+    public ResponseEntity<Artworks> createArtwork(@RequestBody ArtworksDto artworkDTO) {
+        Optional<User> userOptional = userRepo.findById(artworkDTO.getUserId());
+        if (userOptional.isPresent()) {
+            Artworks artwork = new Artworks();
+            artwork.setUser(userOptional.get());
+            artwork.setTitle(artworkDTO.getTitle());
+            artwork.setDescription(artworkDTO.getDescription());
+            artwork.setPrice(artworkDTO.getPrice());
+            artwork.setImageUrl(artworkDTO.getImageUrl());
+            artwork.setCreatedAt(LocalDateTime.now());
+            artwork.setUpdatedAt(LocalDateTime.now());
+            try {
+                Artworks savedArtwork = artworkRepo.save(artwork);
+                return ResponseEntity.status(HttpStatus.CREATED).body(savedArtwork);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 

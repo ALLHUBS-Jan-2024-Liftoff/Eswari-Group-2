@@ -3,6 +3,7 @@ package org.launchcode.git_artsy_backend.models;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -34,6 +35,9 @@ public abstract class User {
 
     private LocalDateTime updatedAt;
 
+
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
 
     //Initiates user_id count
     public User() {}
