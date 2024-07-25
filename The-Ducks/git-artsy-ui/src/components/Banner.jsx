@@ -8,7 +8,7 @@ const Banner = () => {
         <div class='header'>
             <h1>gitArtsy</h1>
             <nav>
-                <a>git_Inspired</a>
+                <a><Link to='/gallery'>git_Inspired</Link></a>
                 <a>Find Artists</a>
                 <a><Link to='/'>Login</Link></a>
             </nav>
