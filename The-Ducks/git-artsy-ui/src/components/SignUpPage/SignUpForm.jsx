@@ -1,3 +1,6 @@
+// TODO Requires handle submit logic
+// TODO link when registration approved
+
 
 const SignUpForm = () => {
     
@@ -42,9 +45,10 @@ const SignUpForm = () => {
                             
                             <label for="patron">  
                             <input type="radio" name="user-type" id="patron"></input>
-                        Artist</label>
+                        Patron</label>
                         </label>
                     </div>
+                    <button type='button'>Submit</button>
                 </form>
         </div>
     )
