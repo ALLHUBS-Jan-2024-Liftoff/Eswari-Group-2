@@ -1,6 +1,6 @@
-package org.launchcode.git_artsy_backend.Controllers;
+package org.launchcode.git_artsy_backend.controllers;
 
-import org.launchcode.git_artsy_backend.Models.Tag;
+import org.launchcode.git_artsy_backend.models.Tag;
 
 import java.util.ArrayList;
 import java.util.List;

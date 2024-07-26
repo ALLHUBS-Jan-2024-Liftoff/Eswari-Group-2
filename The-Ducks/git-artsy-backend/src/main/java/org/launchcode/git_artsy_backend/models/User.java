@@ -1,15 +1,13 @@
 package org.launchcode.git_artsy_backend.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
 
-@MappedSuperclass
+//@MappedSuperclass
+@Entity
 public abstract class User {
 
     @Id
