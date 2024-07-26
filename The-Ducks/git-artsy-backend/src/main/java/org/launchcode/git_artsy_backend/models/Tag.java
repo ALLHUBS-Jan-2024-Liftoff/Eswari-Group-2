@@ -1,11 +1,19 @@
-package org.launchcode.git_artsy_backend.Models;
+package org.launchcode.git_artsy_backend.models;
 
 //This class contains fields for the tag's ID and name.
 // It will be used to tag products/artworks for categorization or searching purposes.
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Tag {
 
     // Unique identifier for each tag
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagId;
 
     // Name of the tag
