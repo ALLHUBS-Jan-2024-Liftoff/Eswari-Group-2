@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ArtworksDto {
     @NotNull
@@ -21,6 +22,8 @@ public class ArtworksDto {
     @NotEmpty
     private String imageUrl;
 
+    @NotEmpty
+    private List<Long> tagIds;
 
     public Long getUserId() {
         return userId;
@@ -60,5 +63,13 @@ public class ArtworksDto {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<Long> getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(List<Long> tagIds) {
+        this.tagIds = tagIds;
     }
 }

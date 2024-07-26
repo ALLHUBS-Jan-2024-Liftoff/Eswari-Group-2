@@ -1,9 +1,11 @@
 package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Artworks;
+import org.launchcode.git_artsy_backend.models.Tag;
 import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.models.dto.ArtworksDto;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
+import org.launchcode.git_artsy_backend.repositories.TagRepository;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class ArtworksController {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private TagRepository tagRepo;
+
     @PostMapping("/new")
     public ResponseEntity<Artworks> createArtwork(@RequestBody ArtworksDto artworkDTO) {
         Optional<User> userOptional = userRepo.findById(artworkDTO.getUserId());
@@ -38,6 +43,15 @@ public class ArtworksController {
             artwork.setImageUrl(artworkDTO.getImageUrl());
             artwork.setCreatedAt(LocalDateTime.now());
             artwork.setUpdatedAt(LocalDateTime.now());
+
+            // Add tags to the artwork
+            for (Long tagId : artworkDTO.getTagIds()) {
+                Optional<Tag> tagOptional = tagRepo.findById(tagId);
+                if (tagOptional.isPresent()) {
+                    artwork.getTags().add(tagOptional.get());
+                }
+            }
+
             try {
                 Artworks savedArtwork = artworkRepo.save(artwork);
                 return ResponseEntity.status(HttpStatus.CREATED).body(savedArtwork);
@@ -67,16 +81,26 @@ public class ArtworksController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Artworks> updateArtwork(@PathVariable Integer id, @RequestBody Artworks updatedArtwork) {
+    public ResponseEntity<Artworks> updateArtwork(@PathVariable Integer id, @RequestBody ArtworksDto artworkDTO) {
         Optional<Artworks> existingArtwork = artworkRepo.findById(id);
 
         if (existingArtwork.isPresent()) {
             Artworks artworkToUpdate = existingArtwork.get();
-            artworkToUpdate.setTitle(updatedArtwork.getTitle());
-            artworkToUpdate.setDescription(updatedArtwork.getDescription());
-            artworkToUpdate.setPrice(updatedArtwork.getPrice());
-            artworkToUpdate.setImageUrl(updatedArtwork.getImageUrl());
+
+            artworkToUpdate.setTitle(artworkDTO.getTitle());
+            artworkToUpdate.setDescription(artworkDTO.getDescription());
+            artworkToUpdate.setPrice(artworkDTO.getPrice());
+            artworkToUpdate.setImageUrl(artworkDTO.getImageUrl());
             artworkToUpdate.setUpdatedAt(LocalDateTime.now());
+
+            // Add tags to the artwork
+            for (Long tagId : artworkDTO.getTagIds()) {
+                Optional<Tag> tagOptional = tagRepo.findById(tagId);
+                if (tagOptional.isPresent()) {
+                    artworkToUpdate.getTags().add(tagOptional.get());
+                }
+            }
+
             try {
                 Artworks savedArtwork = artworkRepo.save(artworkToUpdate);
                 return ResponseEntity.ok(savedArtwork);

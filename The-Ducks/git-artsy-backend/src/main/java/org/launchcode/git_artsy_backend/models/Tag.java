@@ -20,7 +20,7 @@ public class Tag {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "artwork_tags")
     private Set<Artworks> artworks = new HashSet<>();
 
     // Default constructor

@@ -3,6 +3,8 @@ package org.launchcode.git_artsy_backend.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Artworks {
@@ -25,6 +27,8 @@ public class Artworks {
 
     private LocalDateTime updatedAt;
 
+    @ManyToMany(mappedBy= "artworks_tags")
+    private List<Tag> tags = new ArrayList<>();
 
     public Artworks() {}
 
@@ -100,6 +104,14 @@ public class Artworks {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     @PreUpdate
