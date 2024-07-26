@@ -69,12 +69,12 @@ async function displayRandomArtwork() {
     imgElement.alt = artwork.title || 'Artwork';
 }
 
-window.onload = displayRandomArtwork;
+window.onload = displayRandomArtwork();
 
 const ArtGallery = () => {
     return(
         <div class='artwork-container'>
-            <img id='artwork' src='{imageURL}'></img>
+            <img src={artwork.imageUrl} alt={`Artwork ${currentIndex}`}></img>
         </div>
     )
 };
