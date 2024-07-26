@@ -1,10 +1,12 @@
 package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Artworks;
+import org.launchcode.git_artsy_backend.models.Profile;
 import org.launchcode.git_artsy_backend.models.Tag;
 import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.models.dto.ArtworksDto;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
+import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
 import org.launchcode.git_artsy_backend.repositories.TagRepository;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +28,17 @@ public class ArtworksController {
     private ArtworksRepo artworkRepo;
 
     @Autowired
-    private UserRepository userRepo;
+    private ProfileRepo profileRepo;
 
     @Autowired
     private TagRepository tagRepo;
 
     @PostMapping("/new")
     public ResponseEntity<Artworks> createArtwork(@RequestBody ArtworksDto artworkDTO) {
-        Optional<User> userOptional = userRepo.findById(artworkDTO.getUserId());
-        if (userOptional.isPresent()) {
+        Optional<Profile> profileOptional = profileRepo.findById(artworkDTO.getProfileId());
+        if (profileOptional.isPresent()) {
             Artworks artwork = new Artworks();
-            artwork.setUser(userOptional.get());
+            artwork.setProfile(profileOptional.get());
             artwork.setTitle(artworkDTO.getTitle());
             artwork.setDescription(artworkDTO.getDescription());
             artwork.setPrice(artworkDTO.getPrice());

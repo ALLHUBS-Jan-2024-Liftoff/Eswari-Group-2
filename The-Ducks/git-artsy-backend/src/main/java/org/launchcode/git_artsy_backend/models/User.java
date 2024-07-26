@@ -24,15 +24,17 @@ public abstract class User {
     @NotEmpty
     private String password;
 
-    public enum role {
+    public enum Role {
         ARTIST,
         PATRON
     }
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
-
 
     @OneToOne(mappedBy = "user")
     private Profile profile;
@@ -41,10 +43,11 @@ public abstract class User {
     public User() {}
 
     //Constructor
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, Role role) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -98,6 +101,14 @@ public abstract class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
 }

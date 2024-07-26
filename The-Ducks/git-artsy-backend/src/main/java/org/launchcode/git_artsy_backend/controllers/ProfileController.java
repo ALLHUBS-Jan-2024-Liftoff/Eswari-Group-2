@@ -31,6 +31,7 @@ public class ProfileController {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             Profile artistProfile = new Profile();
+
             artistProfile.setUser(user);
             artistProfile.setName(profileDTO.getName());
             artistProfile.setLocation(profileDTO.getLocation());
@@ -70,20 +71,25 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Profile> updateArtistProfile(@PathVariable Integer id, @RequestParam Long userId, @RequestBody Profile updatedArtistProfile) {
+    public ResponseEntity<Profile> updateArtistProfile(@PathVariable Integer id, @RequestParam Long userId, @RequestBody
+                                                        ProfileDto profileDTO) {
+
         Optional<Profile> existingArtistProfile = profileRepo.findById(id);
+
         if (existingArtistProfile.isPresent()) {
             Optional<User> userOptional = userRepo.findById(userId);
             if (userOptional.isPresent()) {
+
                 Profile artistProfileToUpdate = existingArtistProfile.get();
                 artistProfileToUpdate.setUser(userOptional.get());
-                artistProfileToUpdate.setName(updatedArtistProfile.getName());
-                artistProfileToUpdate.setLocation(updatedArtistProfile.getLocation());
-                artistProfileToUpdate.setEmail(updatedArtistProfile.getEmail());
-                artistProfileToUpdate.setPhone(updatedArtistProfile.getPhone());
-                artistProfileToUpdate.setProfilePic(updatedArtistProfile.getProfilePic());
-                artistProfileToUpdate.setBioDescription(updatedArtistProfile.getBioDescription());
+                artistProfileToUpdate.setName(profileDTO.getName());
+                artistProfileToUpdate.setLocation(profileDTO.getLocation());
+                artistProfileToUpdate.setEmail(profileDTO.getEmail());
+                artistProfileToUpdate.setPhone(profileDTO.getPhone());
+                artistProfileToUpdate.setProfilePic(profileDTO.getProfilePic());
+                artistProfileToUpdate.setBioDescription(profileDTO.getBioDescription());
                 artistProfileToUpdate.setUpdatedAt(LocalDateTime.now());
+
                 try {
                     Profile savedArtistProfile = profileRepo.save(artistProfileToUpdate);
                     return ResponseEntity.ok(savedArtistProfile);

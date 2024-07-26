@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Artworks {
@@ -13,9 +15,9 @@ public class Artworks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", nullable = false)
+    private Profile profile;
 
     private String title;
     private String description;
@@ -27,13 +29,18 @@ public class Artworks {
 
     private LocalDateTime updatedAt;
 
-    @ManyToMany(mappedBy= "artworks_tags")
+    @ManyToMany
+    @JoinTable(
+            name = "artwork_tags",
+            joinColumns = @JoinColumn(name = "artwork_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<Tag> tags = new ArrayList<>();
 
     public Artworks() {}
 
-    public Artworks(User user, String title, String description, Float price, String imageUrl) {
-        this.user = user;
+    public Artworks(Profile profile, String title, String description, Float price, String imageUrl) {
+        this.profile = profile;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -50,12 +57,12 @@ public class Artworks {
         this.productId = productId;
     }
 
-    public User getUser() {
-        return user;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
     public String getTitle() {

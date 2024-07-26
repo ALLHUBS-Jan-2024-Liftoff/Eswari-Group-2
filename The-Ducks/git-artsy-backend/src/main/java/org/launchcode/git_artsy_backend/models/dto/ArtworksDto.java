@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ArtworksDto {
     @NotNull
-    private Long userId;
+    private Integer profileId;
 
     @NotEmpty
     private String title;
@@ -25,12 +25,12 @@ public class ArtworksDto {
     @NotEmpty
     private List<Long> tagIds;
 
-    public Long getUserId() {
-        return userId;
+    public Integer getProfileId() {
+        return profileId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
     }
 
     public String getTitle() {

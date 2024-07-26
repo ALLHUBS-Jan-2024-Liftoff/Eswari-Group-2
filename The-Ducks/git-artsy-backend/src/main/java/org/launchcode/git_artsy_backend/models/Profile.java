@@ -3,6 +3,8 @@ package org.launchcode.git_artsy_backend.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "artist_profiles")
@@ -38,6 +40,9 @@ public class Profile {
 
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "profile")
+    private Set<Artworks> artworks = new HashSet<>();
+
     public Profile() {
     }
 
@@ -52,6 +57,7 @@ public class Profile {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+
 
     // Getters and setters
 
@@ -133,6 +139,14 @@ public class Profile {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Artworks> getArtworks() {
+        return artworks;
+    }
+
+    public void setArtworks(Set<Artworks> artworks) {
+        this.artworks = artworks;
     }
 
     @PreUpdate

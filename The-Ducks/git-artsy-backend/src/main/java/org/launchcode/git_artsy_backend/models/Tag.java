@@ -2,7 +2,9 @@ package org.launchcode.git_artsy_backend.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 //This class contains fields for the tag's ID and name.
@@ -21,7 +23,7 @@ public class Tag {
     private String name;
 
     @ManyToMany(mappedBy = "tags")
-    private Set<Artworks> artworks = new HashSet<>();
+    private List<Artworks> artworks = new ArrayList<>();
 
     // Default constructor
     public Tag() {
@@ -57,11 +59,11 @@ public class Tag {
         this.name = name;
     }
 
-    public Set<Artworks> getArtworks() {
+    public List<Artworks> getArtworks() {
         return artworks;
     }
 
-    public void setArtworks(Set<Artworks> artworks) {
+    public void setArtworks(List<Artworks> artworks) {
         this.artworks = artworks;
     }
 }
