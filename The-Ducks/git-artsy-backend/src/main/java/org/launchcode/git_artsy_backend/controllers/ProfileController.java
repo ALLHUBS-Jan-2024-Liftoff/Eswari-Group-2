@@ -1,7 +1,10 @@
 package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Profile;
+import org.launchcode.git_artsy_backend.models.User;
+import org.launchcode.git_artsy_backend.models.dto.ProfileDto;
 import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
+import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,18 +18,38 @@ import java.util.Optional;
 @RequestMapping("api/artist-profiles")
 @CrossOrigin(origins = "http://localhost:8082")
 public class ProfileController {
+
     @Autowired
     private ProfileRepo profileRepo;
 
-    public ResponseEntity<Profile> createArtistProfile(@RequestBody Profile artistProfile) {
-        artistProfile.setCreatedAt(LocalDateTime.now());
-        artistProfile.setUpdatedAt(LocalDateTime.now());
-        try {
-            Profile savedArtistProfile = profileRepo.save(artistProfile);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedArtistProfile);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    @Autowired
+    private UserRepository userRepo;
+
+    @PostMapping("/new")
+    public ResponseEntity<Profile> createArtistProfile(@RequestBody ProfileDto profileDTO) {
+        Optional<User> userOptional = userRepo.findById(profileDTO.getUserId());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Profile artistProfile = new Profile();
+
+            artistProfile.setUser(user);
+            artistProfile.setName(profileDTO.getName());
+            artistProfile.setLocation(profileDTO.getLocation());
+            artistProfile.setEmail(profileDTO.getEmail());
+            artistProfile.setPhone(profileDTO.getPhone());
+            artistProfile.setProfilePic(profileDTO.getProfilePic());
+            artistProfile.setBioDescription(profileDTO.getBioDescription());
+            artistProfile.setCreatedAt(LocalDateTime.now());
+            artistProfile.setUpdatedAt(LocalDateTime.now());
+            try {
+                Profile savedArtistProfile = profileRepo.save(artistProfile);
+                return ResponseEntity.status(HttpStatus.CREATED).body(savedArtistProfile);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
@@ -48,23 +71,34 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Profile> updateArtistProfile(@PathVariable Integer id, @RequestBody Profile updatedArtistProfile) {
+    public ResponseEntity<Profile> updateArtistProfile(@PathVariable Integer id, @RequestParam Long userId, @RequestBody
+                                                        ProfileDto profileDTO) {
+
         Optional<Profile> existingArtistProfile = profileRepo.findById(id);
+
         if (existingArtistProfile.isPresent()) {
-            Profile artistProfileToUpdate = existingArtistProfile.get();
-            artistProfileToUpdate.setName(updatedArtistProfile.getName());
-            artistProfileToUpdate.setLocation(updatedArtistProfile.getLocation());
-            artistProfileToUpdate.setEmail(updatedArtistProfile.getEmail());
-            artistProfileToUpdate.setPhone(updatedArtistProfile.getPhone());
-            artistProfileToUpdate.setProfilePic(updatedArtistProfile.getProfilePic());
-            artistProfileToUpdate.setBioDescription(updatedArtistProfile.getBioDescription());
-            artistProfileToUpdate.setUpdatedAt(LocalDateTime.now());
-            try {
-                Profile savedArtistProfile = profileRepo.save(artistProfileToUpdate);
-                return ResponseEntity.ok(savedArtistProfile);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            Optional<User> userOptional = userRepo.findById(userId);
+            if (userOptional.isPresent()) {
+
+                Profile artistProfileToUpdate = existingArtistProfile.get();
+                artistProfileToUpdate.setUser(userOptional.get());
+                artistProfileToUpdate.setName(profileDTO.getName());
+                artistProfileToUpdate.setLocation(profileDTO.getLocation());
+                artistProfileToUpdate.setEmail(profileDTO.getEmail());
+                artistProfileToUpdate.setPhone(profileDTO.getPhone());
+                artistProfileToUpdate.setProfilePic(profileDTO.getProfilePic());
+                artistProfileToUpdate.setBioDescription(profileDTO.getBioDescription());
+                artistProfileToUpdate.setUpdatedAt(LocalDateTime.now());
+
+                try {
+                    Profile savedArtistProfile = profileRepo.save(artistProfileToUpdate);
+                    return ResponseEntity.ok(savedArtistProfile);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
         } else {
             return ResponseEntity.notFound().build();

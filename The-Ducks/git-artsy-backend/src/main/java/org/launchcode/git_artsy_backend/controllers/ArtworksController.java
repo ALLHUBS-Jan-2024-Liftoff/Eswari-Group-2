@@ -1,7 +1,14 @@
 package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Artworks;
+import org.launchcode.git_artsy_backend.models.Profile;
+import org.launchcode.git_artsy_backend.models.Tag;
+import org.launchcode.git_artsy_backend.models.User;
+import org.launchcode.git_artsy_backend.models.dto.ArtworksDto;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
+import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
+import org.launchcode.git_artsy_backend.repositories.TagRepository;
+import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +27,42 @@ public class ArtworksController {
     @Autowired
     private ArtworksRepo artworkRepo;
 
+    @Autowired
+    private ProfileRepo profileRepo;
+
+    @Autowired
+    private TagRepository tagRepo;
+
     @PostMapping("/new")
-    public Artworks createArtwork(@RequestBody Artworks artwork) {
-        artwork.setCreatedAt(LocalDateTime.now());
-        artwork.setUpdatedAt(LocalDateTime.now());
-        try {
-            return artworkRepo.save(artwork);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to create artwork");
+    public ResponseEntity<Artworks> createArtwork(@RequestBody ArtworksDto artworkDTO) {
+        Optional<Profile> profileOptional = profileRepo.findById(artworkDTO.getProfileId());
+        if (profileOptional.isPresent()) {
+            Artworks artwork = new Artworks();
+            artwork.setProfile(profileOptional.get());
+            artwork.setTitle(artworkDTO.getTitle());
+            artwork.setDescription(artworkDTO.getDescription());
+            artwork.setPrice(artworkDTO.getPrice());
+            artwork.setImageUrl(artworkDTO.getImageUrl());
+            artwork.setCreatedAt(LocalDateTime.now());
+            artwork.setUpdatedAt(LocalDateTime.now());
+
+            // Add tags to the artwork
+            for (Long tagId : artworkDTO.getTagIds()) {
+                Optional<Tag> tagOptional = tagRepo.findById(tagId);
+                if (tagOptional.isPresent()) {
+                    artwork.getTags().add(tagOptional.get());
+                }
+            }
+
+            try {
+                Artworks savedArtwork = artworkRepo.save(artwork);
+                return ResponseEntity.status(HttpStatus.CREATED).body(savedArtwork);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
@@ -49,16 +83,26 @@ public class ArtworksController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Artworks> updateArtwork(@PathVariable Integer id, @RequestBody Artworks updatedArtwork) {
+    public ResponseEntity<Artworks> updateArtwork(@PathVariable Integer id, @RequestBody ArtworksDto artworkDTO) {
         Optional<Artworks> existingArtwork = artworkRepo.findById(id);
 
         if (existingArtwork.isPresent()) {
             Artworks artworkToUpdate = existingArtwork.get();
-            artworkToUpdate.setTitle(updatedArtwork.getTitle());
-            artworkToUpdate.setDescription(updatedArtwork.getDescription());
-            artworkToUpdate.setPrice(updatedArtwork.getPrice());
-            artworkToUpdate.setImageUrl(updatedArtwork.getImageUrl());
+
+            artworkToUpdate.setTitle(artworkDTO.getTitle());
+            artworkToUpdate.setDescription(artworkDTO.getDescription());
+            artworkToUpdate.setPrice(artworkDTO.getPrice());
+            artworkToUpdate.setImageUrl(artworkDTO.getImageUrl());
             artworkToUpdate.setUpdatedAt(LocalDateTime.now());
+
+            // Add tags to the artwork
+            for (Long tagId : artworkDTO.getTagIds()) {
+                Optional<Tag> tagOptional = tagRepo.findById(tagId);
+                if (tagOptional.isPresent()) {
+                    artworkToUpdate.getTags().add(tagOptional.get());
+                }
+            }
+
             try {
                 Artworks savedArtwork = artworkRepo.save(artworkToUpdate);
                 return ResponseEntity.ok(savedArtwork);

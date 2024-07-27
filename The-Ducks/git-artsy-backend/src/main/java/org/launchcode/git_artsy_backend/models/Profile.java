@@ -3,47 +3,44 @@ package org.launchcode.git_artsy_backend.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "artist_profiles")
+@Table(name = "profiles")
 public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "name", nullable = false)
     private String name;
-
     @Column(name = "location")
     private String location;
-
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-
     @Column(name = "phone")
     private String phone;
-
     @Column(name = "profile_pic")
     private String profilePic;
-
     @Column(name = "bio_description", length = 500)
     private String bioDescription;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
+    private Set<Artworks> artworks = new HashSet<>();
 
     public Profile() {
     }
 
-    public Profile( String name, String location, String email, String phone, String profilePic, String bioDescription) {
-//        User user,
-//        this.user = user;
+    public Profile(User user, String name, String location, String email, String phone, String profilePic, String bioDescription) {
+        this.user = user;
         this.name = name;
         this.location = location;
         this.email = email;
@@ -53,6 +50,7 @@ public class Profile {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+
 
     // Getters and setters
 
@@ -64,13 +62,13 @@ public class Profile {
         this.id = id;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getName() {
         return name;
@@ -136,6 +134,14 @@ public class Profile {
         this.updatedAt = updatedAt;
     }
 
+    public Set<Artworks> getArtworks() {
+        return artworks;
+    }
+
+    public void setArtworks(Set<Artworks> artworks) {
+        this.artworks = artworks;
+    }
+
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
@@ -144,7 +150,7 @@ public class Profile {
     @Override
     public String toString() {
         return "ArtistProfile{" +
-                "id=" + id +
+               "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
                 ", email='" + email + '\'' +
