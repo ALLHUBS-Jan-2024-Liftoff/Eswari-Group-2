@@ -23,10 +23,7 @@ public class Artworks {
     private String description;
     private Float price;
     private String imageUrl;
-
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
     @ManyToMany

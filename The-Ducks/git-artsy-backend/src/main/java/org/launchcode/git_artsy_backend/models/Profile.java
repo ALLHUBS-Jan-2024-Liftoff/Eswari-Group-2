@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "artist_profiles")
+@Table(name = "profiles")
 public class Profile {
 
     @Id
@@ -20,27 +20,20 @@ public class Profile {
 
     @Column(name = "name", nullable = false)
     private String name;
-
     @Column(name = "location")
     private String location;
-
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-
     @Column(name = "phone")
     private String phone;
-
     @Column(name = "profile_pic")
     private String profilePic;
-
     @Column(name = "bio_description", length = 500)
     private String bioDescription;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "profile")
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private Set<Artworks> artworks = new HashSet<>();
 
     public Profile() {
@@ -157,7 +150,7 @@ public class Profile {
     @Override
     public String toString() {
         return "ArtistProfile{" +
-                "id=" + id +
+               "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
                 ", email='" + email + '\'' +
