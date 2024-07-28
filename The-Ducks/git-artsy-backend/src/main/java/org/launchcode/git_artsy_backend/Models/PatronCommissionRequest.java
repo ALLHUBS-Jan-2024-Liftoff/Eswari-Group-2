@@ -8,7 +8,7 @@ import jakarta.persistence.Entity;
  */
 
 @Entity
-public class CommissionRequest {
+public class PatronCommissionRequest {
 
     private Long id;
 
@@ -17,9 +17,9 @@ public class CommissionRequest {
     private String subject;
 
     // Constructors
-    public CommissionRequest() {}
+    public PatronCommissionRequest() {}
 
-    public CommissionRequest(String detail, String description, String subject) {
+    public PatronCommissionRequest(String detail, String description, String subject) {
         this.detail = detail;
         this.description = description;
         this.subject = subject;

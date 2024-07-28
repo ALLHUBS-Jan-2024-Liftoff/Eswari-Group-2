@@ -1,7 +1,7 @@
 package org.launchcode.git_artsy_backend.Controllers;
 
-import org.launchcode.git_artsy_backend.Models.CommissionRequest;
-import org.launchcode.git_artsy_backend.Repo.CommissionRequestRepository;
+import org.launchcode.git_artsy_backend.Models.PatronCommissionRequest;
+import org.launchcode.git_artsy_backend.Repo.PatronCommissionRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,33 +13,33 @@ import java.util.Optional;
 
 //@RestController
 //@RequestMapping("/api/commissions")
-public class CommissionRequestController {
+public class PatronCommissionRequestController {
 
     @Autowired
-    private CommissionRequestRepository repository;
+    private PatronCommissionRequestRepository repository;
 
     // Retrieves all commission requests.
     @GetMapping
-    public Iterable<CommissionRequest> getAllRequests() {
+    public Iterable<PatronCommissionRequest> getAllRequests() {
         return repository.findAll();
     }
 
     // Retrieves a commission request by its ID.
     @GetMapping("/{id}")
-    public CommissionRequest getRequestById(@PathVariable Long id) {
-        Optional<CommissionRequest> request = repository.findById(id);
+    public PatronCommissionRequest getRequestById(@PathVariable Long id) {
+        Optional<PatronCommissionRequest> request = repository.findById(id);
         return request.orElse(null);
     }
 
     // Creates a new commission request.
     @PostMapping
-    public CommissionRequest createRequest(@RequestBody CommissionRequest request) {
+    public PatronCommissionRequest createRequest(@RequestBody PatronCommissionRequest request) {
         return repository.save(request);
     }
 
     // Updates an existing commission request.
     @PutMapping("/{id}")
-    public CommissionRequest updateRequest(@PathVariable Long id, @RequestBody CommissionRequest newRequest) {
+    public PatronCommissionRequest updateRequest(@PathVariable Long id, @RequestBody PatronCommissionRequest newRequest) {
         if (repository.existsById(id)) {
             newRequest.setId(id);
             return repository.save(newRequest);
