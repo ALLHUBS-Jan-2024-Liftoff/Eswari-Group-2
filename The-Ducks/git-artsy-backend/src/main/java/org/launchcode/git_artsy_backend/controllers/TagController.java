@@ -53,7 +53,6 @@ public class TagController {
     // Deletes a tag by its ID.
     @DeleteMapping("/{id}")
     boolean deleteTag(Long id) {
-
         return tags.removeIf(tag -> tag.getTagId().equals(id));
     }
 }
