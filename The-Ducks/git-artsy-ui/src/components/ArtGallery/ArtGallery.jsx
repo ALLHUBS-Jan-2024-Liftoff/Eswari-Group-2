@@ -21,6 +21,8 @@ const ArtGallery= () => {
         }));
         const shuffledArtworks = newArtworks.sort(() => Math.random() * artworks.length);
         setArtworks(shuffledArtworks);
+        const randomIndex = Math.floor(Math.random() * artworks.length);
+        setCurrentIndex(randomIndex);
       } catch (error) {
         console.error('Error fetching artworks:', error);
       }
@@ -50,13 +52,14 @@ const ArtGallery= () => {
    
 
     const  artworkToShow = artworks[currentIndex + Math.floor(Math.random() * artworks.length)];
+
+    
   
   
     return (
       <>
         {artworkToShow && (
           <div className="gallery">
-            <img src={artworkToShow.imageUrl} />
             <img src={artworkToShow.imageUrl} />
           </div>
         )}
