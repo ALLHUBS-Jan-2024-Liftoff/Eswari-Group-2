@@ -1,81 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-//generating a random number from API pages
+const ArtGallery= () => {
+    const [artworks, setArtworks] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+  
+    useEffect(() => {
+      fetchArtworks(); 
+    }, []);
+  
+  
+  //Fetching Artworks from external API and limiting to 20 images
+    const fetchArtworks = async () => {
+      try {
+        const response = await axios.get('https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&fields=id,title,image_id');
+        const data = response.data.data;
+        const newArtworks = data.map(artwork => ({
+          id: artwork.id,
+          imageUrl: `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`
+        }));
+        const shuffledArtworks = newArtworks.sort(() => Math.random() * artworks.length);
+        setArtworks(shuffledArtworks);
+      } catch (error) {
+        console.error('Error fetching artworks:', error);
+      }
+    };
 
-// const randomNumber = Math.floor(Math.random()*10500);
-// const artworkArray= [];
-
-
-//fetching artwork with random number from API
-
-// const fetchArtworks = async () => {
-//     try {
-//         const response = await axios.get('https://api.artic.edu/api/v1/artworks?page={randomNumber}&limit=1');
-//         const data = response.data.data;
-//         const newArtworks = data.map(artwork => ({
-//           id: artwork.id,
-//           imageUrl: `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`
-//         }));
-//         return newArtworks;
-//       } catch (error) {
-//         console.error('Error fetching artworks:', error);
-//       }
-//     };
-
-    //loop through fetch artworks 10 times
-    //do..while
-
-    // const addArtwork = () => {
-    //     do {
-    //         artworkArray.push(fetchArtworks(newArtworks.imageUrl));
-    //     } while (artworkArray < 10)
-    //         return artworkArray;
-    //}
-
-
-    //return artworks for each div 
     
-//Try again, different resource 
+      
+  
+    // async function displayRandomArtwork() {
+    //     const artworks = await fetchArtworks();
+    //     if (artworks.length === 0) {
+    //         console.error('No artwork data available');
+    //         return;
+    //     }
+    
+    //     const randomIndex = Math.floor(Math.random() * artworks.length);
+    //     const artwork = artworks[randomIndex];
+    //     const imageUrl = `https://www.artic.edu/iiif/2/${artworks}/full/843,/0/default.jpg`;
+    //     const imgElement = document.getElementById('artwork');
+    //     imgElement.src = imageUrl;
+    //     imgElement.alt = artwork.title || 'Artwork';
+    // }
 
-//adding api without axios? 
+    // useEffect(() => {
 
-//const API_URL = 'https://api.artic.edu/api/v1/artworks';
+    // })
+   
 
-async function fetchArtworks() {
-    try {
-        const response = await axios.get('https://api.artic.edu/api/v1/artworks');
-                const data = await response.json();
-                return data.data;
-    } catch (error) {
-        console.error('Error fetching artwork data:', error);
-        return [];
-    }
-}
+    const  artworkToShow = artworks[currentIndex + Math.floor(Math.random() * artworks.length)];
+  
+  
+    return (
+      <>
+        {artworkToShow && (
+          <div className="gallery">
+            <img src={artworkToShow.imageUrl} />
+            <img src={artworkToShow.imageUrl} />
+          </div>
+        )}
+      </>
+    );
+  };
 
-//displaying random artwork 
-async function displayRandomArtwork() {
-    const artworks = await fetchArtworks();
-    if (artworks.length === 0) {
-        console.error('No artwork data available');
-        return;
-    }
 
-    const randomIndex = Math.floor(Math.random() * artworks.length);
-    const artwork = artworks[randomIndex];
-    const imageUrl = `https://www.artic.edu/iiif/2/${artwork.id}/full/843,/0/default.jpg`;
-    const imgElement = document.getElementById('artwork');
-    imgElement.src = imageUrl;
-    imgElement.alt = artwork.title || 'Artwork';
-}
-
-window.onload = displayRandomArtwork();
-
-const ArtGallery = () => {
-    return(
-        <div class='artwork-container'>
-            <img src={artwork.imageUrl} alt={`Artwork ${currentIndex}`}></img>
-        </div>
-    )
-};
 export default ArtGallery
