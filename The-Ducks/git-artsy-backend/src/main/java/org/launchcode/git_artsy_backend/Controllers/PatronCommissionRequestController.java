@@ -11,8 +11,8 @@ import java.util.Optional;
 // Provides endpoints for creating, reading, updating, and deleting commission requests.
 
 
-//@RestController
-//@RequestMapping("/api/commissions")
+@RestController
+@RequestMapping ("/api/commissions")
 public class PatronCommissionRequestController {
 
     @Autowired
