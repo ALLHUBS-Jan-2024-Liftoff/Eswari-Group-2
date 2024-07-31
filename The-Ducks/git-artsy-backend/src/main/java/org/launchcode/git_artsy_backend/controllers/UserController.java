@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/user")
 public class UserController {
 
@@ -21,14 +21,14 @@ public class UserController {
     }
 
     @PostMapping("/newUser")
-    public User createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password, @RequestParam String verifyPassword, @RequestParam("role") Enum role) {
+    public User createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password, @RequestParam String verifyPassword, @RequestParam User.Role role) {
 
         if (password.equals(verifyPassword)) {
             User newUser = new User();
             newUser.setUsername(username);
             newUser.setEmail(email);
             newUser.setPassword(password);
-//            newUser.setRole((User.Role) role);
+            newUser.setRole(role);
 
             return userRepository.save(newUser);
         } else {
