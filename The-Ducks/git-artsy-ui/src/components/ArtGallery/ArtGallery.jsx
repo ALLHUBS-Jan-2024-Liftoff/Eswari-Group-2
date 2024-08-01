@@ -16,7 +16,8 @@ const ArtGallery= () => {
         const data = response.data.data;
         const newArtworks = data.map(artwork => ({
           id: artwork.id,
-          imageUrl: `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`
+          imageUrl: `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`,
+          title: artwork.title
         }));
         const shuffledArtworks = newArtworks.sort(() => Math.random() * artworks.length);
         setArtworks(shuffledArtworks);
@@ -58,9 +59,15 @@ const ArtGallery= () => {
     return (
       <>
         {artworkToShow && (
-          <div className="gallery">
+          <><div className="gallery">
             <img src={artworkToShow.imageUrl} />
-          </div>
+            <div>
+            <caption>{artworkToShow.title}</caption>
+            </div>
+          </div><div>
+            <button>Previous</button>
+            <button>Next</button>
+            </div></>
         )}
       </>
     );
