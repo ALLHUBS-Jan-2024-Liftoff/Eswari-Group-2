@@ -1,5 +1,5 @@
 // TODO Requires handle submit logic
-// TODO link when registration approved
+// TODO link when registration approved to notifications
 
 
 const SignUpForm = () => {
@@ -9,34 +9,34 @@ const SignUpForm = () => {
             <h2>Welcome to gitArtsy!</h2>
             <h3>Create an account:</h3>
                 <form action='' method='get'>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="username">Username:
                         <input type="text" name="username" id="username" required></input>
                         </label>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="email">Email:
                         <input type="text" name="email" id="email" email required></input>
                         </label>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="password">Password:
                         <input type="password" name="password" id="password" password required></input>
                         </label>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="verify">Verify Password:
                         <input type="password" name="verify" id="verify" password required>
                         {/* Include verify password logic */}
                         </input>
                         </label>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="Name">Displayed Name:
                         <input type="text" name="name" id="name"></input>
                         </label>
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         {/* Add logic for one type must be selected */}
                         <label for="user-type">Account Type:
                             <label for="artist">  
