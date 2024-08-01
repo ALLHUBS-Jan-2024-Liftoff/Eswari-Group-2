@@ -36,8 +36,7 @@ const ArtGallery= () => {
     //         return;
     //     }
     
-    //     const randomIndex = Math.floor(Math.random() * artworks.length);
-    //     const artwork = artworks[randomIndex];
+   
     //     const imageUrl = `https://www.artic.edu/iiif/2/${artworks}/full/843,/0/default.jpg`;
     //     const imgElement = document.getElementById('artwork');
     //     imgElement.src = imageUrl;
@@ -48,8 +47,9 @@ const ArtGallery= () => {
 
     // })
    
-
-    const  artworkToShow = artworks[currentIndex + Math.floor(Math.random() * artworks.length)];
+    const randomIndex = Math.floor(Math.random() * artworks.length);
+   // const artwork = artworks[randomIndex];
+    const  artworkToShow = artworks[randomIndex];
 
  
     const next = () => {
@@ -58,12 +58,7 @@ const ArtGallery= () => {
         );
     };
  
-    const back = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? artworkToShow.length - 1 : prevIndex - 1
-        );
-    };
-    
+
   
     return (
       <>
@@ -73,10 +68,9 @@ const ArtGallery= () => {
             <div>
             <caption>{artworkToShow.title}</caption>
             </div>
-          </div><div>
-            <button onClick={back}>Previous</button>
+            <div>
             <button onClick={next}>Next</button>
-            </div></>
+            </div></div></>
         )}
       </>
     );
