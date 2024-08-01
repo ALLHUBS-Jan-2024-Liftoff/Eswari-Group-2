@@ -21,8 +21,6 @@ const ArtGallery= () => {
         }));
         const shuffledArtworks = newArtworks.sort(() => Math.random() * artworks.length);
         setArtworks(shuffledArtworks);
-        const randomIndex = Math.floor(Math.random() * artworks.length);
-        setCurrentIndex(randomIndex);
       } catch (error) {
         console.error('Error fetching artworks:', error);
       }
@@ -53,8 +51,19 @@ const ArtGallery= () => {
 
     const  artworkToShow = artworks[currentIndex + Math.floor(Math.random() * artworks.length)];
 
+ 
+    const next = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex === artworkToShow.length - 1 ? 0 : prevIndex + 1
+        );
+    };
+ 
+    const back = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? artworkToShow.length - 1 : prevIndex - 1
+        );
+    };
     
-  
   
     return (
       <>
@@ -65,8 +74,8 @@ const ArtGallery= () => {
             <caption>{artworkToShow.title}</caption>
             </div>
           </div><div>
-            <button>Previous</button>
-            <button>Next</button>
+            <button onClick={back}>Previous</button>
+            <button onClick={next}>Next</button>
             </div></>
         )}
       </>
