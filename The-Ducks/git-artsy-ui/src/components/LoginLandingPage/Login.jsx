@@ -27,7 +27,7 @@ const Login = () => {
                 </div>
             </form>
             <div className="footer">
-                Not a member? <a><Link to='/signup'>Sign up here!</Link></a>
+                Not a member? <Link to='/signup'>Sign up here!</Link>
             </div>
         </div>
     )
