@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend.controllers;
+package org.launchcode.git_artsy_backend.Controllers;
 
 import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
