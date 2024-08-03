@@ -1,7 +1,7 @@
-package org.launchcode.git_artsy_backend.controllers;
+package org.launchcode.git_artsy_backend.Controllers;
 
-import org.launchcode.git_artsy_backend.models.Profile;
-import org.launchcode.git_artsy_backend.models.User;
+import org.launchcode.git_artsy_backend.Models.Profile;
+import org.launchcode.git_artsy_backend.Models.User;
 import org.launchcode.git_artsy_backend.models.dto.ProfileDto;
 import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;

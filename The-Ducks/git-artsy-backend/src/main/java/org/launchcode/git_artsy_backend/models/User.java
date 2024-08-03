@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend.models;
+package org.launchcode.git_artsy_backend.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

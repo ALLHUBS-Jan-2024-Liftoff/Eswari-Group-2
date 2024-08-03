@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend.models.dto;
+package org.launchcode.git_artsy_backend.Models.dto;
 
 import jakarta.persistence.*;
 

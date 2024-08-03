@@ -1,5 +1,5 @@
 
-package org.launchcode.git_artsy_backend.controllers;
+package org.launchcode.git_artsy_backend.Controllers;
 
 import org.launchcode.git_artsy_backend.models.Tag;
 import org.springframework.web.bind.annotation.*;

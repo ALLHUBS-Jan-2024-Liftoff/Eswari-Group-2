@@ -1,9 +1,9 @@
-package org.launchcode.git_artsy_backend.controllers;
+package org.launchcode.git_artsy_backend.Controllers;
 
-import org.launchcode.git_artsy_backend.models.Artworks;
-import org.launchcode.git_artsy_backend.models.Profile;
-import org.launchcode.git_artsy_backend.models.Tag;
-import org.launchcode.git_artsy_backend.models.User;
+import org.launchcode.git_artsy_backend.Models.Artworks;
+import org.launchcode.git_artsy_backend.Models.Profile;
+import org.launchcode.git_artsy_backend.Models.Tag;
+import org.launchcode.git_artsy_backend.Models.User;
 import org.launchcode.git_artsy_backend.models.dto.ArtworksDto;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
 import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
