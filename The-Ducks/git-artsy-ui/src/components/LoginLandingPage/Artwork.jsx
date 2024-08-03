@@ -15,7 +15,7 @@ const ArtworksPopup = () => {
 //Fetching Artworks from external API and limiting to 20 images
   const fetchArtworks = async () => {
     try {
-      const response = await axios.get('https://api.artic.edu/api/v1/artworks?page=1&limit=20');
+      const response = await axios.get('https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&fields=id,title,image_id');
       const data = response.data.data;
       const newArtworks = data.map(artwork => ({
         id: artwork.id,
@@ -31,7 +31,7 @@ const ArtworksPopup = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(prevIndex => (prevIndex + 1) % artworks.length);
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(interval); 
   }, [artworks]); 
