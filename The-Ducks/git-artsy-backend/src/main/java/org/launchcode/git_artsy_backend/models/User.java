@@ -3,6 +3,8 @@ package org.launchcode.git_artsy_backend.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -15,6 +17,8 @@ public class User {
     private Long user_id;
 
     @NotEmpty
+    @NotNull
+    @Size(min = 3, max = 15, message = "Invalid username. Must be between 3 and 15 characters.")
     private String username;
 
     @NotEmpty
@@ -22,8 +26,11 @@ public class User {
     private String email;
 
     @NotEmpty
+    @NotNull
+    @Size(min = 8, max = 25, message = "Invalid password. Must be between 8 and 25 characters.")
     private String password;
 
+    @NotEmpty
     private String role;
 
     private LocalDateTime createdAt;
