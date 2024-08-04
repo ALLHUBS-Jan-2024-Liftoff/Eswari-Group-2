@@ -2,11 +2,13 @@ package org.launchcode.git_artsy_backend.models;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 //Represents a commission request in the application.
 @Entity
 public class PatronCommissionRequest {
 
+    @Id
     private Long id;
 
     //Should I keep fromUserId, toUserId, requestt?
