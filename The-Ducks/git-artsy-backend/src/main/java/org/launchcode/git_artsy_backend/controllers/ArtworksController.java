@@ -1,14 +1,12 @@
-package org.launchcode.git_artsy_backend.controllers;
+package org.launchcode.git_artsy_backend.Controllers;
 
 import org.launchcode.git_artsy_backend.models.Artworks;
 import org.launchcode.git_artsy_backend.models.Profile;
 import org.launchcode.git_artsy_backend.models.Tag;
-import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.models.dto.ArtworksDto;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
 import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
 import org.launchcode.git_artsy_backend.repositories.TagRepository;
-import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
