@@ -1,7 +1,8 @@
 
-package org.launchcode.git_artsy_backend.controllers;
-
+package org.launchcode.git_artsy_backend.Controllers;
+import org.launchcode.git_artsy_backend.repositories.TagRepository;
 import org.launchcode.git_artsy_backend.models.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,16 @@ import java.util.List;
 @RequestMapping("/api/tags")
 public class TagController {
 
+    @Autowired
+    private TagRepository tagRepository;
+
     // List to store tags in memory (replace with database logic in a real application)
     private List<Tag> tags = new ArrayList<>();
 
     //Retrieves all tags.
     @GetMapping
     public List<Tag> getAllTags() {
-        return tags;
+        return tagRepository.findAll();
     }
 
     // Retrieves a tag by its ID.
@@ -37,6 +41,7 @@ public class TagController {
         tags.add(tag);
         return tag;
     }
+
 
     //Updates an existing tag.
     @PutMapping("/{id}")
