@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend.Models;
+package org.launchcode.git_artsy_backend.models;
 
 
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package org.launchcode.git_artsy_backend.Models.dto;
+package org.launchcode.git_artsy_backend.models.dto;
 
 public class RegisterDTO extends LoginDTO{
 
