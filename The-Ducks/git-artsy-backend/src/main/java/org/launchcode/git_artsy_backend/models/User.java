@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class User {
@@ -23,13 +24,7 @@ public class User {
     @NotEmpty
     private String password;
 
-    public enum Role {
-        ARTIST,
-        PATRON
-    }
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 
     private LocalDateTime createdAt;
 
@@ -42,7 +37,7 @@ public class User {
     public User() {}
 
     //Constructor
-    public User(String username, String email, String password, Role role) {
+    public User(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -102,12 +97,38 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(user_id, user.user_id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && role == user.role && Objects.equals(createdAt, user.createdAt) && Objects.equals(updatedAt, user.updatedAt) && Objects.equals(profile, user.profile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user_id, username, email, password, role, createdAt, updatedAt, profile);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", profile=" + profile +
+                '}';
+    }
 }
