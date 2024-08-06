@@ -7,6 +7,8 @@ import LandingLogin from './components/LoginLandingPage/LoginLanding.jsx';
 import SignUpPage from './components/SignUpPage/SignUpPage.jsx';
 import SearchPage from './components/SearchPage/SearchPage.jsx'
 import Gallery from './components/ArtGallery/Gallery.jsx';
+import NotificationPage from './components/NotificationPage/NotificationsPage.jsx';
+import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
     { 
     path:'/gallery',
     element: <Gallery />
+  },
+  {
+    path:'/notifications',
+    element:<NotificationPage />
+  },
+  {
+    path:'/profile',
+    element:<ProfilePage />
   }
 ]);
 
