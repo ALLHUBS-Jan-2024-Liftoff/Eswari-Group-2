@@ -20,3 +20,18 @@ export const registerUser = async (
         throw error;
     }
  };
+
+ export const userLogin = async (
+    email,
+    password
+ ) => {
+    try {
+        const response = await axios.post(`${BASEAPIURL}/api/user/login`, null, {
+          params: {email, password},
+        });
+        return response.data;
+      } catch (error) {
+        console.error("Incorrect email or password.", error);
+        throw error;
+      }
+ }

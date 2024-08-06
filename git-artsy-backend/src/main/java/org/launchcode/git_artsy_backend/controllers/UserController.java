@@ -3,6 +3,7 @@ package org.launchcode.git_artsy_backend.controllers;
 import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,9 +41,19 @@ public class UserController {
         }
     }
 
-    @PostMapping("delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id){
-        userRepository.deleteById(id);
-        return "redirect:/users";
+    @PostMapping("/login")
+    public ResponseEntity<?> userLogin(@RequestParam String email, @RequestParam String password){
+        User userLoggingIn = userRepository.findByEmail(email);
+
+        if (userLoggingIn == null || !password.equals(userLoggingIn.getPassword())) {
+            throw new IllegalArgumentException("Cannot find user");
+        }
+        return ResponseEntity.ok(userLoggingIn);
     }
+
+//    @PostMapping("delete/{id}")
+//    public String deleteUser(@PathVariable("id") Long id){
+//        userRepository.deleteById(id);
+//        return "redirect:/users";
+//    }
 }
