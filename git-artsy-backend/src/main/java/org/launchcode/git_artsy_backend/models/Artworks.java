@@ -13,45 +13,35 @@ public class Artworks {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer productId;
+    private Integer artworkId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
-    private String title;
-    private String description;
-    private Float price;
-    private String imageUrl;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String filename;
+    private String fileDownloadUri;
+    private String fileType;
+    private long size;
 
-    @ManyToMany
-    @JoinTable(
-            name = "artwork_tags",
-            joinColumns = @JoinColumn(name = "artwork_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private List<Tag> tags = new ArrayList<>();
+
 
     public Artworks() {}
 
-    public Artworks(Profile profile, String title, String description, Float price, String imageUrl) {
+    public Artworks(Profile profile, String filename, String fileDownloadUri, String fileType, long size) {
         this.profile = profile;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.filename = filename;
+        this.fileDownloadUri = fileDownloadUri;
+        this.fileType = fileType;
+        this.size = size;
     }
 
     public Integer getProductId() {
-        return productId;
+        return artworkId;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setProductId(Integer artworkId) {
+        this.artworkId = artworkId;
     }
 
     public Profile getProfile() {
@@ -62,64 +52,35 @@ public class Artworks {
         this.profile = profile;
     }
 
-    public String getTitle() {
-        return title;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public String getDescription() {
-        return description;
+    public String getFileDownloadUri() {
+        return fileDownloadUri;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFileDownloadUri(String fileDownloadUri) {
+        this.fileDownloadUri = fileDownloadUri;
     }
 
-    public Float getPrice() {
-        return price;
+    public String getFileType() {
+        return fileType;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public long getSize() {
+        return size;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
+    public void setSize(long size) {
+        this.size = size;
     }
 }
