@@ -3,9 +3,7 @@ package org.launchcode.git_artsy_backend.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 //This class contains fields for the tag's ID and name.
 // It will be used to tag products/artworks for categorization or searching purposes.
@@ -26,7 +24,7 @@ public class Tag {
     private List<Artworks> artworks = new ArrayList<>();
 
     // Default constructor
-    public Tag() {
+    public Tag(String tagName) {
     }
 
     // Parameterized constructor to initialize tag fields
@@ -65,5 +63,9 @@ public class Tag {
 
     public void setArtworks(List<Artworks> artworks) {
         this.artworks = artworks;
+    }
+
+    public <E> List<E> getImages() {
+        return null;
     }
 }
