@@ -1,17 +1,39 @@
 import './styling.css';
 import { Link } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
+
 //Header & Navigation
 
-//TODO Include logic for if user is logged in or not
 
-const Banner = () => {
+const Banner = ( user, {handleLogout}) => {
     return (
-        <div className='header'>
-            <h1>gitArtsy</h1>
+    <div className='header'>
+        <h1>gitArtsy</h1>
             <nav>
                 <Link to='/gallery'>git_Inspired</Link>
                 <Link to ='/search'>Search</Link>
+                
+                {! user ? (
+                <>
                 <Link to='/'>Login</Link>
+                </>
+                ) : (
+                <>
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            My Account
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item><Link to='/notifications'>Notifications</Link></Dropdown.Item>
+                        <Dropdown.Item><Link to='/profile'>My Profile</Link></Dropdown.Item>
+                        <Dropdown.Item onClick={handleLogout}><Link to='/'>Logout</Link></Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                </>   
+                )} 
             </nav>
         </div>
     );
