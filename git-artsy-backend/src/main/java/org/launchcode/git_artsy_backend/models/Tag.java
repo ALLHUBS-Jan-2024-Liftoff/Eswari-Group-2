@@ -24,7 +24,7 @@ public class Tag {
     private List<Artworks> artworks = new ArrayList<>();
 
     // Default constructor
-    public Tag(String tagName) {
+    public Tag() {
     }
 
     // Parameterized constructor to initialize tag fields

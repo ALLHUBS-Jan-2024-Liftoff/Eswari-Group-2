@@ -19,6 +19,8 @@ import java.util.List;
 @EnableWebSecurity
 @EnableWebMvc
 public class SecurityConfig implements WebMvcConfigurer {
+
+    // Defines a bean for the security filter chain
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -34,24 +36,23 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .csrf(AbstractHttpConfigurer::disable)  // Disabling CSRF protection
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/gitartsy/api/artworks/**", "/uploads/**").permitAll()
+                                // Allows these endpoints without authentication
+                                "/gitartsy/api/artworks/**", "/uploads/**","/gitartsy/api/tags/**").permitAll()
                         .anyRequest().authenticated()  // Require authentication for any other requests
                 );
         return http.build();
     }
 
+    // Injects the value of the upload path from the application properties
     @Value("${upload.path}")
     private String uploadPath;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Maps URLs starting with /uploads/ to files in the specified location
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:" + uploadPath + "/");
-    }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:5173");
-    }
+                .addResourceLocations("file:" + uploadPath + "/");// Specifies the file location for the resources
 
+    }
 }

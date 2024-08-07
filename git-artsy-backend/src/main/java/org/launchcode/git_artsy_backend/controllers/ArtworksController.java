@@ -10,6 +10,8 @@ import org.launchcode.git_artsy_backend.models.dto.ArtworksGetDto;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
 import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
 import org.launchcode.git_artsy_backend.repositories.TagRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -27,31 +29,31 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-
-@RestController
-@RequestMapping("gitartsy/api/artworks")
-@CrossOrigin(origins = "http://localhost:5173")
+@RestController// Indicates that this class handles RESTful requests
+@RequestMapping("gitartsy/api/artworks")// Base URL for all endpoints in this controller
+@CrossOrigin(origins = "http://localhost:5173")// Allows CORS requests from the specified origin
 public class ArtworksController {
 
     @Autowired
-    private ArtworksRepo artworkRepo;
+    private ArtworksRepo artworkRepo;// Repository for managing Artworks entities
 
     @Autowired
-    private ProfileRepo profileRepo;
+    private ProfileRepo profileRepo;// Repository for managing Profile entities
 
     @Autowired
-    private TagRepository tagRepo;
+    private TagRepository tagRepo;// Directory path for storing uploaded files
 
 
     private final Path fileStorageLocation;
 
-    //private static final Logger logger = LoggerFactory.getLogger(ArtworksController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArtworksController.class);
 
+    // Constructor to initialize file storage location
     public ArtworksController() {
         this.fileStorageLocation = Paths.get("uploads").toAbsolutePath().normalize();
         try {
@@ -61,27 +63,43 @@ public class ArtworksController {
         }
     }
 
-    @PostMapping("/new")
+    // Endpoint for creating new artwork with multipart form data
+    @PostMapping(value = "/new", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+
     public ArtworksDto createArtwork(
-            @RequestParam("image") MultipartFile file,
-            @RequestParam("profileId") Integer profileId,
             @RequestParam("title") String title,
             @RequestParam("description") String description,
-            @RequestParam("price") double price,
-            @RequestParam("tags") List<String> tags
-    ) {
+            @RequestParam("price") Float price,
+            @RequestParam("tagIds") String  tagIdsJson,
+            @RequestParam("image") MultipartFile file,
+            @RequestParam("profileId") Integer profileId ) {
+
+
+
+        // Log request parameters for debugging
+        logger.debug("Profile ID: {}", profileId);
+        logger.debug("Title: {}", title);
+        logger.debug("Description: {}", description);
+        logger.debug("Price: {}", price);
+        logger.debug("File: {}", (file != null ? file.getOriginalFilename() : "No file"));
+        logger.debug("Tag IDs: {}", tagIdsJson);
+
+
+
 
         ArtworksDto artworksDto = new ArtworksDto();
 
         Optional<Profile> profileOptional = profileRepo.findById(profileId);
-        if (profileOptional.isPresent()) {
-            Artworks artwork = new Artworks();
 
-            //set new fields
+        if (profileOptional.isPresent()) {
+            logger.error("Profile not found with ID: {}", profileId);
+            Artworks artwork = new Artworks();
+            artwork.setProfile(profileOptional.get());
             artwork.setTitle(title);
             artwork.setDescription(description);
             artwork.setPrice(price);
-
+            artwork.setCreatedAt(LocalDateTime.now());
+            artwork.setUpdatedAt(LocalDateTime.now());
 
             // Handle file upload
             if (file != null && !file.isEmpty()) {
@@ -106,23 +124,41 @@ public class ArtworksController {
                 artwork.setSize(file.getSize());
             }
 
-            //Add tags to the artwork
-            List<Tag> tagEntities = tags.stream()
-                    .map(tagName -> tagRepo.findByName(tagName).orElseGet(() -> new Tag(tagName)))
-                    .collect(Collectors.toList());
-            artwork.setTags(tagEntities); //Do I need newHashSet? artwork.setTags(new HashSet<>(tagEntities));
+            // Convert tagIdsJson to List<Long>
+            List<Long> tagIds = new ArrayList<>();
+            try {
+                String[] tagIdsArray = tagIdsJson.split(",");
+                for (String tagIdStr : tagIdsArray) {
+                    tagIds.add(Long.parseLong(tagIdStr.trim()));
+                }
+            } catch (NumberFormatException e) {
+                logger.error("Failed to parse tagIds", e);
+                // Handle error accordingly
+            }
+
+            // Add tags to the artwork
+            for (Long tagId : tagIds) {
+                Optional<Tag> tagOptional = tagRepo.findById(tagId);
+                if (tagOptional.isPresent()) {
+                    artwork.getTags().add(tagOptional.get());
+                } else {
+                    logger.warn("Tag ID {} not found", tagId);
+                }
+            }
+
+
 
             try {
                 Artworks savedArtwork = artworkRepo.save(artwork);
 
+                artworksDto.setProfileId(profileId);
+                artworksDto.setDescription(description);
                 artworksDto.setImage(file);
-                artwork.setDescription(description);
-                artworksDto.setImage(file);
-                artwork.setPrice(price);
-                artwork.setTitle(title);
-                //artworksDto.setTagIds(tagIds);
+                artworksDto.setPrice(price);
+                artworksDto.setTitle(title);
+                artworksDto.setTagIds(tagIds);
 
-
+                //return response.toString();
                 return artworksDto;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -130,11 +166,13 @@ public class ArtworksController {
                 return artworksDto;
             }
         } else {
+
             return artworksDto;
         }
     }
 
 
+    // Endpoint to get artworks by profile ID
     @GetMapping("/profile/{profileId}")
     public ResponseEntity<List<ArtworksGetDto>> getArtworksByProfile(@PathVariable Integer profileId) {
         List<Artworks> artworks = artworkRepo.findByProfileId(profileId);
@@ -144,48 +182,59 @@ public class ArtworksController {
 
         for (Artworks oneartwork : artworks)
         {
-            ArtworksGetDto artworksGetDto = new ArtworksGetDto();
-            artworksGetDto.setFileDownloadUri(oneartwork.getFileDownloadUri());
-            artworksGetDto.setFileType(oneartwork.getFileType());
-            artworksGetDto.setSize(oneartwork.getSize());
+            ArtworksGetDto artworksGetDtoDto = new ArtworksGetDto();
+            artworksGetDtoDto.setTitle(oneartwork.getTitle());
+            artworksGetDtoDto.setFileDownloadUri(oneartwork.getFileDownloadUri());
+            artworksGetDtoDto.setFileType(oneartwork.getFileType());
+            artworksGetDtoDto.setSize(oneartwork.getSize());
+            allArtworks.add(artworksGetDtoDto);
 
-            // Set new fields
-
-            ArtworksGetDto.setTitle(oneartwork.getTitle());
-            ArtworksGetDto.setDescription(oneartwork.getDescription());
-            ArtworksGetDto.setPrice(oneartwork.getPrice());
-            ArtworksGetDto.setTags(oneartwork.getTags());
-            allArtworks.add(artworksGetDto);
         }
 
         return ResponseEntity.ok(allArtworks);
 
     }
 
+    // Endpoint to download a file by file name
     @GetMapping("/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+
+        // Resolve the file path to the requested file name
         Path filePath = fileStorageLocation.resolve(fileName).normalize();
+
         Resource resource;
         try {
+            // Create a resource from the file path
             resource = new UrlResource(filePath.toUri());
+            // Check if the resource exists and is readable
             if (!resource.exists()) {
+                // If the file does not exist, throw a 404 Not Found exception
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found");
             }
         } catch (Exception e) {
+            // If there's an error while trying to access the file, throw a 404 Not Found exception
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found", e);
         }
 
         String contentType = null;
         try {
+            // Try to determine the content type of the file
             contentType = Files.probeContentType(filePath);
         } catch (IOException e) {
+            // If there's an error determining the content type, default to "application/octet-stream"
+
+            //The contentType = "application/octet-stream";
+            // which means the file is treated as a binary file that could be of any type.
             contentType = "application/octet-stream";
         }
-
+        
+        // If content type is still null, set it to "application/octet-stream"
         if (contentType == null) {
+            //set type of a file to a default value
             contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
         }
 
+        // Return the file as a ResponseEntity with the determined content type and headers
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
