@@ -23,8 +23,17 @@ public class Artworks {
     private String fileDownloadUri;
     private String fileType;
     private long size;
+    private String title;
+    private String description;
+    private double price;
 
-
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+            name = "artwork_tag",
+            joinColumns = @JoinColumn(name = "artwork_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
 
     public Artworks() {}
 
@@ -34,6 +43,19 @@ public class Artworks {
         this.fileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
         this.size = size;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+    }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
+        tag.getArtworks().add(this);
+    }
+
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+        tag.getArtworks().remove(this);
     }
 
     public Integer getProductId() {
@@ -82,5 +104,41 @@ public class Artworks {
 
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public void setTags(List<Tag> tagEntities) {
+    }
+
+    public void setTitle(String title) {
+    }
+
+    public void setDescription(String description) {
+    }
+
+    public void setPrice(double price) {
+    }
+
+    public String getTitle() {
+        return null;
+    }
+
+    public Object getDescription() {
+        return null;
+    }
+
+    public Object getPrice() {
+        return null;
+    }
+
+    public Set<Object> getTags() {
+        return null;
+    }
+
+    public void setArtworkId(Integer artworkId) {
+        this.artworkId = artworkId;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }
