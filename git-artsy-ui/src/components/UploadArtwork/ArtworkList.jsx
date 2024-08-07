@@ -1,7 +1,9 @@
 import Banner from "../Banner";
 
-const ArtworkList = () => {
+import React, { useEffect, useState } from 'react';
+import api from '../services/artworkService'; 
 
+const ArtworkList = () => {
     const [artworks, setArtworks] = useState([]);
     const [error, setError] = useState("");
     const [user, setUser] = useState(null);
@@ -30,6 +32,7 @@ const ArtworkList = () => {
                     if (response && response.data) {
                         setArtworks(response.data);
                     } else if (response) {
+                        // Fallback to response if response.data is not available
                         setArtworks(response);
                     } else {
                         throw new Error("Invalid response structure");

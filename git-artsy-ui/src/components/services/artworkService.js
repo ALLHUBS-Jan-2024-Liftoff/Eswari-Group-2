@@ -9,8 +9,7 @@ export const uploadArtwork =  (formData) => {
   try {
     const response =  axios.post(`${BASE_URL}/new`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-        
+        'Content-Type': 'multipart/form-data'        
       },
     });
     return response.data;
