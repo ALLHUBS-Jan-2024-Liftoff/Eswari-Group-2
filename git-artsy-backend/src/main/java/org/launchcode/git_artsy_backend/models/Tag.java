@@ -3,9 +3,7 @@ package org.launchcode.git_artsy_backend.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 //This class contains fields for the tag's ID and name.
 // It will be used to tag products/artworks for categorization or searching purposes.

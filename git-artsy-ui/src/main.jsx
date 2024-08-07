@@ -7,6 +7,10 @@ import LandingLogin from './components/LoginLandingPage/LoginLanding.jsx';
 import SignUpPage from './components/SignUpPage/SignUpPage.jsx';
 import SearchPage from './components/SearchPage/SearchPage.jsx'
 import Gallery from './components/ArtGallery/Gallery.jsx';
+import UploadArtwork from './components/UploadArtwork/UploadArtwork.jsx';
+import ArtworkList from './components/UploadArtwork/ArtworkList.jsx';
+import Tag from './components/Tag/Tag.jsx';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -23,7 +27,26 @@ const router = createBrowserRouter([
   { 
     path:'/gallery',
     element: <Gallery />
+  },
+  
+  //for tags, uploadartwork, artworklist
+  //** */
+  {
+    path:'/uploadartwork',
+    element: <UploadArtwork />
+  },
+
+  {
+    path:'/artworklist',
+    element: <ArtworkList />
+  },
+
+  {
+    path:'/tag',
+    element: <Tag />
   }
+  //** */
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
