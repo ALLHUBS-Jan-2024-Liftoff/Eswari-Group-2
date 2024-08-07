@@ -16,11 +16,12 @@ const TagPage = () => {
     // State to store error messages
     const [errorMessage, setErrorMessage] = useState('');
 
-    // useEffect hook to fetch tags from the server
+    // // useEffect hook to fetch tags from the server
     useEffect(() => {
         const fetchTags = async () => {
             try {
                 const response = await api.getAllTags();
+                console.log(response.data);
                 setTags(response.data);
             } catch (error) {
                 console.error('Error fetching tags:', error);
@@ -30,6 +31,23 @@ const TagPage = () => {
         fetchTags();
     }, []);//this effect runs once
 
+
+    // useEffect(() => {
+    //     const fetchTags = async () => {
+    //         try {
+    //             const response = await api.getAllTags();
+                
+    //             const tagsData = Array.isArray(response.data) ? response.data : [];
+    //             console.log(tagsData);
+    //             setTags(tagsData);
+    //         } catch (error) {
+    //             console.error('Error fetching tags:', error);
+    //             setTags([]); // Set an empty array on error
+    //         }
+    //     };
+
+    //     fetchTags();
+    // }, []);
         // Handler for input changes in the form
     const handleChange = (e) => {
         const { name, value } = e.target;
