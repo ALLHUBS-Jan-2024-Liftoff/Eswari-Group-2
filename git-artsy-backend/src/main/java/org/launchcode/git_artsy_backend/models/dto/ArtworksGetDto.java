@@ -1,5 +1,8 @@
 package org.launchcode.git_artsy_backend.models.dto;
 
+import java.util.Collection;
+import java.util.Set;
+
 public class ArtworksGetDto {
     private String title;
     private String fileDownloadUri;

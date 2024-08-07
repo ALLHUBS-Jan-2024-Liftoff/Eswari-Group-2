@@ -5,13 +5,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.launchcode.git_artsy_backend.models.Artworks;
 import org.launchcode.git_artsy_backend.models.Profile;
 import org.launchcode.git_artsy_backend.models.Tag;
-import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.models.dto.ArtworksDto;
 import org.launchcode.git_artsy_backend.models.dto.ArtworksGetDto;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
 import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
 import org.launchcode.git_artsy_backend.repositories.TagRepository;
-import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -29,10 +27,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -64,14 +62,25 @@ public class ArtworksController {
     }
 
     @PostMapping("/new")
-    public ArtworksDto createArtwork(@RequestParam("image") MultipartFile file,  @RequestParam("profileId") Integer profileId
-                                     ) {
+    public ArtworksDto createArtwork(
+            @RequestParam("image") MultipartFile file,
+            @RequestParam("profileId") Integer profileId,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("price") double price,
+            @RequestParam("tags") List<String> tags
+    ) {
 
         ArtworksDto artworksDto = new ArtworksDto();
 
         Optional<Profile> profileOptional = profileRepo.findById(profileId);
         if (profileOptional.isPresent()) {
             Artworks artwork = new Artworks();
+
+            //set new fields
+            artwork.setTitle(title);
+            artwork.setDescription(description);
+            artwork.setPrice(price);
 
 
             // Handle file upload
@@ -97,10 +106,21 @@ public class ArtworksController {
                 artwork.setSize(file.getSize());
             }
 
+            //Add tags to the artwork
+            List<Tag> tagEntities = tags.stream()
+                    .map(tagName -> tagRepo.findByName(tagName).orElseGet(() -> new Tag(tagName)))
+                    .collect(Collectors.toList());
+            artwork.setTags(tagEntities); //Do I need newHashSet? artwork.setTags(new HashSet<>(tagEntities));
+
             try {
                 Artworks savedArtwork = artworkRepo.save(artwork);
 
                 artworksDto.setImage(file);
+                artwork.setDescription(description);
+                artworksDto.setImage(file);
+                artwork.setPrice(price);
+                artwork.setTitle(title);
+                //artworksDto.setTagIds(tagIds);
 
 
                 return artworksDto;
@@ -124,11 +144,18 @@ public class ArtworksController {
 
         for (Artworks oneartwork : artworks)
         {
-            ArtworksGetDto artworksGetDtoDto = new ArtworksGetDto();
-            artworksGetDtoDto.setFileDownloadUri(oneartwork.getFileDownloadUri());
-            artworksGetDtoDto.setFileType(oneartwork.getFileType());
-            artworksGetDtoDto.setSize(oneartwork.getSize());
-            allArtworks.add(artworksGetDtoDto);
+            ArtworksGetDto artworksGetDto = new ArtworksGetDto();
+            artworksGetDto.setFileDownloadUri(oneartwork.getFileDownloadUri());
+            artworksGetDto.setFileType(oneartwork.getFileType());
+            artworksGetDto.setSize(oneartwork.getSize());
+
+            // Set new fields
+
+            ArtworksGetDto.setTitle(oneartwork.getTitle());
+            ArtworksGetDto.setDescription(oneartwork.getDescription());
+            ArtworksGetDto.setPrice(oneartwork.getPrice());
+            ArtworksGetDto.setTags(oneartwork.getTags());
+            allArtworks.add(artworksGetDto);
         }
 
         return ResponseEntity.ok(allArtworks);
