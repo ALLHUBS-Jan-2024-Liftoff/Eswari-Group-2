@@ -64,7 +64,8 @@ public class ArtworksController {
     }
 
     @PostMapping("/new")
-    public ArtworksDto createArtwork(@RequestParam("image") MultipartFile file,  @RequestParam("profileId") Integer profileId) {
+    public ArtworksDto createArtwork(@RequestParam("image") MultipartFile file,  @RequestParam("profileId") Integer profileId
+                                     ) {
 
         ArtworksDto artworksDto = new ArtworksDto();
 
