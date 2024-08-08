@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import '../UploadArtwork/UploadArtwork.css';
 import tagservice from '../../services/TagService.js'
 
+
 const UploadArtwork = ({onUploadSuccess}) => {
     // State variables
     const [formData, setFormData] = useState({
