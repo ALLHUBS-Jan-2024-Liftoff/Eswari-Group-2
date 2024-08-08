@@ -11,6 +11,8 @@ import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
 import NotificationPage from './components/NotificationPage/NotificationsPage.jsx';
 
 
+
+
 const router = createBrowserRouter([
   {
     path: '/',
