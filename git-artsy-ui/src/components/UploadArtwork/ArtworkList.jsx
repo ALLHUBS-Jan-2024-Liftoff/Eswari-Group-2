@@ -1,7 +1,8 @@
 import Banner from "../Banner";
 
 import React, { useEffect, useState } from 'react';
-import api from '../services/artworkService'; 
+import api from '../../services/artworkService'; 
+
 
 const ArtworkList = () => {
     const [artworks, setArtworks] = useState([]);
