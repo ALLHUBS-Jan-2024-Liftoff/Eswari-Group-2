@@ -33,6 +33,21 @@ const router = createBrowserRouter([
   {
   path:'/profile',
   element:<ProfilePage />
+  },
+  // tags, upload artwork and artist's artwork list
+  {
+    path:'/uploadartwork',
+    element: <UploadArtwork />
+  },
+
+  {
+    path:'/artworklist',
+    element: <ArtworkList />
+  },
+
+  {
+    path:'/tag',
+    element: <Tag />
   }
 
 ]);
