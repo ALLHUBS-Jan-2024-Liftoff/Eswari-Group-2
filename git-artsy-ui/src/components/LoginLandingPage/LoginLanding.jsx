@@ -13,7 +13,7 @@ const LandingLogin = () => {
          <Login /> 
       </div>
       <div className="popup-container">
-        {/* <ArtworksPopup /> */}
+        <ArtworksPopup />
       </div>
       {/* Footer Part */}
     </div>
