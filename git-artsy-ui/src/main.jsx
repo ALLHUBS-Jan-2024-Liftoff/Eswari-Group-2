@@ -9,6 +9,10 @@ import SearchPage from './components/SearchPage/SearchPage.jsx'
 import Gallery from './components/ArtGallery/Gallery.jsx';
 import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
 import NotificationPage from './components/NotificationPage/NotificationsPage.jsx';
+import UploadArtwork from './components/UploadArtwork/UploadArtwork.jsx';
+import ArtworkList from './components/UploadArtwork/ArtworkList.jsx';
+import Tag from './components/Tag/Tag.jsx';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 

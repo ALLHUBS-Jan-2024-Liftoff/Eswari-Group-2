@@ -2,7 +2,7 @@
 import Banner from "../Banner";
 
 import React, { useState, useEffect } from 'react';
-import api from '../services/TagService';
+import api from '../../services/TagService';
 import '../Tag/Tag.css'; 
 
 const TagPage = () => {

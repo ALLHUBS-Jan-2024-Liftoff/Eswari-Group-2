@@ -1,10 +1,10 @@
 import Banner from "../Banner";
 
 import React, { useState, useEffect } from 'react';
-import api from '../services/artworkService.js';
+import api from '../../services/artworkService.js';
 import { useNavigate } from 'react-router-dom';
 import '../UploadArtwork/UploadArtwork.css';
-import tagservice from '../services/TagService.js';
+import tagservice from '../../services/TagService.js'
 
 const UploadArtwork = ({onUploadSuccess}) => {
     // State variables

@@ -15,7 +15,7 @@ const Banner = ( user, {handleLogout}) => {
                 <Link to='/gallery'>git_Inspired</Link>
                 <Link to ='/search'>Search</Link>
                 
-                {! user ? (
+                {!user ? (
                 <>
                 <Link to='/'>Login</Link>
                 </>
@@ -27,9 +27,9 @@ const Banner = ( user, {handleLogout}) => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item><Link to='/notifications'>Notifications</Link></Dropdown.Item>
-                        <Dropdown.Item><Link to='/profile'>My Profile</Link></Dropdown.Item>
-                        <Dropdown.Item onClick={handleLogout}><Link to='/'>Logout</Link></Dropdown.Item>
+                        <Dropdown.Item href="/notifications">Notifications</Dropdown.Item>
+                        <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
+                        <Dropdown.Item onClick={handleLogout} href='/'>Logout</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 </>   
