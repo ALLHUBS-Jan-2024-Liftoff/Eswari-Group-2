@@ -13,6 +13,7 @@ import UploadArtwork from './components/UploadArtwork/UploadArtwork.jsx';
 import ArtworkList from './components/UploadArtwork/ArtworkList.jsx';
 import Tag from './components/Tag/Tag.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
+import PatronCommissionRequest from './components/PatronCommissionRequest/PatronCommissionRequest.jsx';
 
 
 const router = createBrowserRouter([
