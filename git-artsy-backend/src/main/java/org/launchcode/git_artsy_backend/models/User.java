@@ -5,17 +5,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue
@@ -35,8 +30,6 @@ public class User implements UserDetails {
 //    @Size(min = 8, max = 25, message = "Invalid password. Must be between 8 and 25 characters.")
     private String password;
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
     @NotEmpty
     private String role;
 
@@ -54,7 +47,7 @@ public class User implements UserDetails {
     public User(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
-        this.password = encoder.encode(password);
+        this.password = password;
         this.role = role;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
@@ -71,16 +64,6 @@ public class User implements UserDetails {
         this.user_id = user_id;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-
-    @Override
-    public String getPassword() {
-        return "";
-    }
-
     public String getUsername() {
         return username;
     }
@@ -95,6 +78,10 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
@@ -126,49 +113,29 @@ public class User implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(user_id, user.user_id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && role == user.role && Objects.equals(createdAt, user.createdAt) && Objects.equals(updatedAt, user.updatedAt) && Objects.equals(profile, user.profile);
     }
 
     @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public int hashCode() {
+        return Objects.hash(user_id, username, email, password, role, createdAt, updatedAt, profile);
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", profile=" + profile +
+                '}';
     }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        User user = (User) o;
-//        return Objects.equals(user_id, user.user_id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(hashedPassword, user.hashedPassword) && Objects.equals(role, user.role) && Objects.equals(createdAt, user.createdAt) && Objects.equals(updatedAt, user.updatedAt) && Objects.equals(profile, user.profile);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(user_id, username, email, hashedPassword, role, createdAt, updatedAt, profile);
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "user_id=" + user_id +
-//                ", username='" + username + '\'' +
-//                ", email='" + email + '\'' +
-//                ", hashedPassword='" + hashedPassword + '\'' +
-//                ", role='" + role + '\'' +
-//                ", createdAt=" + createdAt +
-//                ", updatedAt=" + updatedAt +
-//                ", profile=" + profile +
-//                '}';
-//    }
 }
