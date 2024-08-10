@@ -5,11 +5,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 
 @Configuration
 public class Config {
 
+    // Create spring-managed object to allow the app to access our filter
+    @Bean
+    public AuthFilter authenticationFilter() {
+        return new AuthFilter();
+    }
+
+    // Register the filter with the Spring container
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor( authenticationFilter() );
+    }
     /**
      * Defines a bean for CORS (Cross-Origin Resource Sharing) filter.
      * This configuration allows application to handle requests from specified origins.
