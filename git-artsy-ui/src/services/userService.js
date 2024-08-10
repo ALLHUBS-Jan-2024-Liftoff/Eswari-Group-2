@@ -27,9 +27,10 @@ export const registerUser = async (
     password
  ) => {
     try {
-        const response = await axios.post(`${BASEAPIURL}/api/user/login`, null, {
-          params: {email, password},
-        });
+        const response = await axios.post(`${BASEAPIURL}/api/user/login`,
+          { email, password },
+          { withCredentials: true }
+        );
         return response.data;
       } catch (error) {
         console.error("Incorrect email or password.", error);

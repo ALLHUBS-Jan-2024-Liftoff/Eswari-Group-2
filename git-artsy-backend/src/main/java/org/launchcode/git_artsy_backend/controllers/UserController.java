@@ -3,6 +3,7 @@ package org.launchcode.git_artsy_backend.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.launchcode.git_artsy_backend.models.User;
+import org.launchcode.git_artsy_backend.models.dto.LoginDTO;
 import org.launchcode.git_artsy_backend.models.dto.RegisterDTO;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,15 +86,34 @@ public class UserController {
         return response;
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> userLogin(@RequestParam String email, @RequestParam String password){
-//        User userLoggingIn = userRepository.findByEmail(email);
-//
-//        if (userLoggingIn == null || !password.equals(userLoggingIn.getPassword())) {
-//            throw new IllegalArgumentException("Cannot find user");
-//        }
-//        return ResponseEntity.ok(userLoggingIn);
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<Map> processLoginForm(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
+
+        ResponseEntity response = null;
+        Map<String, String> responseBody = new HashMap<>();
+        User theUser = userRepository.findByEmail(loginDTO.getEmail());
+        String password = loginDTO.getPassword();
+        if (theUser == null) {
+            responseBody.put("message", "Username does not exist");
+            response = ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(responseBody);
+        }else if (!theUser.isMatchingPassword(password)) {
+            responseBody.put("message", "Password does not match");
+            response = ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(responseBody);
+        } else {
+            setUserInSession(request.getSession(), theUser);
+            responseBody.put("message", "User successfully logged in.");
+            responseBody.put("username", theUser.getUsername());
+            responseBody.put("userRole", theUser.getRole());
+            response = ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(responseBody);
+        }
+        return  response;
+    }
 
 //    @PostMapping("delete/{id}")
 //    public String deleteUser(@PathVariable("id") Long id){

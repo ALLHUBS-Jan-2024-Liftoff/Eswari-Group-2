@@ -49,8 +49,7 @@ public class User {
     public User(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
-//        this.password = encoder.encode(password);
-        this.password = password;
+        this.password = encoder.encode(password);
         this.role = role;
         this.created_at = LocalDateTime.now();
         this.updated_at = LocalDateTime.now();
