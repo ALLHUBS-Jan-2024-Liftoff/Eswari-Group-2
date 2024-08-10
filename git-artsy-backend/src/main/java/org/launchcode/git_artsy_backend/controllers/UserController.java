@@ -9,10 +9,8 @@ import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -25,12 +23,14 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+//    creates user session and matches user id with session key
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getUser_id());
     }
 
     private static final String userSessionKey = "user";
 
+//    gets user and user session key for user in session
     public User getUserFromSession(HttpSession session) {
         Long userId = (Long) session.getAttribute(userSessionKey);
         if (userId == null) {
@@ -46,22 +46,16 @@ public class UserController {
         return user.get();
     }
 
+//    creates new user and saves them to database
     @PostMapping("/newUser")
     public ResponseEntity<Map> processRegistrationForm(@RequestBody RegisterDTO registerDTO,
                                                        HttpServletRequest request)  {
         ResponseEntity response = null;
         Map<String, String> responseBody = new HashMap<>();
         try{
+//            checks entered email to see if user already exists with that email
             User existingUser = userRepository.findByEmail(registerDTO.getEmail());
-            if (existingUser == null && !registerDTO.getUsername().isEmpty() && !registerDTO.getPassword().isEmpty()){
-                responseBody.put("message", "Given user details are successfully registered");
-                response = ResponseEntity
-                        .status(HttpStatus.CREATED)
-                        .body(responseBody);
-                User newUser = new User(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getPassword(), registerDTO.getRole());
-                setUserInSession(request.getSession(), newUser);
-                userRepository.save(newUser);
-            } else if(existingUser != null) {
+            if(existingUser != null) {
                 responseBody.put("message", "User Already Exists.");
                 response = ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
@@ -76,6 +70,25 @@ public class UserController {
                 response = ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(responseBody);
+            } else if (registerDTO.getRole().isEmpty()) {
+                responseBody.put("message", "Please select an account type");
+                response = ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(responseBody);
+            } else if (registerDTO.getVerifyPassword().isEmpty() || !registerDTO.getVerifyPassword().equals(registerDTO.getPassword())) {
+                responseBody.put("message", "Passwords must match");
+                response = ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(responseBody);
+            } else if (existingUser == null && !registerDTO.getUsername().isEmpty() && !registerDTO.getPassword().isEmpty()){
+                responseBody.put("message", "Given user details are successfully registered");
+                response = ResponseEntity
+                        .status(HttpStatus.CREATED)
+                        .body(responseBody);
+                User newUser = new User(registerDTO.getUsername(), registerDTO.getEmail(), registerDTO.getPassword(), registerDTO.getRole());
+                setUserInSession(request.getSession(), newUser);
+                userRepository.save(newUser);
+
             }
         }catch (Exception ex){
             responseBody.put("message", "An exception occurred due to " + ex.getMessage());
@@ -86,6 +99,7 @@ public class UserController {
         return response;
     }
 
+//    logs existing user in
     @PostMapping("/login")
     public ResponseEntity<Map> processLoginForm(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
 
@@ -115,9 +129,10 @@ public class UserController {
         return  response;
     }
 
-//    @PostMapping("delete/{id}")
-//    public String deleteUser(@PathVariable("id") Long id){
-//        userRepository.deleteById(id);
-//        return "redirect:/users";
-//    }
+//    logs user out
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:/";
+    }
 }
