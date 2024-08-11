@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { getAllRequests, createRequest, updateRequest, deleteRequest } from "../../services/PatronCommissionService"; 
-//"../../services/userService"
-
-import axios from 'axios';
-import App from '../../App';
-
-const BASE_URL = 'http://localhost:8082/gitartsy/api';
+import { getAllRequests, createRequest, updateRequest, deleteRequest } from "../../services/PatronCommissionService";
 
 const PatronCommissionRequest = () => {
     // State to hold commission requests fetched from the API
     const [requests, setRequests] = useState([]);
 
-    // State for form inputs
+    // State for form inputs to create a new commission request
     const [newRequest, setNewRequest] = useState({
-        fromUserId: '',
-        toUserId: '',
-        request: '',
-        detail: '',
-        description: '',
-        subject: ''
+        fromUserId: '',   // ID of the user sending the request
+        toUserId: '',     // ID of the user receiving the request
+        request: '',      // The main request content
+        detail: '',       // Additional details of the request
+        description: '',  // Description of the request
+        subject: ''       // Subject of the request
     });
 
     // Fetch all requests on component mount
     useEffect(() => {
         const fetchRequests = async () => {
             try {
+                // Fetching all commission requests from the API
                 const data = await getAllRequests();
-                setRequests(data); // Set the fetched requests to state
+                // Setting the fetched requests to state
+                setRequests(data);
             } catch (error) {
+                // Logging any errors that occur during the fetch
                 console.error('Error fetching commission requests:', error);
             }
         };
+        // Triggering the fetch function
         fetchRequests();
     }, []);
 
@@ -38,8 +36,11 @@ const PatronCommissionRequest = () => {
     const handleCreate = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
         try {
+            // Creating a new commission request via the API
             const createdRequest = await createRequest(newRequest);
-            setRequests([...requests, createdRequest]); // Add the new request to the state
+            // Adding the new request to the state
+            setRequests([...requests, createdRequest]);
+            // Resetting form fields after submission
             setNewRequest({
                 fromUserId: '',
                 toUserId: '',
@@ -47,8 +48,9 @@ const PatronCommissionRequest = () => {
                 detail: '',
                 description: '',
                 subject: ''
-            }); // Reset form fields
+            });
         } catch (error) {
+            // Logging any errors that occur during the creation
             console.error('Error creating commission request:', error);
         }
     };
@@ -56,9 +58,12 @@ const PatronCommissionRequest = () => {
     // Handler for updating an existing request
     const handleUpdate = async (id, updatedRequest) => {
         try {
+            // Updating the commission request via the API
             const updated = await updateRequest(id, updatedRequest);
-            setRequests(requests.map(req => (req.id === id ? updated : req))); // Update the request in the state
+            // Updating the request in the state with the newly updated data
+            setRequests(requests.map(req => (req.id === id ? updated : req)));
         } catch (error) {
+            // Logging any errors that occur during the update
             console.error('Error updating commission request:', error);
         }
     };
@@ -66,9 +71,12 @@ const PatronCommissionRequest = () => {
     // Handler for deleting a request
     const handleDelete = async (id) => {
         try {
+            // Deleting the commission request via the API
             await deleteRequest(id);
-            setRequests(requests.filter(req => req.id !== id)); // Remove the deleted request from the state
+            // Removing the deleted request from the state
+            setRequests(requests.filter(req => req.id !== id));
         } catch (error) {
+            // Logging any errors that occur during the deletion
             console.error('Error deleting commission request:', error);
         }
     };
