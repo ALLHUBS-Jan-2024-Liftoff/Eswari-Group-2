@@ -100,7 +100,7 @@ const UploadArtwork = ({onUploadSuccess}) => {
         
         formDataToSend.append('tagIds', formData.tagIds.join(','));
         formDataToSend.append('image', selectedFile);
-        formDataToSend.append('profileId', user.userid);
+        formDataToSend.append('profileId', user);
 
         // for debugging
         formDataToSend.forEach((value, key) => {
