@@ -11,18 +11,17 @@ export const SignUpForm = () => {
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
     const [role, setRole] = useState("");
-    const [error, setError] = useState(null);
-    const [successMsg, setSuccessMsg] = useState(null)
+    const [msg, setMsg] = useState("");
+    // const [error, setError] = useState(null);
+    // const [successMsg, setSuccessMsg] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await registerUser(username, email, password, verifyPassword, role);
-            setError(null);
-            setSuccessMsg("Registration successful!");
+            setMsg("Registration successful!");
         } catch (error) {
-            setSuccessMsg(null);
-            setError("Registration failed.");
+            setMsg("Registration failed");
         }
     };
     
@@ -49,17 +48,10 @@ export const SignUpForm = () => {
                     <div className="form-group">
                         <label>Verify Password:
                         <input type="password" name="verify" value={verifyPassword} id="verify" onChange={(e) => setVerifyPassword(e.target.value)} required>
-                        {/* Include verify password logic */}
                         </input>
                         </label>
                     </div>
-                    {/* <div className="form-group">
-                        <label>Displayed Name:
-                        <input type="text" name="name" id="name"></input>
-                        </label>
-                    </div> */}
                     <div className="form-group">
-                        {/* Add logic for one type must be selected */}
                         <label for="user-type">Account Type:
                             <label>  
                             <input type="radio" name="user-type" value="ARTIST" id="artist" onChange={(e) => setRole(e.target.value)}></input>

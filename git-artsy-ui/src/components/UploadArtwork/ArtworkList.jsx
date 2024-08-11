@@ -27,7 +27,7 @@ const ArtworkList = () => {
         const getAllArts = async () => {
             if (user) {
                 try {
-                    const response = await api.fetchArtworksByProfile(user.userid);
+                    const response = await api.fetchArtworksByProfile(user);
                     console.log("Response from API:", response);
                     setArtworks(response.data);
                     if (response && response.data) {
