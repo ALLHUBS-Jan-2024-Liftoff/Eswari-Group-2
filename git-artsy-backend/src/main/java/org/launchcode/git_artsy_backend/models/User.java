@@ -37,7 +37,7 @@ public class User {
 
     private LocalDateTime updated_at;
 
-//    Identifies the password encoder
+    //    Identifies the password encoder
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @OneToOne(mappedBy = "user")
@@ -110,7 +110,7 @@ public class User {
         this.role = role;
     }
 
-//    equals, hashcode, and toString methods if needed
+    //    equals, hashcode, and toString methods if needed
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

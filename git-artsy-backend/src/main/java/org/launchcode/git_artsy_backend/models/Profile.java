@@ -134,13 +134,7 @@ public class Profile {
         this.updatedAt = updatedAt;
     }
 
-    public Set<Artworks> getArtworks() {
-        return artworks;
-    }
 
-    public void setArtworks(Set<Artworks> artworks) {
-        this.artworks = artworks;
-    }
 
     @PreUpdate
     public void preUpdate() {

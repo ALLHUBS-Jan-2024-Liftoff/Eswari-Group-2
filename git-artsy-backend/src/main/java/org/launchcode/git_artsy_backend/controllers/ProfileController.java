@@ -1,10 +1,12 @@
-package org.launchcode.git_artsy_backend.Controllers;
+package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Profile;
 import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.models.dto.ProfileDto;
 import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/artist-profiles")
-@CrossOrigin(origins = "http://localhost:8082")
+@RequestMapping("gitartsy/api/profiles")
+@CrossOrigin(origins = "http://localhost:5173")// Allows CORS requests from the specified origin
 public class ProfileController {
 
     @Autowired
@@ -24,6 +26,9 @@ public class ProfileController {
 
     @Autowired
     private UserRepository userRepo;
+
+    private static final Logger logger = LoggerFactory.getLogger(ArtworksController.class);
+
 
     @PostMapping("/new")
     public ResponseEntity<Profile> createArtistProfile(@RequestBody ProfileDto profileDTO) {
@@ -118,6 +123,29 @@ public class ProfileController {
             }
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @GetMapping("/profileid/{userId}")
+    public ResponseEntity<Integer> getProfileIdByUserId(@PathVariable("userId") Long userId) {
+        // Check if the user exists
+        logger.debug("Profile ID: {}", userId);
+        Optional<User> userOptional = userRepo.findById(userId);
+        logger.debug(String.valueOf(userOptional));
+        if (userOptional.isPresent()) {
+            // Check if a profile exists for the user
+            Optional<Profile> profileOptional = profileRepo.findByUser(userOptional.get());
+            if (profileOptional.isPresent()) {
+                // Profile exists, return the ProfileId
+                return ResponseEntity.ok(profileOptional.get().getId());
+            } else {
+                // Profile does not exist, return 0
+                return ResponseEntity.ok(0);
+            }
+        } else {
+            // User not found, return 0
+            return ResponseEntity.ok(0);
         }
     }
 }

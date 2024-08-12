@@ -20,7 +20,11 @@ public class AuthFilter  implements HandlerInterceptor {
     @Autowired
     UserController userController;
 
-    private static final List<String> whitelist = Arrays.asList("/user/login", "/api/user/newUser", "/user/logout");
+    private static final List<String> whitelist = Arrays.asList("/user/login", "/api/user/newUser", "/user/logout"
+            ,"/gitartsy/api/artworks/**", "/uploads/**", "/gitartsy/api/tags/**", "/gitartsy/api/profiles/**",
+            "/gitartsy/api/profiles/profileid/**");
+
+
 
     private static boolean isWhitelisted(String path) {
         for (String pathRoot : whitelist) {

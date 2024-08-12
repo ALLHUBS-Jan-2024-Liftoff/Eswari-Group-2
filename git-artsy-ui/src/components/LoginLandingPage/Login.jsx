@@ -14,13 +14,16 @@ export const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await userLogin(email, password);
+            const response = await userLogin(email, password);
             // redirect after login completion
+            localStorage.setItem('user', JSON.stringify(response));
             window.location.href = "/gallery";
         } catch (error) {
             setError("Login failed")
         }
-    }
+    };
+
+    
     return ( 
         <div className="container">
             <div className="header">

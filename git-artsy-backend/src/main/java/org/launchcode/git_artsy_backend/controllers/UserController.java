@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class UserController {
 
     private static final String userSessionKey = "user";
 
-//    gets user and user session key for user in session
+    //gets user and user session key for user in session
     public User getUserFromSession(HttpSession session) {
         Long userId = (Long) session.getAttribute(userSessionKey);
         if (userId == null) {
@@ -46,7 +47,7 @@ public class UserController {
         return user.get();
     }
 
-//    creates new user and saves them to database
+    //    creates new user and saves them to database
     @PostMapping("/newUser")
     public ResponseEntity<Map> processRegistrationForm(@RequestBody RegisterDTO registerDTO,
                                                        HttpServletRequest request)  {
@@ -122,6 +123,8 @@ public class UserController {
             responseBody.put("message", "User successfully logged in.");
             responseBody.put("username", theUser.getUsername());
             responseBody.put("userRole", theUser.getRole());
+            // (For getting UserId to make work for other modules in Frontend
+            responseBody.put("userid", theUser.getUser_id().toString());
             response = ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(responseBody);
