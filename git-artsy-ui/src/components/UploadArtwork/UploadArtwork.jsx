@@ -17,13 +17,33 @@ const UploadArtwork = ({onUploadSuccess}) => {
     });
 
 
-    const [tags, setTags] = useState([]);  // State to hold the list of available tags
-    const [selectedFile, setSelectedFile] = useState(null);  // State for the file to be uploaded
+    const [tags, setTags] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
     const [uploading, setUploading] = useState(false);
-    const [error, setError] = useState("");  // State to store error messages
-    const navigate = useNavigate();  // Hook for navigation
-    const [user, setUser] = useState(null);  // State to store user data
-    const [preview, setPreview] = useState("");  // State to store preview image URL
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [profileId, setProfileId] = useState(null); // Add state for profileId
+    const [preview, setPreview] = useState("");
+
+
+    const fetchProfileId = async (userId) => {
+        try {
+            const response = await fetch(`http://localhost:8082/gitartsy/api/profiles/profileid/${userId}`);
+            const data = await response.json();
+            
+            if (data !== 0) {
+                setProfileId(data);
+            } else {
+                console.error('Profile not found for the user');
+                setError('Profile not found');
+            }
+        } catch (error) {
+            console.error("Error fetching profile ID:", error);
+            setError('Error fetching profile ID');
+        }
+    };
+
 
     // useEffect hook to fetch tags and user data
     useEffect(() => {
@@ -41,11 +61,14 @@ const UploadArtwork = ({onUploadSuccess}) => {
         fetchTags();
 
 
-        const userData = JSON.parse(localStorage.getItem('user'));// Get user data from local storage
+        const userData = JSON.parse(localStorage.getItem('user'));
         if (userData) {
             setUser(userData);
+            fetchProfileId(userData.userid); // Fetch profileId when user data is available
         }
     }, []);// Empty dependency array ensures this effect runs once after initial load
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -100,7 +123,7 @@ const UploadArtwork = ({onUploadSuccess}) => {
         
         formDataToSend.append('tagIds', formData.tagIds.join(','));
         formDataToSend.append('image', selectedFile);
-        formDataToSend.append('profileId', user.userid);
+        formDataToSend.append('profileId', profileId); 
 
         // for debugging
         formDataToSend.forEach((value, key) => {
@@ -123,7 +146,7 @@ const UploadArtwork = ({onUploadSuccess}) => {
                 onUploadSuccess();
             }
             
-            navigate('/artworkslist'); 
+            //navigate('/artworkslist'); 
         } catch (error) {
             setError('Failed to upload artwork');
             console.error("Error uploading artwork:", error);
