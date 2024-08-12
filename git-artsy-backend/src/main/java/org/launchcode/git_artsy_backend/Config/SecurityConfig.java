@@ -36,8 +36,10 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 // Allows these endpoints without authentication
-                                "/gitartsy/api/artworks/**", "/uploads/**","/gitartsy/api/tags/**","/api/user/**").permitAll()
-                        .anyRequest().authenticated()  // Require authentication for any other requests
+                                "/gitartsy/api/artworks/**", "/uploads/**","/gitartsy/api/tags/**","/api/user/**",
+                                "/gitartsy/api/profiles/**", "/gitartsy/api/profiles/profileid/**").permitAll()
+                        .anyRequest().authenticated()// Require authentication for any other requests
+
                 );
         return http.build();
     }

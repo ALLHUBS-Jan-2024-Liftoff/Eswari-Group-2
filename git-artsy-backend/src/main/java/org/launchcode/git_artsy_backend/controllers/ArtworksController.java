@@ -227,7 +227,7 @@ public class ArtworksController {
             // which means the file is treated as a binary file that could be of any type.
             contentType = "application/octet-stream";
         }
-        
+
         // If content type is still null, set it to "application/octet-stream"
         if (contentType == null) {
             //set type of a file to a default value
