@@ -56,6 +56,9 @@ const router = createBrowserRouter([
   {
     path:'/tag',
     element: <Tag />
+  },
+  {path: '/commissions',
+    element: <PatronCommissionRequest />
   }
 ]);
 
