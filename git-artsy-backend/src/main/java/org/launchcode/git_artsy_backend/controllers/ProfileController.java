@@ -60,6 +60,7 @@ public class ProfileController {
             @RequestParam("profilePic") MultipartFile file,
             @RequestParam("bioDescription") String bioDescription) {
 
+        // Check if the user exists
         Optional<User> userOptional = userRepo.findById(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -121,18 +122,28 @@ public class ProfileController {
         }
     }
 
-    @GetMapping("/files/{filename:.+}")
+
+     //Handles HTTP GET requests to serve files stored on the server.
+     // @param filename the name of the file to be served, passed in the URL path.
+     //@return a ResponseEntity containing the file resource
+     @GetMapping("/files/{filename:.+}")
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+         // Resolve the path of the requested file using the fileStorageLocation directory and the filename.
         Path file = fileStorageLocation.resolve(filename);
         Resource fileResource;
 
         try {
+            // Create a Resource object for the file using its URI.
             fileResource = new UrlResource(file.toUri());
+            // Check if the file exists and is readable.
             if (fileResource.exists() || fileResource.isReadable()) {
+                // Return the file resource in the HTTP response
+                // which prompts the user to download the file rather than displaying it in the browser.
                 return ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileResource.getFilename() + "\"")
                         .body(fileResource);
             } else {
+                // If the file does not exist or is not readable, return a 404
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
@@ -140,6 +151,7 @@ public class ProfileController {
         }
     }
 
+    // getting the particular profile
     @GetMapping("/{id}")
     public ResponseEntity<?> getProfileById(@PathVariable("id") Integer id) {
         Optional<Profile> profileOptional = profileRepo.findById(id);
@@ -165,6 +177,7 @@ public class ProfileController {
         }
     }
 
+    //checking wheather a user have profile
     @GetMapping("/exists/{userId}")
     public ResponseEntity<Boolean> doesProfileExist(@PathVariable("userId") Long userId) {
         // Check if the user exists
@@ -185,6 +198,7 @@ public class ProfileController {
         }
     }
 
+    //getting the profile id of particular user
     @GetMapping("/profileid/{userId}")
     public ResponseEntity<Integer> getProfileIdByUserId(@PathVariable("userId") Long userId) {
         // Check if the user exists
@@ -197,6 +211,7 @@ public class ProfileController {
                 return ResponseEntity.ok(profileOptional.get().getId());
             } else {
                 // Profile does not exist, return 0
+
                 return ResponseEntity.ok(0);
             }
         } else {
@@ -205,6 +220,7 @@ public class ProfileController {
         }
     }
 
+    //updating the profile
     @PutMapping("/update/{profileId}")
     public ResponseEntity<ProfileDto> updateProfile(
             @PathVariable Integer profileId,

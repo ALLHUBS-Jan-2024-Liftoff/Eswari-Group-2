@@ -50,8 +50,8 @@ const profileService = {
       console.error("Error updating profile", error);
       throw error;
     }
-  },
-  
+  }
+
   
 };
 
