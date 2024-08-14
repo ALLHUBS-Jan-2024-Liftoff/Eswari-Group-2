@@ -36,7 +36,7 @@ export const fetchArtworksByProfile = async (profileId) => {
 };
 
 //get all artwork
-const getAllArtwork = () => {
+const getAllArtwork = async () => {
   return axios.get(BASE_URL)
       .catch(error => {
           console.error("Error fetching the artwork.", error);
