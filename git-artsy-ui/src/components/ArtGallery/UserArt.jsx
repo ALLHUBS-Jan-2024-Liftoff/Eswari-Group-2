@@ -9,10 +9,29 @@ const BASE_URL = 'http://localhost:8082/gitartsy/api/artworks';
 //fetch all user artworks
 
 const UserArt = () => {
-        const [profiles, setProfiles] = useState([]);
+    
         const [artworks, setArtworks] = useState([]);
         const [error, setError] = useState("");
-
+        
+        useEffect(() => {
+            const getAllArts = async () => {
+                try {
+                        const response = await api.getAllArtwork;
+                        console.log("Response from API:", response);
+                        if (response) {
+                            setArtworks(response);
+                        } else {
+                            throw new Error("Invalid response structure");
+                        }
+                    } catch (error) {
+                        setError("Failed to fetch artworks");
+                        console.error("Error fetching artworks:", error);
+                    }
+                };
+            
+            getAllArts();
+        }, []);;
+    
         
 
         return (<ul>

@@ -242,10 +242,9 @@ public class ArtworksController {
     }
 
     // Endpoint to get all artworks
-    @GetMapping("/artworks")
+    @GetMapping
     public ResponseEntity<List<ArtworksGetDto>> getAllArtworks() {
         List<Artworks> artworks = artworkRepo.findAll();
-
 
         List<ArtworksGetDto> allArtworks = new ArrayList<>();
 
