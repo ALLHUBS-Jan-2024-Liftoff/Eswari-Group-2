@@ -17,9 +17,9 @@ const UserArt = () => {
             const getAllArts = async () => {
                 try {
                         const response = await api.getAllArtwork();
-                        console.log("Response from API:", response);
+                        console.log("Response from API:", response.data);
                         if (response) {
-                            setArtworks(response);
+                            setArtworks(response.data);
                         } else {
                             throw new Error("Invalid response structure");
                         }
