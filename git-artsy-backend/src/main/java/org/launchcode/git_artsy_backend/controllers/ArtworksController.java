@@ -240,4 +240,27 @@ public class ArtworksController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+
+    // Endpoint to get all artworks
+    @GetMapping("all")
+    public ResponseEntity<List<ArtworksGetDto>> getAllArtworks() {
+        List<Artworks> artworks = artworkRepo.findAll();
+
+        List<ArtworksGetDto> allArtworks = new ArrayList<>();
+
+        for (Artworks index : artworks)
+        {
+            ArtworksGetDto artworksGetDtoDto = new ArtworksGetDto();
+            artworksGetDtoDto.setId(index.getProductId());
+            artworksGetDtoDto.setTitle(index.getTitle());
+            artworksGetDtoDto.setFileDownloadUri(index.getFileDownloadUri());
+            artworksGetDtoDto.setFileType(index.getFileType());
+            artworksGetDtoDto.setSize(index.getSize());
+            artworksGetDtoDto.setDescription(index.getDescription());
+            artworksGetDtoDto.setTags(index.getTags());
+            artworksGetDtoDto.setPrice(index.getPrice());
+            allArtworks.add(artworksGetDtoDto);
+        }
+        return ResponseEntity.ok(allArtworks);
+    }
 }

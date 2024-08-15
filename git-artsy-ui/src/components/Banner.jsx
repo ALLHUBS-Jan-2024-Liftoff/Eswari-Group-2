@@ -8,6 +8,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
 const Banner = ( user, {handleLogout}) => {
+    console.log("User object:", user);
     return (
     <div className='header'>
         <h1>gitArtsy</h1>
