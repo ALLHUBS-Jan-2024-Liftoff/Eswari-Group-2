@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 export const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ export const Login = () => {
             localStorage.setItem('user', JSON.stringify(response));
             window.location.href = "/gallery"; //THIS NEEDS TO CHANGE WHEN NOTIFICATIONS ARE FINISHED
         } catch (error) {
-            setError("Login failed")
+            setMessage("Incorrect Email or Password.")
         }
     };
 
@@ -44,6 +44,7 @@ export const Login = () => {
                     <button type="submit" className="submit">Login</button>
                 </div>
             </form>
+            {message && <p>{message}</p>}
             <div className="footer">
                 Not a member? <Link to='/signup'>Sign up here!</Link>
             </div>

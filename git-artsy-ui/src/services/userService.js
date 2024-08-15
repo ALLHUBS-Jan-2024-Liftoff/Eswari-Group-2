@@ -37,10 +37,11 @@ export const registerUser = async (
         throw error;
       }
   };
-  
+
   export const userLogout = async () => {
     try {
-      const response = await axios.get(`${BASEAPIURL}/api/user/logout`);
+      const response = await axios.get(`${BASEAPIURL}/api/user/logout`,
+        { withCredentials: true });
     } catch (error) {
       console.error("Log out failed.", error);
       throw error;

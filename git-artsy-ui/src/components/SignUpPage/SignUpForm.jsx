@@ -11,16 +11,16 @@ export const SignUpForm = () => {
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
     const [role, setRole] = useState("");
-    const [msg, setMsg] = useState("");
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await registerUser(username, email, password, verifyPassword, role);
-            setMsg("Registration successful!");
+            setMessage("Registration successful!");
             window.location.href = "/";
         } catch (error) {
-            setMsg("Registration failed");
+            setMessage(error.response?.data?.message);
         }
     };
     
@@ -63,6 +63,7 @@ export const SignUpForm = () => {
                     </div>
                     <button type='submit'>Submit</button>
                 </form>
+                {message && <p>{message}</p>}
         </div>
     )
 }
