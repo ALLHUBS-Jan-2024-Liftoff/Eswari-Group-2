@@ -68,4 +68,8 @@ public class Tag {
     public <E> List<E> getImages() {
         return null;
     }
+
+    public <E> List getartworks() {
+        return null;
+    }
 }

@@ -15,6 +15,10 @@ public class Artworks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
