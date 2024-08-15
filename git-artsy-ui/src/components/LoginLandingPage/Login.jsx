@@ -17,7 +17,7 @@ export const Login = () => {
             const response = await userLogin(email, password);
             // redirect after login completion
             localStorage.setItem('user', JSON.stringify(response));
-            window.location.href = "/gallery";
+            window.location.href = "/gallery"; //THIS NEEDS TO CHANGE WHEN NOTIFICATIONS ARE FINISHED
         } catch (error) {
             setError("Login failed")
         }

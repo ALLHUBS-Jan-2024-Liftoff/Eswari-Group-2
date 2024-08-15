@@ -12,14 +12,13 @@ export const SignUpForm = () => {
     const [verifyPassword, setVerifyPassword] = useState("");
     const [role, setRole] = useState("");
     const [msg, setMsg] = useState("");
-    // const [error, setError] = useState(null);
-    // const [successMsg, setSuccessMsg] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await registerUser(username, email, password, verifyPassword, role);
             setMsg("Registration successful!");
+            window.location.href = "/";
         } catch (error) {
             setMsg("Registration failed");
         }
