@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/artworkService';
 import axios from 'axios';
 
-
+//TODO ADD PROFILE LINK
 const BASE_URL = 'http://localhost:8082/uploads/';
 
 //fetch all user artworks
@@ -39,12 +39,12 @@ const UserArt = () => {
             <ul>
                 {artworks.length > 0 ? (
                     artworks.map((artwork, index) => (
-                        <li key={`${artwork.fileDownloadUri}-${index}`}>
-                            <h2>{artwork.title}</h2>
+                        <li className="row" key={`${artwork.fileDownloadUri}-${index}`}>
+                            
                             {artwork.fileDownloadUri && (
-                                <img src={artwork.fileDownloadUri} alt={artwork.title} style={{ width: '200px', height: 'auto' }} />
+                                <img className='col-md-6' src={artwork.fileDownloadUri} alt={artwork.title} />
                             )}
-                           
+                           <h3 className='col-md-4 text-center'>{artwork.title}</h3>
                         </li>
                     ))
                 ) : (

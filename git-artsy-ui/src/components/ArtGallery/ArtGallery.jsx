@@ -62,14 +62,12 @@ const ArtGallery= () => {
     return (
       <>
         {artworkToShow && (
-          <><div className="gallery">
-            <img src={artworkToShow.imageUrl} />
-            <div>
-            <p>{artworkToShow.title}</p>
-            </div>
-            <div>
-            <button onClick={next}>Next</button>
-            </div></div></>
+          <><div className="row">
+            <img className="col-md-6" src={artworkToShow.imageUrl} />
+            <p className="lead col-md-6" id="master-gallery">{artworkToShow.title}</p> <div className="col-md-4 offset-8">
+            <button onClick={next}className="btn btn-primary btn-lg :active" type='button'>Next</button></div>
+            </div></>
+            
         )}
       </>
     );
