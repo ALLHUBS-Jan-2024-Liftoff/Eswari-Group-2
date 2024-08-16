@@ -36,4 +36,14 @@ export const registerUser = async (
         console.error("Incorrect email or password.", error);
         throw error;
       }
- }
+  };
+
+  export const userLogout = async () => {
+    try {
+      const response = await axios.get(`${BASEAPIURL}/api/user/logout`,
+        { withCredentials: true });
+    } catch (error) {
+      console.error("Log out failed.", error);
+      throw error;
+    } 
+};
