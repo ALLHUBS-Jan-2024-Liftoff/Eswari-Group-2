@@ -11,12 +11,39 @@ export const registerUser = async (
     
 ) => {
     try {
-        const response = await axios.post(`${BASEAPIURL}/api/user/newUser`, null, {
-            params: {username, email, password, verifyPassword, role},
-        });
+        const response = await axios.post(`${BASEAPIURL}/api/user/newUser`,
+            { username, email, password, verifyPassword, role },
+            { withCredentials: true }
+        );
         return response.data;
     } catch (error) {
         console.error("There was an error creating this user", error);
         throw error;
     }
  };
+
+ export const userLogin = async (
+    email,
+    password
+ ) => {
+    try {
+        const response = await axios.post(`${BASEAPIURL}/api/user/login`,
+          { email, password },
+          { withCredentials: true }
+        );
+        return response.data;
+      } catch (error) {
+        console.error("Incorrect email or password.", error);
+        throw error;
+      }
+  };
+
+  export const userLogout = async () => {
+    try {
+      const response = await axios.get(`${BASEAPIURL}/api/user/logout`,
+        { withCredentials: true });
+    } catch (error) {
+      console.error("Log out failed.", error);
+      throw error;
+    } 
+};

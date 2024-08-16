@@ -11,18 +11,16 @@ export const SignUpForm = () => {
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
     const [role, setRole] = useState("");
-    const [error, setError] = useState(null);
-    const [successMsg, setSuccessMsg] = useState(null)
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await registerUser(username, email, password, verifyPassword, role);
-            setError(null);
-            setSuccessMsg("Registration successful!");
+            setMessage("Registration successful!");
+            window.location.href = "/";
         } catch (error) {
-            setSuccessMsg(null);
-            setError("Registration failed.");
+            setMessage(error.response?.data?.message);
         }
     };
     
@@ -49,17 +47,10 @@ export const SignUpForm = () => {
                     <div className="form-group">
                         <label>Verify Password:
                         <input type="password" name="verify" value={verifyPassword} id="verify" onChange={(e) => setVerifyPassword(e.target.value)} required>
-                        {/* Include verify password logic */}
                         </input>
                         </label>
                     </div>
-                    {/* <div className="form-group">
-                        <label>Displayed Name:
-                        <input type="text" name="name" id="name"></input>
-                        </label>
-                    </div> */}
                     <div className="form-group">
-                        {/* Add logic for one type must be selected */}
                         <label for="user-type">Account Type:
                             <label>  
                             <input type="radio" name="user-type" value="ARTIST" id="artist" onChange={(e) => setRole(e.target.value)}></input>
@@ -72,6 +63,7 @@ export const SignUpForm = () => {
                     </div>
                     <button type='submit'>Submit</button>
                 </form>
+                {message && <p>{message}</p>}
         </div>
     )
 }
