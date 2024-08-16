@@ -18,7 +18,6 @@ public class User {
 
     @NotEmpty
     @NotNull
-//    @Size(min = 3, max = 15, message = "Invalid username. Must be between 3 and 15 characters.")
     private String username;
 
     @NotEmpty
@@ -27,7 +26,6 @@ public class User {
 
     @NotEmpty
     @NotNull
-//    @Size(min = 8, max = 25, message = "Invalid password. Must be between 8 and 25 characters.")
     private String password;
 
     @NotEmpty
@@ -55,7 +53,6 @@ public class User {
         this.created_at = LocalDateTime.now();
         this.updated_at = LocalDateTime.now();
     }
-
 
     //Getters and setters for above variables
     public Long getUser_id() {

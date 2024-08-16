@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import PatronCommissionRequest from './components/PatronCommissionRequest/PatronCommissionRequest.jsx';
 
 
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -60,8 +61,6 @@ const router = createBrowserRouter([
   {path: '/commissions',
     element: <PatronCommissionRequest />
   }
-
- 
 
 ]);
 
