@@ -39,9 +39,6 @@ public class Artworks {
     private String fileType;
     private long size;
 
-    @OneToMany(mappedBy = "artwork")
-    private List<Notification> notifications = new ArrayList<>();
-
     public Artworks() {}
 
     public Artworks(Profile profile, String title, String description, Float price, String filename, String fileDownloadUri, String fileType, long size) {

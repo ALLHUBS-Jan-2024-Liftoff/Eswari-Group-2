@@ -33,6 +33,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController// Indicates that this class handles RESTful requests
 @RequestMapping("gitartsy/api/artworks")// Base URL for all endpoints in this controller
@@ -241,26 +242,40 @@ public class ArtworksController {
                 .body(resource);
     }
 
-    // Endpoint to get all artworks
-    @GetMapping("all")
-    public ResponseEntity<List<ArtworksGetDto>> getAllArtworks() {
+    @GetMapping("recent")
+    public ResponseEntity<List<ArtworksGetDto>> getRecentArtworks() {
+        // Get the current date and time
+        LocalDateTime now = LocalDateTime.now();
+
+        // Get the start of today
+        LocalDateTime startOfToday = now.toLocalDate().atStartOfDay();
+
+        // Get the start of yesterday
+        LocalDateTime startOfYesterday = startOfToday.minusDays(1);
+
+        // Fetch all artworks from the repository
         List<Artworks> artworks = artworkRepo.findAll();
 
-        List<ArtworksGetDto> allArtworks = new ArrayList<>();
+        // Initialize the list to hold recent artworks
+        List<ArtworksGetDto> recentArtworks = new ArrayList<>();
 
-        for (Artworks index : artworks)
-        {
-            ArtworksGetDto artworksGetDtoDto = new ArtworksGetDto();
-            artworksGetDtoDto.setId(index.getProductId());
-            artworksGetDtoDto.setTitle(index.getTitle());
-            artworksGetDtoDto.setFileDownloadUri(index.getFileDownloadUri());
-            artworksGetDtoDto.setFileType(index.getFileType());
-            artworksGetDtoDto.setSize(index.getSize());
-            artworksGetDtoDto.setDescription(index.getDescription());
-            artworksGetDtoDto.setTags(index.getTags());
-            artworksGetDtoDto.setPrice(index.getPrice());
-            allArtworks.add(artworksGetDtoDto);
+        // Iterate through artworks and filter out those not within the last two days
+        for (Artworks artwork : artworks) {
+            LocalDateTime createdAt = artwork.getCreatedAt();
+            if (createdAt.isAfter(startOfYesterday) && createdAt.isBefore(now)) {
+                ArtworksGetDto dto = new ArtworksGetDto();
+                dto.setId(artwork.getProductId());
+                dto.setTitle(artwork.getTitle());
+                dto.setFileDownloadUri(artwork.getFileDownloadUri());
+                dto.setFileType(artwork.getFileType());
+                dto.setSize(artwork.getSize());
+                dto.setDescription(artwork.getDescription());
+                //dto.setTags(artwork.getTags());
+                dto.setPrice(artwork.getPrice());
+                recentArtworks.add(dto);
+            }
         }
-        return ResponseEntity.ok(allArtworks);
+        // Return the filtered list
+        return ResponseEntity.ok(recentArtworks);
     }
 }

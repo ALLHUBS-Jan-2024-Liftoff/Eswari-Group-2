@@ -45,9 +45,6 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Profile profile;
 
-    @OneToMany(mappedBy = "user")
-    private List<Notification> notifications = new ArrayList<>();
-
     //Initiates user_id count
     public User() {}
 

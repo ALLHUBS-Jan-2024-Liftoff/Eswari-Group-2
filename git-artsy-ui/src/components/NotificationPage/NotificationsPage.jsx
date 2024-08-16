@@ -5,28 +5,37 @@ import '../NotificationPage/NotificationPage.css';
 const NotificationPage = () => {
   const [user, setUser] = useState(null);
   const [artworks, setArtworks] = useState([]);
+  const [loading, setLoading] = useState(true);  // Initialize loading state
+  const [error, setError] = useState(null);  // Initialize error state
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {
       setUser(userData);
-      fetchArtworks();
+      if (userData.userRole === 'PATRON') {
+        fetchArtworks();
+      } 
     } else {
       console.log("No user data found in local storage.");
     }
   }, []);
 
+
   const fetchArtworks = async () => {
+    setLoading(true);  // Set loading to true when starting the fetch
+    setError(null);    // Clear any previous errors
     try {
-      const response = await fetch("http://localhost:8082/gitartsy/api/artworks/all");
+      const response = await fetch("http://localhost:8082/gitartsy/api/artworks/recent");
       if (response.ok) {
         const data = await response.json();
         setArtworks(data);
       } else {
-        console.log("Failed to fetch artworks.");
+        setError("Failed to fetch artworks.");
       }
     } catch (error) {
-      console.error("Error fetching artworks:", error);
+      setError("Error fetching artworks: " + error.message);
+    } finally {
+      setLoading(false);  // Set loading to false after the fetch is complete
     }
   };
 
@@ -34,28 +43,30 @@ const NotificationPage = () => {
     <div className="app-container">
       <Banner />
       <div className="notification-container">
-        <table className="artworks-table">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
+        <h2>Recent Artworks</h2>
+        {loading && <p>Loading artworks...</p>}
+        {error && <p className="error">{error}</p>}
+        {artworks.length > 0 ? (
+          <div className="artworks-grid">
             {artworks.map((artwork) => (
-              <tr key={artwork.id}>
-                <td>
-                  <img src={artwork.fileDownloadUri} alt={artwork.title} className="artwork-image" />
-                </td>
-                <td>{artwork.title}</td>
-                <td>
-                  <button className="read-button">Read</button>
-                </td>
-              </tr>
+              <div key={artwork.id} className="artwork-card">
+                <img
+                  src={artwork.fileDownloadUri}
+                  alt={artwork.title}
+                  className="artwork-image"
+                />
+                <div className="artwork-details">
+                  <h3>{artwork.title}</h3>
+                  <p>{artwork.description}</p>
+                  <p><strong>Price:</strong> ${artwork.price.toFixed(2)}</p>
+                  {/* <button className="read-button">Read</button> */}
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        ) : (
+          <p>No recent artworks available.</p>
+        )}
       </div>
     </div>
   );
