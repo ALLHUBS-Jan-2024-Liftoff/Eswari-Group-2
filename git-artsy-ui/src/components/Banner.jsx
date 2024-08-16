@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 
 //Header & Navigation
 
+    
 
 const Banner = ( user ) => {
     
@@ -23,6 +24,7 @@ const Banner = ( user ) => {
             setError("Logout failed")
         }
     };
+
     return (
     <div className='header'>
         <h1>gitArtsy</h1>
