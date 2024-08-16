@@ -33,6 +33,9 @@ public class Tag {
         this.name = name;
     }
 
+    public Tag() {
+    }
+
     // Getter for tagId
     public Long getTagId() {
 

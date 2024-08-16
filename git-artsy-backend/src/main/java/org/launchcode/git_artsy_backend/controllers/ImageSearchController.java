@@ -21,15 +21,15 @@ public class ImageSearchController {
 
     @Autowired
     private ArtworksRepo artworksRepo;
-    private Integer artwork_Id;
+    //private Integer artwork_Id;
 
     /**
-     * Searches for artworkss by a keyword.
+     * Searches for artworks by a keyword.
      * @param keyword the keyword to search for.
-     * @return a list of artworkss matching the keyword.
+     * @return a list of artworks matching the keyword.
      */
     @GetMapping("/search")
-    public List<Artworks> searchartworkss(@RequestParam String keyword) {
+    public List<Artworks> searchartworks(@RequestParam String keyword) {
         return ArtworksRepo.findByTitleContainingOrDescriptionContaining(keyword, keyword);
     }
 
@@ -40,8 +40,7 @@ public class ImageSearchController {
      * @return the updated artworks.
      */
     @PostMapping("/{artworkId}/tags")
-    protected Artworks addTagToArtworks(@PathVariable Integer artworkId, @RequestParam String tagName) {
-        // Corrected variable name from ArtworkId to artworkId to match standard Java naming conventions
+    protected Artworks addTagToArtwork(@PathVariable Integer artworkId, @RequestParam String tagName) {
         Optional<Artworks> artworksOptional = artworksRepo.findById(artworkId);
         if (artworksOptional.isPresent()) {
             Artworks artwork = artworksOptional.get(); // Renamed variable for clarity and correct Java conventions
