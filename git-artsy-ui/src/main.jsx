@@ -7,6 +7,14 @@ import LandingLogin from './components/LoginLandingPage/LoginLanding.jsx';
 import SignUpPage from './components/SignUpPage/SignUpPage.jsx';
 import SearchPage from './components/SearchPage/SearchPage.jsx'
 import Gallery from './components/ArtGallery/Gallery.jsx';
+import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
+import NotificationPage from './components/NotificationPage/NotificationsPage.jsx';
+import UploadArtwork from './components/UploadArtwork/UploadArtwork.jsx';
+import ArtworkList from './components/UploadArtwork/ArtworkList.jsx';
+import Tag from './components/Tag/Tag.jsx';
+import 'bootstrap/dist/css/bootstrap.css';
+
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -16,12 +24,41 @@ const router = createBrowserRouter([
     path:'/signup',
     element: <SignUpPage />
   },
-  {path:'/search',
-    element: <SearchPage />},
-    { 
+  {
+    path:'/search',
+    element: <SearchPage />
+  },
+  { 
     path:'/gallery',
     element: <Gallery />
+  },
+
+  {
+  path:'/notifications',
+  element:<NotificationPage />
+  },
+  {
+  path:'/profile',
+  element:<ProfilePage />
+  },
+  // tags, upload artwork and artist's artwork list
+  {
+    path:'/uploadartwork',
+    element: <UploadArtwork />
+  },
+
+  {
+    path:'/artworkslist',
+    element: <ArtworkList />
+  },
+
+  {
+    path:'/tag',
+    element: <Tag />
   }
+
+ 
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

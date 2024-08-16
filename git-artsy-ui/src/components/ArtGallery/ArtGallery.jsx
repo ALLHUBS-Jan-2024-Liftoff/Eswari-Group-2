@@ -8,8 +8,7 @@ const ArtGallery= () => {
     useEffect(() => {
       fetchArtworks(); 
     }, []);
-  
-  //TODO #1 Add slideshow to component and previous/next button
+    
     const fetchArtworks = async () => {
       try {
         const response = await axios.get('https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&fields=id,title,image_id');
@@ -63,14 +62,12 @@ const ArtGallery= () => {
     return (
       <>
         {artworkToShow && (
-          <><div className="gallery">
-            <img src={artworkToShow.imageUrl} />
-            <div>
-            <caption>{artworkToShow.title}</caption>
-            </div>
-            <div>
-            <button onClick={next}>Next</button>
-            </div></div></>
+          <><div className="row">
+            <img className="col-md-6" src={artworkToShow.imageUrl} />
+            <p className="lead col-md-6" id="master-gallery">{artworkToShow.title}</p> <div className="col-md-4 offset-8">
+            <button onClick={next}className="btn btn-primary btn-lg :active" type='button'>Next</button></div>
+            </div></>
+            
         )}
       </>
     );
