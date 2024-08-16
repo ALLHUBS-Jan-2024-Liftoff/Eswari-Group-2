@@ -37,7 +37,7 @@ const PatronCommissionRequest = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container-commission">
             <div>
              <Banner />
              </div>

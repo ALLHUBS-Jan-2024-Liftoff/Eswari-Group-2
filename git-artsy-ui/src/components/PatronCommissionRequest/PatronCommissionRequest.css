@@ -1,6 +1,6 @@
 /* PatronCommissionRequest.css */
 
-.container {
+.container-comission {
     display: flex;
     flex-direction: column;
     max-width: 600px;
