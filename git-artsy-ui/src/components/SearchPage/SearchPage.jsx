@@ -1,5 +1,5 @@
 import Banner from "../Banner";
-import ArtworksSearch from "./ImageSearch"
+import ArtworksSearch from "./ArtworksSearch"
 
 const SearchPage = () => {
     return (

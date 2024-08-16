@@ -5,12 +5,19 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:8082/gitartsy/api/tags';
 
 // API methods for tag operations
-const getAllTags = () => {
-    return axios.get(BASE_URL)
-        .catch(error => {
-            console.error("Error fetching tags:", error);
-            throw error;
-        });
+const getAllTags = async () => {
+    try {
+        const response = await axios.get(BASE_URL);
+        if (response.data && Array.isArray(response.data)) {
+            return response.data;  // Correctly returning data if it's an array
+        } else {
+            console.error("Expected an array for tags, received:", response.data);
+            return []; // Return an empty array if the response is not an array
+        }
+    } catch (error) {  // Correctly placed catch block
+        console.error("Error fetching tags:", error);
+        return []; // Return an empty array on error to maintain function consistency
+    }
 };
 
 const getTagById = (id) => {
