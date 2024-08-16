@@ -120,13 +120,7 @@ public class User {
         this.profile = profile;
     }
 
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
 
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
-    }
 
     //    equals, hashcode, and toString methods if needed
     @Override
