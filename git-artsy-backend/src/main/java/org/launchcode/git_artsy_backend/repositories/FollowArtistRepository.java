@@ -7,7 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface FollowArtistRepository extends JpaRepository<FollowArtist, Long> {
-    Optional<FollowArtist> findByUser(User user);
-
-    void delete(Optional<FollowArtist> follow);
+//    Optional<FollowArtist> findByUser(User user);
 }

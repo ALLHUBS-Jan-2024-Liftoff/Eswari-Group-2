@@ -1,42 +1,35 @@
 package org.launchcode.git_artsy_backend.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class FollowArtist {
 
     @Id
-    @GeneratedValue
-    private Long follow_id;
+    private Long user_id;
+    private Long followed_user_id;
 
-    @ManyToOne
-    private List<User> artistsFollowing = new ArrayList<>();
-
-    public FollowArtist() {}
-
-    public FollowArtist(Long follow_id, List<User> artistsFollowing) {
-        this.follow_id = follow_id;
-        this.artistsFollowing = artistsFollowing;
+    public FollowArtist(Long user_id, Long followed_user_id) {
+        this.user_id = user_id;
+        this.followed_user_id = followed_user_id;
     }
 
-    public Long getFollow_id() {
-        return follow_id;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setFollow_id(Long follow_id) {
-        this.follow_id = follow_id;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
-    public List<User> getArtistsFollowing() {
-        return artistsFollowing;
+    public Long getFollowed_user_id() {
+        return followed_user_id;
     }
 
-    public void setArtistsFollowing(List<User> artistsFollowing) {
-        this.artistsFollowing = artistsFollowing;
+    public void setFollowed_user_id(Long followed_user_id) {
+        this.followed_user_id = followed_user_id;
     }
 }

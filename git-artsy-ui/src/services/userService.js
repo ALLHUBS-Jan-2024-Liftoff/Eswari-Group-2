@@ -36,4 +36,19 @@ export const registerUser = async (
         console.error("Incorrect email or password.", error);
         throw error;
       }
+ };
+
+ export const followArtist = async (
+    user_id,
+    followed_user_id
+  ) => {
+    try {
+        const response = await axios.post(`${BASEAPIURL}/api/follow/follow`,
+          { user_id, followed_user_id },
+        );
+        return response.data;
+      } catch (error) {
+        console.error("Follow failed", error);
+        throw error;
+      }
  }
