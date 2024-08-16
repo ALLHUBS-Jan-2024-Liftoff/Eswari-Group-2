@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './Login';
 import ArtworksPopup from './Artwork';
-import '../styling.css';
+//import '../styling.css';
 import Banner from '../Banner';
 import './LoginLanding.css';
 
