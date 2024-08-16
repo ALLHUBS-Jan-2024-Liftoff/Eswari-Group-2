@@ -15,6 +15,7 @@ import Tag from './components/Tag/Tag.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
     path:'/tag',
     element: <Tag />
   }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
