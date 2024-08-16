@@ -1,7 +1,6 @@
 package org.launchcode.git_artsy_backend.models.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import java.util.regex.Pattern;
 
 public class RegisterDTO{
 
@@ -10,6 +9,19 @@ public class RegisterDTO{
     private String password;
     private String role;
     private String verifyPassword;
+
+    public static boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern patttern = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return patttern.matcher(email).matches();
+    }
 
     public String getUsername() {
         return username;

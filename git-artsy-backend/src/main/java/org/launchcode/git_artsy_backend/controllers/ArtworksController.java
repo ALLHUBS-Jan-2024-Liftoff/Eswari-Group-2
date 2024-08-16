@@ -242,6 +242,7 @@ public class ArtworksController {
                 .body(resource);
     }
 
+
     @GetMapping("recent")
     public ResponseEntity<List<ArtworksGetDto>> getRecentArtworks() {
         // Get the current date and time
@@ -277,5 +278,24 @@ public class ArtworksController {
         }
         // Return the filtered list
         return ResponseEntity.ok(recentArtworks);
+
+    @GetMapping
+    public ResponseEntity<List<ArtworksGetDto>> getAllArtworks() {
+        List<Artworks> artworks = artworkRepo.findAll();
+
+        List<ArtworksGetDto> allArtworks = new ArrayList<>();
+
+        for (Artworks index : artworks)
+        {
+            ArtworksGetDto artworksGetDtoDto = new ArtworksGetDto();
+            artworksGetDtoDto.setTitle(index.getTitle());
+            artworksGetDtoDto.setFileDownloadUri(index.getFileDownloadUri());
+            artworksGetDtoDto.setFileType(index.getFileType());
+            artworksGetDtoDto.setSize(index.getSize());
+            allArtworks.add(artworksGetDtoDto);
+
+        }
+
+        return ResponseEntity.ok(allArtworks);
     }
 }
