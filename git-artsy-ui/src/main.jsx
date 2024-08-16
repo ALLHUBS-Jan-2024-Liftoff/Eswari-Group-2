@@ -49,7 +49,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path:'/artworklist',
+    path:'/artworkslist',
     element: <ArtworkList />
   },
 
@@ -60,6 +60,9 @@ const router = createBrowserRouter([
   {path: '/commissions',
     element: <PatronCommissionRequest />
   }
+
+ 
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -227,7 +227,7 @@ public class ArtworksController {
             // which means the file is treated as a binary file that could be of any type.
             contentType = "application/octet-stream";
         }
-        
+
         // If content type is still null, set it to "application/octet-stream"
         if (contentType == null) {
             //set type of a file to a default value
@@ -239,5 +239,26 @@ public class ArtworksController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    // Endpoint to get all artworks
+    @GetMapping
+    public ResponseEntity<List<ArtworksGetDto>> getAllArtworks() {
+        List<Artworks> artworks = artworkRepo.findAll();
+
+        List<ArtworksGetDto> allArtworks = new ArrayList<>();
+
+        for (Artworks index : artworks)
+        {
+            ArtworksGetDto artworksGetDtoDto = new ArtworksGetDto();
+            artworksGetDtoDto.setTitle(index.getTitle());
+            artworksGetDtoDto.setFileDownloadUri(index.getFileDownloadUri());
+            artworksGetDtoDto.setFileType(index.getFileType());
+            artworksGetDtoDto.setSize(index.getSize());
+            allArtworks.add(artworksGetDtoDto);
+
+        }
+
+        return ResponseEntity.ok(allArtworks);
     }
 }

@@ -1,13 +1,31 @@
 import Banner from "../Banner";
 
 import React, { useEffect, useState } from 'react';
-import api from '../../services/artworkService'; 
+import api from "../../services/artworkService";
 
 
 const ArtworkList = () => {
     const [artworks, setArtworks] = useState([]);
     const [error, setError] = useState("");
     const [user, setUser] = useState(null);
+    const [profileId, setProfileId] = useState(null);
+
+    const fetchProfileId = async (userId) => {
+        try {
+            const response = await fetch(`http://localhost:8082/gitartsy/api/profiles/profileid/${userId}`);
+            const data = await response.json();
+            
+            if (data !== 0) {
+                setProfileId(data);
+            } else {
+                console.error('Profile not found for the user');
+                setError('Profile not found');
+            }
+        } catch (error) {
+            console.error("Error fetching profile ID:", error);
+            setError('Error fetching profile ID');
+        }
+    };
     
 
     useEffect(() => {
@@ -15,6 +33,7 @@ const ArtworkList = () => {
             const userData = JSON.parse(localStorage.getItem('user'));
             if (userData) {
                 setUser(userData);
+                fetchProfileId(userData.userid);
             } else {
                 setError("No user data found");
             }
@@ -25,15 +44,11 @@ const ArtworkList = () => {
 
     useEffect(() => {
         const getAllArts = async () => {
-            if (user) {
+            if (profileId) {
                 try {
-                    const response = await api.fetchArtworksByProfile(user.userid);
+                    const response = await api.fetchArtworksByProfile(profileId);
                     console.log("Response from API:", response);
-                    setArtworks(response.data);
-                    if (response && response.data) {
-                        setArtworks(response.data);
-                    } else if (response) {
-                        // Fallback to response if response.data is not available
+                    if (response) {
                         setArtworks(response);
                     } else {
                         throw new Error("Invalid response structure");
@@ -46,7 +61,7 @@ const ArtworkList = () => {
         };
 
         getAllArts();
-    }, [user]);
+    }, [profileId]); // Wait until profileId is set before calling getAllArts
 
     return (
       <div className="app-container">
