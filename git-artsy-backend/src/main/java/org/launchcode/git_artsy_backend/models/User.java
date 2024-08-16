@@ -112,16 +112,6 @@ public class User {
         this.role = role;
     }
 
-    public Profile getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
-
-
-
     //    equals, hashcode, and toString methods if needed
     @Override
     public boolean equals(Object o) {
