@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.launchcode.git_artsy_backend.models.dto.RegisterDTO.isValid;
+
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "http://localhost:5173")
@@ -32,12 +34,12 @@ public class UserController {
 
     //gets user and user session key for user in session
     public User getUserFromSession(HttpSession session) {
-        Long userId = (Long) session.getAttribute(userSessionKey);
-        if (userId == null) {
+        Long userInSession = (Long) session.getAttribute(userSessionKey);
+        if (userInSession == null) {
             return null;
         }
 
-        Optional<User> user = userRepository.findById(userId);
+        Optional<User> user = userRepository.findById(userInSession);
 
         if (user.isEmpty()) {
             return null;
@@ -65,8 +67,18 @@ public class UserController {
                 response = ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(responseBody);
+            }  else if (!isValid(registerDTO.getEmail())) {
+                responseBody.put("message", "Valid Email required");
+                response = ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(responseBody);
             } else if (registerDTO.getPassword().isEmpty()) {
                 responseBody.put("message", "Password required");
+                response = ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(responseBody);
+            } else if (registerDTO.getPassword().length() < 8 || registerDTO.getPassword().length() > 25 ) {
+                responseBody.put("message", "Invalid password. Must be between 8 and 25 characters.");
                 response = ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(responseBody);
@@ -81,7 +93,7 @@ public class UserController {
                         .status(HttpStatus.BAD_REQUEST)
                         .body(responseBody);
             } else if (existingUser == null && !registerDTO.getUsername().isEmpty() && !registerDTO.getPassword().isEmpty()){
-                responseBody.put("message", "Given user details are successfully registered");
+                responseBody.put("message", "User sign up successful");
                 response = ResponseEntity
                         .status(HttpStatus.CREATED)
                         .body(responseBody);
@@ -108,7 +120,7 @@ public class UserController {
         User theUser = userRepository.findByEmail(loginDTO.getEmail());
         String password = loginDTO.getPassword();
         if (theUser == null) {
-            responseBody.put("message", "Username does not exist");
+            responseBody.put("message", "User does not exist");
             response = ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(responseBody);

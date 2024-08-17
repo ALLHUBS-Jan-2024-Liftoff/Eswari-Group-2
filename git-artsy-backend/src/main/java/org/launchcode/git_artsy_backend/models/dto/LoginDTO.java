@@ -4,20 +4,14 @@ import jakarta.validation.constraints.*;
 
 public class LoginDTO {
 
-    @NotEmpty
-    @Email
     private String email;
-
-    @NotBlank
-    @NotNull
-    @Size(min = 8, max = 25, message = "Invalid password. Must be between 8 and 25 characters.")
     private String password;
 
-    public @NotEmpty @Email String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NotEmpty @Email String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

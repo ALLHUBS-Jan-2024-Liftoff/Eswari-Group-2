@@ -51,4 +51,14 @@ export const registerUser = async (
         console.error("Follow failed", error);
         throw error;
       }
- }
+  };
+
+  export const userLogout = async () => {
+    try {
+      const response = await axios.get(`${BASEAPIURL}/api/user/logout`,
+        { withCredentials: true });
+    } catch (error) {
+      console.error("Log out failed.", error);
+      throw error;
+    } 
+};

@@ -7,6 +7,7 @@ import java.util.List;
 
 
 public class ArtworksGetDto {
+    private Integer Id;
     private String title;
     private String fileDownloadUri;
     private String fileType;
@@ -16,6 +17,8 @@ public class ArtworksGetDto {
     private List<Tag> tags = new ArrayList<>();
 
     // Getters and Setters
+    public Integer getId() { return Id; }
+    public void setId(Integer id) { this.Id = id; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public String getFileDownloadUri() { return fileDownloadUri; }
