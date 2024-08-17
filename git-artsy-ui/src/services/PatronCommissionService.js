@@ -13,9 +13,10 @@ export const getAllRequests = async () => {
     }
 };
 
+//fromUserId, toUserId, requestType, detail, description, subject
 // Create a new commission request
 export const createRequest = async (
-    fromUserId, toUserId, requestType, detail, description, subject
+    fromUserId, toUserId, detail, description, subject
 ) => {
     try {
         const response = await axios.post(`${BASE_URL}`, 

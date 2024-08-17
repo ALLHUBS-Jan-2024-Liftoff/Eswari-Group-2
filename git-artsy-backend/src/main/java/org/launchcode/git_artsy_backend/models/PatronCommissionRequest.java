@@ -14,7 +14,7 @@ public class PatronCommissionRequest {
     //Should I keep fromUserId, toUserId, requestt?
     private Long fromUserId;
     private Long toUserId;
-    private String request;
+    //private String request;
 
     private String detail;
     private String description;
@@ -29,7 +29,7 @@ public class PatronCommissionRequest {
         this.subject = subject;
         this.fromUserId = fromUserId;
         this.toUserId = toUserId;
-        this.request = request;
+        ///this.request = request;
     }
 
     // Getters and setters
@@ -81,11 +81,11 @@ public class PatronCommissionRequest {
         this.toUserId = toUserId;
     }
 
-    public String getRequest() {
-        return request;
-    }
-
-    public void setRequest(String request) {
-        this.request = request;
-    }
+//    public String getRequest() {
+//        return request;
+//    }
+//
+//    public void setRequest(String request) {
+//        this.request = request;
+//    }
 }

@@ -18,7 +18,12 @@ const PatronCommissionRequest = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await createRequest(fromUserId, toUserId, requestType, detail, description, subject);
+            //const response = await createRequest(fromUserId, toUserId, requestType, detail, description, subject);
+            //console.log(requestType);
+            console.log(detail);
+            console.log(description);
+            console.log(subject);
+            const response = await createRequest(1, 2, detail, description, subject);
             setRequest(response.data);
             setMessage("Commission Sent!");
             window.location.href = "/";
@@ -45,8 +50,8 @@ const PatronCommissionRequest = () => {
                     <label>Details (e.g., Painting, Drawing, Mural, etc.)</label>
                     <input
                         type="text"
-                        value={requestType}
-                        onChange={(e) => setRequestType(e.target.value)}
+                        value={detail}
+                        onChange={(e) => setDetail(e.target.value)}
                         required
                     />
                 </div>
