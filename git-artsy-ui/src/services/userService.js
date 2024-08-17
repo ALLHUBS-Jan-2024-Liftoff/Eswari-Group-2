@@ -38,19 +38,44 @@ export const registerUser = async (
       }
  };
 
+ export const isUserFollowed = async (userId, followedUserId) => {
+  try {
+    const response = await axios.get(`${BASEAPIURL}/api/follow/status`, {
+      params: { userId, followedUserId },
+    });
+    return response.data.isFollowing;
+  } catch (error) {
+    console.error("Error checking follow status", error);
+    throw error;
+  }
+};
+
  export const followArtist = async (
-    user_id,
-    followed_user_id
+    userId,
+    followedUserId
   ) => {
     try {
         const response = await axios.post(`${BASEAPIURL}/api/follow/follow`,
-          { user_id, followed_user_id },
+          { userId, followedUserId },
         );
         return response.data;
       } catch (error) {
         console.error("Follow failed", error);
         throw error;
       }
+  };
+
+  export const unfollowArtist = async (userId, followedUserId) => {
+    try {
+      const response = await axios.post(`${BASEAPIURL}/api/follow/unfollow`, {
+        userId,
+        followedUserId,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Unfollow failed", error);
+      throw error;
+    }
   };
 
   export const userLogout = async () => {
