@@ -1,62 +1,96 @@
 package org.launchcode.git_artsy_backend.controllers;
-import org.springframework.http.HttpStatus;
+
 import org.launchcode.git_artsy_backend.models.PatronCommissionRequest;
+import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.repositories.PatronCommissionRequestRepository;
+import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
-// Controller for managing commission requests.
-// Provides endpoints for creating, reading, updating, and deleting commission requests.
-
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping ("gitartsy/api/commissions")
-@CrossOrigin(origins = "http://localhost:5173")// Allows CORS requests from the specified origin
+@RequestMapping("/api/commissions")
 public class PatronCommissionRequestController {
 
     @Autowired
-    private PatronCommissionRequestRepository repository;
+    private PatronCommissionRequestRepository patronCommissionRequestRepository;
 
-    // Retrieves all commission requests.
-    @GetMapping
-    public Iterable<PatronCommissionRequest> getAllRequests() {
-        return repository.findAll();
-    }
+    @Autowired
+    private UserRepository userRepository;
+    private Long id;
 
-    // Retrieves a commission request by its ID.
-    @GetMapping("/{id}")
-    public PatronCommissionRequest getRequestById(@PathVariable Long id) {
-        Optional<PatronCommissionRequest> request = repository.findById(id);
-        return request.orElse(null);
-    }
+    // Create a new commission request
+    @PostMapping("api/commissions/submit")
+    public ResponseEntity<PatronCommissionRequest> submitRequest(
+            @RequestParam("artistId") Long artistId,
+            @RequestBody PatronCommissionRequest request) {
 
-    // Creates a new commission request.
-    @PostMapping()
-    public PatronCommissionRequest createRequest(@RequestBody PatronCommissionRequest request) {
-        return repository.save(request);
-    }
+        Optional<User> artistOptional = userRepository.findById(artistId);
+        if (artistOptional.isPresent()) {
+            User artist = artistOptional.get();
+            request.setArtist(artist);  // Set the artist's user object
 
-    // Updates an existing commission request.
-    @PutMapping("/{id}")
-    public PatronCommissionRequest updateRequest(@PathVariable Long id, @RequestBody PatronCommissionRequest newRequest) {
-        if (repository.existsById(id)) {
-            newRequest.setId(id);
-            return repository.save(newRequest);
+            PatronCommissionRequest savedRequest = patronCommissionRequestRepository.save(request);
+            return ResponseEntity.ok(savedRequest);
         } else {
-            return null;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
-    // Deletes a commission request by its ID.
-    @DeleteMapping("/{id}")
-    public boolean deleteRequest(@PathVariable Long id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
+    // Fetch all commission requests
+    @GetMapping("api/commissions")
+    public ResponseEntity<List<PatronCommissionRequest>> getAllRequests() {
+        List<PatronCommissionRequest> requests = patronCommissionRequestRepository.findAll();
+        return ResponseEntity.ok(requests);
+    }
+
+    // Fetch a single commission request by ID
+    @GetMapping("/api/commissions/{id}")
+    public ResponseEntity<PatronCommissionRequest> getRequestById(@PathVariable Long id) {
+        Optional<PatronCommissionRequest> requestOptional = patronCommissionRequestRepository.findById(id);
+        if (requestOptional.isPresent()) {
+            return ResponseEntity.ok(requestOptional.get());
         } else {
-            return false;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    // Update a commission request by ID
+    @PutMapping("/api/commissions/{id}")
+    public ResponseEntity<PatronCommissionRequest> updateRequest(
+            @PathVariable Long id,
+            @RequestBody PatronCommissionRequest updatedRequest) {
+
+        Optional<PatronCommissionRequest> requestOptional = patronCommissionRequestRepository.findById(id);
+        if (requestOptional.isPresent()) {
+            PatronCommissionRequest existingRequest = requestOptional.get();
+
+            // Update the necessary fields
+            existingRequest.setDetails(updatedRequest.getDetails());
+            existingRequest.setDescription(updatedRequest.getDescription());
+            existingRequest.setSubject(updatedRequest.getSubject());
+
+            PatronCommissionRequest savedRequest = patronCommissionRequestRepository.save(existingRequest);
+            return ResponseEntity.ok(savedRequest);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    // Delete a commission request by ID
+    @DeleteMapping("/api/commissions/{id}")
+    public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
+        this.id = id;
+        if (patronCommissionRequestRepository.existsById(id)) {
+            patronCommissionRequestRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }

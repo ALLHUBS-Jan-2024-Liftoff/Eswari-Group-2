@@ -2,41 +2,49 @@ import React, { useState } from 'react';
 import { createRequest } from '../../services/PatronCommissionService'; 
 import './PatronCommissionRequest.css'; 
 import Banner from '../Banner';
+import axios from 'axios';
 
 const PatronCommissionRequest = () => {
     // State to hold the form input values for creating a new request
-    const [request, setRequest] = useState('');
-    const [fromUserId, setFromUserId] = useState('');
-    const [toUserId, setToUserId] = useState('');
-    const [requestType, setRequestType] = useState('');
-    const [detail, setDetail] = useState('');
-    const [description, setDescription] = useState('');
-    const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
+  const [toUserId, setToUserId] = useState('');
+  const [subject, setSubject] = useState('');
+  const [details, setDetails] = useState('');
+  const [description, setDescription] = useState('');
 
-    // Handler for creating a new commission request
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            //const response = await createRequest(fromUserId, toUserId, requestType, detail, description, subject);
-            //console.log(requestType);
-            console.log(detail);
-            console.log(description);
-            console.log(subject);
-            const response = await createRequest(1, 2, detail, description, subject);
-            setRequest(response.data);
-            setMessage("Commission Sent!");
-            window.location.href = "/";
-        } catch (error) {
-            setMessage(error.response?.data?.message || 'Error creating commission request');
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Prepare the data object using userId instead of artistId
+      const data = {
+        toUserId: toUserId,          // Use userId here
+        subject: subject,
+        details: details,
+        description: description,
+      };
+
+      // Make the axios POST request
+      const response = await axios.post('/api/commissions/', data);
+      console.log('Request submitted successfully:', response.data);
+    } catch (error) {
+      console.error('Error submitting request:', error);
+    }
+  };
 
     return (
-        <div className="container-commission">
+        <div className="container-commissions">
             <Banner />
             <h2 className="title">Request A Commission</h2>
             <form onSubmit={handleSubmit}>
+
+            <div className="form-group">
+                    <label>Artist User ID</label>
+                    <input
+                        type="text"
+                        value={toUserId}
+                        onChange={(e) => setToUserId(e.target.value)}
+                        required
+                    />
+                </div>
                 <div className="form-group">
                     <label>Subject</label>
                     <input
@@ -50,8 +58,8 @@ const PatronCommissionRequest = () => {
                     <label>Details (e.g., Painting, Drawing, Mural, etc.)</label>
                     <input
                         type="text"
-                        value={detail}
-                        onChange={(e) => setDetail(e.target.value)}
+                        value={details}
+                        onChange={(e) => setDetails(e.target.value)}
                         required
                     />
                 </div>
@@ -65,7 +73,7 @@ const PatronCommissionRequest = () => {
                 </div>
                 <button type="submit" className="submit-button">Submit Request</button>
             </form>
-            {message && <p>{message}</p>}
+            {/* {message && <p>{message}</p>} */}
         </div>
     );
 };
