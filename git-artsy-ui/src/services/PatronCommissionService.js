@@ -14,9 +14,13 @@ export const getAllRequests = async () => {
 };
 
 // Create a new commission request
-export const createRequest = async (newRequest) => {
+export const createRequest = async (
+    fromUserId, toUserId, requestType, detail, description, subject
+) => {
     try {
-        const response = await axios.post(BASE_URL, newRequest);
+        const response = await axios.post(`${BASE_URL}`, 
+        { fromUserId, toUserId, requestType, detail, description, subject });
+        //console.log(response)
         return response.data;
     } catch (error) {
         console.error('Error creating commission request:', error);

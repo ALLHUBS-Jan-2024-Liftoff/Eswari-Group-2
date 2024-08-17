@@ -5,6 +5,7 @@ import Banner from '../Banner';
 
 const PatronCommissionRequest = () => {
     // State to hold the form input values for creating a new request
+    const [request, setRequest] = useState('');
     const [fromUserId, setFromUserId] = useState('');
     const [toUserId, setToUserId] = useState('');
     const [requestType, setRequestType] = useState('');
@@ -17,7 +18,8 @@ const PatronCommissionRequest = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await createRequest({ fromUserId, toUserId, requestType, detail, description, subject });
+            const response = await createRequest(fromUserId, toUserId, requestType, detail, description, subject);
+            setRequest(response.data);
             setMessage("Commission Sent!");
             window.location.href = "/";
         } catch (error) {

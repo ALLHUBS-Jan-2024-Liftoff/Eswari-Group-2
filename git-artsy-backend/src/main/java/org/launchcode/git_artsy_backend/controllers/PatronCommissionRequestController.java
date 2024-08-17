@@ -1,5 +1,5 @@
 package org.launchcode.git_artsy_backend.controllers;
-
+import org.springframework.http.HttpStatus;
 import org.launchcode.git_artsy_backend.models.PatronCommissionRequest;
 import org.launchcode.git_artsy_backend.repositories.PatronCommissionRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,8 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping ("/api/commissions")
+@RequestMapping ("gitartsy/api/commissions")
+@CrossOrigin(origins = "http://localhost:5173")// Allows CORS requests from the specified origin
 public class PatronCommissionRequestController {
 
     @Autowired
@@ -32,7 +33,7 @@ public class PatronCommissionRequestController {
     }
 
     // Creates a new commission request.
-    @PostMapping
+    @PostMapping()
     public PatronCommissionRequest createRequest(@RequestBody PatronCommissionRequest request) {
         return repository.save(request);
     }
