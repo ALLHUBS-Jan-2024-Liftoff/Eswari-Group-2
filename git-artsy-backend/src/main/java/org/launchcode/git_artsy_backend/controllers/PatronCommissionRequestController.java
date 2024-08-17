@@ -2,7 +2,6 @@ package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.PatronCommissionRequest;
 import org.launchcode.git_artsy_backend.repositories.PatronCommissionRequestRepository;
-import org.launchcode.git_artsy_backend.repositories.PatronCommissionRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

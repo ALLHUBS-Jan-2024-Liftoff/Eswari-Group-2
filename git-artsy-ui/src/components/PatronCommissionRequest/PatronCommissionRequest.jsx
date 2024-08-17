@@ -5,72 +5,60 @@ import Banner from '../Banner';
 
 const PatronCommissionRequest = () => {
     // State to hold the form input values for creating a new request
-    const [newRequest, setNewRequest] = useState({
-        fromUserId: '',    // ID of the user making the request
-        toUserId: '',      // ID of the artist receiving the request
-        request: '',       // The type of request (e.g., Painting, Drawing, Mural)
-        detail: '',        // Additional details for the request
-        description: '',   // Description of the request
-        subject: ''        // Subject line for the request
-    });
+    const [fromUserId, setFromUserId] = useState('');
+    const [toUserId, setToUserId] = useState('');
+    const [requestType, setRequestType] = useState('');
+    const [detail, setDetail] = useState('');
+    const [description, setDescription] = useState('');
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
 
     // Handler for creating a new commission request
-    const handleCreate = async (e) => {
-        e.preventDefault(); // Prevent the default form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            // Call the service method to create a new request
-            const createdRequest = await createRequest(newRequest);
-            console.log('Request created successfully:', createdRequest); // Log success message
-
-            // Reset the form fields after successful creation
-            setNewRequest({
-                fromUserId: '',
-                toUserId: '',
-                request: '',
-                detail: '',
-                description: '',
-                subject: ''
-            });
+            await createRequest({ fromUserId, toUserId, requestType, detail, description, subject });
+            setMessage("Commission Sent!");
+            window.location.href = "/";
         } catch (error) {
-            console.error('Error creating commission request:', error); // Log error message
+            setMessage(error.response?.data?.message || 'Error creating commission request');
         }
     };
 
     return (
         <div className="container-commission">
-            <div>
-             <Banner />
-             </div>
-            <h2 className="title">Request A Commission</h2> {/* Title at the top */}
-            <form onSubmit={handleCreate}> {/* Form for creating a new request */}
+            <Banner />
+            <h2 className="title">Request A Commission</h2>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Subject</label> {/* Label for the subject field */}
+                    <label>Subject</label>
                     <input
                         type="text"
-                        value={newRequest.subject} // Bind input value to state
-                        onChange={(e) => setNewRequest({ ...newRequest, subject: e.target.value })} // Update state on change
-                        required // Make this field required
+                        value={subject}
+                        onChange={(e) => setSubject(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="form-group">
-                    <label>Details (e.g., Painting, Drawing, Mural, etc.)</label> {/* Label for the request field */}
+                    <label>Details (e.g., Painting, Drawing, Mural, etc.)</label>
                     <input
                         type="text"
-                        value={newRequest.request} // Bind input value to state
-                        onChange={(e) => setNewRequest({ ...newRequest, request: e.target.value })} // Update state on change
-                        required // Make this field required
+                        value={requestType}
+                        onChange={(e) => setRequestType(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="form-group">
-                    <label>Description (e.g., Disney, Bats, Soccer, etc.)</label> {/* Label for the description field */}
+                    <label>Description (e.g., Disney, Bats, Soccer, etc.)</label>
                     <textarea
-                        value={newRequest.description} // Bind textarea value to state
-                        onChange={(e) => setNewRequest({ ...newRequest, description: e.target.value })} // Update state on change
-                        required // Make this field required
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
                     />
                 </div>
-                <button type="submit" className="submit-button">Submit Request</button> {/* Submit button */}
+                <button type="submit" className="submit-button">Submit Request</button>
             </form>
+            {message && <p>{message}</p>}
         </div>
     );
 };
