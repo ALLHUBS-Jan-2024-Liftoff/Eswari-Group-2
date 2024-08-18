@@ -28,6 +28,23 @@ public class PatronCommissionRequest {
     // Getters and setters
 
 
+    public PatronCommissionRequest(String subject, String details, String description) {
+        this.subject = subject;
+        this.details = details;
+        this.description = description;
+    }
+
+    public PatronCommissionRequest(Long id, User artist, String subject, String details, String description) {
+        this.id = id;
+        this.artist = artist;
+        this.subject = subject;
+        this.details = details;
+        this.description = description;
+    }
+
+    public PatronCommissionRequest() {
+    }
+
     public Long getId() {
         return id;
     }

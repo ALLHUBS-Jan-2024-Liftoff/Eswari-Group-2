@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8082/gitartsy/api/commissions';
+const BASE_URL = 'http://localhost:8082/api/commissions';
 
 // Fetch all commission requests
 export const getAllRequests = async () => {

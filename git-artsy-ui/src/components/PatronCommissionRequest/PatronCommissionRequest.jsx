@@ -16,7 +16,7 @@ const PatronCommissionRequest = () => {
     try {
       // Prepare the data object
       const data = {
-        toUserId: toUserId,         
+        artist_id: toUserId,         
         subject: subject,
         details: details,
         description: description,

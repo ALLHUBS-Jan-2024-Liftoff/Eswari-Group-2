@@ -2,6 +2,7 @@ package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.PatronCommissionRequest;
 import org.launchcode.git_artsy_backend.models.User;
+import org.launchcode.git_artsy_backend.models.dto.PatronDTO;
 import org.launchcode.git_artsy_backend.repositories.PatronCommissionRequestRepository;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/commissions")
+@RequestMapping("api/commissions")
 public class PatronCommissionRequestController {
 
     @Autowired
@@ -26,15 +27,18 @@ public class PatronCommissionRequestController {
     // Create a new commission request
     @PostMapping("/submit")
     public ResponseEntity<PatronCommissionRequest> submitRequest(
-            @RequestParam("userId") Long userId,
-            @RequestBody PatronCommissionRequest request) {
+            @RequestBody PatronDTO outgoingCommission
+            )
+            {
 
-        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<User> userOptional = userRepository.findById(outgoingCommission.getArtist_id());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            request.setArtist(user);  // Set the user's object as the artist in the request
+            PatronCommissionRequest patronCommissionRequest = new PatronCommissionRequest(
+                    outgoingCommission.getSubject(), outgoingCommission.getDetails(), outgoingCommission.getDescription());
+            patronCommissionRequest.setArtist(user);
 
-            PatronCommissionRequest savedRequest = patronCommissionRequestRepository.save(request);
+            PatronCommissionRequest savedRequest = patronCommissionRequestRepository.save(patronCommissionRequest);
             return ResponseEntity.ok(savedRequest);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

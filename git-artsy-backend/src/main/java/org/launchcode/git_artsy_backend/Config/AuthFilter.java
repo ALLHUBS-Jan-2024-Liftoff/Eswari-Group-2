@@ -22,7 +22,7 @@ public class AuthFilter  implements HandlerInterceptor {
 
     private static final List<String> whitelist = Arrays.asList("/user/login", "/api/user/newUser", "/user/logout"
             ,"/gitartsy/api/artworks/**", "/uploads/**", "/gitartsy/api/tags/**", "/gitartsy/api/profiles/**",
-            "/gitartsy/api/profiles/profileid/**", "/gitartsy/api/**", "/gitartsy/api/commissions/**");
+            "/gitartsy/api/profiles/profileid/**", "/gitartsy/api/**", "/api/commissions/**");
 
 
 
