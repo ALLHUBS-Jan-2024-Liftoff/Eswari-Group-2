@@ -6,7 +6,7 @@ import java.util.Set;
 //Represents an image in the application.
 
 @Entity
-public class ImageSearch {
+public class ArtworksSearch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,17 +18,17 @@ public class ImageSearch {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "image_tag",
-            joinColumns = @JoinColumn(name = "image_id"),
+            name = "artwork_tag",
+            joinColumns = @JoinColumn(name = "artwork_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags;
 
     // Constructors
-    public ImageSearch() {
+    public ArtworksSearch() {
     }
 
-    public ImageSearch(String url, String title, String description) {
+    public ArtworksSearch(String url, String title, String description) {
         this.url = url;
         this.title = title;
         this.description = description;

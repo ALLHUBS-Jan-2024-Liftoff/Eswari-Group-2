@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/artworks")
-public class ImageSearchController {
+public class ArtworksSearchController {
 
     @Autowired
     private TagRepository tagRepository;
