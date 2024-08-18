@@ -13,7 +13,7 @@ public class PatronCommissionRequest {
 
     // Reference to the artist's user ID instead of an email
     @ManyToOne
-    @JoinColumn(name = "artist_id", nullable = false)
+    @JoinColumn(name = "artist_id",  referencedColumnName = "user_id", nullable = false)
     private User artist;
 
     // The subject of the commission request.
@@ -84,6 +84,8 @@ public class PatronCommissionRequest {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    
 }
 
 
