@@ -22,18 +22,17 @@ public class PatronCommissionRequestController {
 
     @Autowired
     private UserRepository userRepository;
-    private Long id;
 
     // Create a new commission request
-    @PostMapping("api/commissions/submit")
+    @PostMapping("/submit")
     public ResponseEntity<PatronCommissionRequest> submitRequest(
-            @RequestParam("artistId") Long artistId,
+            @RequestParam("userId") Long userId,
             @RequestBody PatronCommissionRequest request) {
 
-        Optional<User> artistOptional = userRepository.findById(artistId);
-        if (artistOptional.isPresent()) {
-            User artist = artistOptional.get();
-            request.setArtist(artist);  // Set the artist's user object
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            request.setArtist(user);  // Set the user's object as the artist in the request
 
             PatronCommissionRequest savedRequest = patronCommissionRequestRepository.save(request);
             return ResponseEntity.ok(savedRequest);
@@ -43,14 +42,14 @@ public class PatronCommissionRequestController {
     }
 
     // Fetch all commission requests
-    @GetMapping("api/commissions")
+    @GetMapping
     public ResponseEntity<List<PatronCommissionRequest>> getAllRequests() {
         List<PatronCommissionRequest> requests = patronCommissionRequestRepository.findAll();
         return ResponseEntity.ok(requests);
     }
 
     // Fetch a single commission request by ID
-    @GetMapping("/api/commissions/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PatronCommissionRequest> getRequestById(@PathVariable Long id) {
         Optional<PatronCommissionRequest> requestOptional = patronCommissionRequestRepository.findById(id);
         if (requestOptional.isPresent()) {
@@ -61,7 +60,7 @@ public class PatronCommissionRequestController {
     }
 
     // Update a commission request by ID
-    @PutMapping("/api/commissions/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<PatronCommissionRequest> updateRequest(
             @PathVariable Long id,
             @RequestBody PatronCommissionRequest updatedRequest) {
@@ -83,9 +82,8 @@ public class PatronCommissionRequestController {
     }
 
     // Delete a commission request by ID
-    @DeleteMapping("/api/commissions/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
-        this.id = id;
         if (patronCommissionRequestRepository.existsById(id)) {
             patronCommissionRequestRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

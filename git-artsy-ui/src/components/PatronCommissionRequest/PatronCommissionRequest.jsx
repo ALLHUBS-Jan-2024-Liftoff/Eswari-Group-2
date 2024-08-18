@@ -14,16 +14,16 @@ const PatronCommissionRequest = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Prepare the data object using userId instead of artistId
+      // Prepare the data object
       const data = {
-        toUserId: toUserId,          // Use userId here
+        toUserId: toUserId,         
         subject: subject,
         details: details,
         description: description,
       };
 
       // Make the axios POST request
-      const response = await axios.post('/api/commissions/', data);
+      const response = await axios.post('http://localhost:8082/api/commissions/submit', data);
       console.log('Request submitted successfully:', response.data);
     } catch (error) {
       console.error('Error submitting request:', error);
