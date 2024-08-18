@@ -5,6 +5,7 @@ import artworkService from '../../services/artworkService';
 import './SearchPage.css';
 
 
+
 const ArtworksSearch = () => {
   const [title, setTitle] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
@@ -20,14 +21,14 @@ const ArtworksSearch = () => {
 const handleSearch = async (e) => {
   e.preventDefault();
   try {
-    // Assuming profileId is available or globally set
-    const profileId = 1; // Example profile ID, replace with actual dynamic value
+    const { profileId } = useParams();
     const response = await artworkService.fetchArtworksByProfile(profileId);
     // Filter fetched artworks based on title and tags
-    const filteredArtworks = response.filter(artwork => 
+    const filteredArtworks = artworks.filter(artwork => 
       artwork.title.toLowerCase().includes(title.toLowerCase()) &&
       (selectedTags.length === 0 || artwork.tags.some(tag => selectedTags.includes(tag.id)))
     );
+
     // Update artworks state with the filtered results
     setArtworks(filteredArtworks);
   } catch (error) {

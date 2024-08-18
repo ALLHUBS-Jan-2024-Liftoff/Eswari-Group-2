@@ -1,3 +1,4 @@
+
 package org.launchcode.git_artsy_backend.Config;
 
 import org.springframework.context.annotation.Bean;
@@ -24,7 +25,7 @@ public class Config {
     /**
      * Defines a bean for CORS (Cross-Origin Resource Sharing) filter.
      * This configuration allows application to handle requests from specified origins.
-   */
+     */
 
     @Bean
     public CorsFilter corsFilter() {
