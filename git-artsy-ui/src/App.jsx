@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
-
 import LandingLogin from './components/LoginLandingPage/LoginLanding';
+import PatronCommissionRequest from './components/PatronCommissionRequest/PatronCommissionRequest';
 
 
 const App = () => {
   
 
   return (
-    
+    <>
       <LandingLogin />
-  
+      <PatronCommissionRequest />
+      </>
   
   );
 };
