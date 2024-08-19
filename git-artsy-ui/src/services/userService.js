@@ -2,6 +2,7 @@ import axios from "axios";
 
 const BASEAPIURL = "http://localhost:8082";
 
+// User signup call to backend
 export const registerUser = async (
     username,
     email,
@@ -22,6 +23,7 @@ export const registerUser = async (
     }
  };
 
+//  user login call to backend
  export const userLogin = async (
     email,
     password
@@ -38,6 +40,7 @@ export const registerUser = async (
       }
   };
 
+  // user logout call to back end
   export const userLogout = async () => {
     try {
       const response = await axios.get(`${BASEAPIURL}/api/user/logout`,
@@ -46,4 +49,17 @@ export const registerUser = async (
       console.error("Log out failed.", error);
       throw error;
     } 
+  };
+
+// search call to the backend
+export const searchUsers = async (search) => {
+  try {
+    const response = await axios.get(`${BASEAPIURL}/api/users/search`, {
+      params: { searchQuery: search }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Search failed.", error);
+    throw error;
+  }
 };

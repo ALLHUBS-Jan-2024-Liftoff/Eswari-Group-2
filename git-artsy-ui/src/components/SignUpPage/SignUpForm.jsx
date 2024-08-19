@@ -1,5 +1,3 @@
-// TODO Requires handle submit logic
-// TODO link when registration approved to notifications
 import React, {useState} from "react";
 import { registerUser } from "../../services/userService";
 
