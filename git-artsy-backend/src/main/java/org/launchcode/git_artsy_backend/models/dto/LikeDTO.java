@@ -3,34 +3,27 @@ package org.launchcode.git_artsy_backend.models.dto;
 import jakarta.validation.constraints.NotNull;
 
 public class LikeDTO {
-    @NotNull
-    private Integer likeId;
+    private Long likeId;
 
-    @NotNull
-    private Integer artworkId;
-
-    public LikeDTO(Integer likeId, Integer artworkId) {
-        this.likeId = likeId;
-        this.artworkId = artworkId;
-    }
+    private Integer count;
 
     public LikeDTO() {
 
     }
 
-    public Integer getLikeId() {
+    public Long getLikeId() {
         return likeId;
     }
 
-    public void setLikeId(Integer likeId) {
+    public void setLikeId(Long likeId) {
         this.likeId = likeId;
     }
 
-    public Integer getArtworkId() {
-        return artworkId;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setArtworkId(Integer artworkId) {
-        this.artworkId = artworkId;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }
