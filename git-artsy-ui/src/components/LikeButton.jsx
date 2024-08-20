@@ -5,18 +5,29 @@ import axios from "axios";
 
 
 const likeButton = () => {
-    //state
 
+    //state
+    const [likes, setLikes] = useState();
+    const [artworkId, setArtworkId] = useState();
     const [count, setCount] = useState(0);
     
     //fetch Likes from server
     useEffect(() => {
-       axios.get('http://localhost:8082/gitartsy/api/likes').then(response => setCount(response.data.count))
-        .catch(error => console.error('Error fetching like count:', error))}, []);
+        const fetchLikes = async () => {
+            try {
+                const response = await axios.get('http://localhost:8082/gitartsy/api/likes')
+                console.log(response.data);
+                setLikes(response.data);
+            } catch (error) {
+                console.error('Error fetching likes:', error);
+            }
+        };
+
+        fetchLikes();
+    }, []);
         
-    const handleChange = async (e) => {
-        e.preventDefault();
-        axios.put('http://localhost:8082/gitartsy/api/likes').then(response => setCount(response.data.count + 1))
+    const handleChange = async (count) => {
+        axios.get('http://localhost:8082/gitartsy/api/likes').then(response => setCount(response.data.count + 1))
             .catch(error => console.error('Error in adding like', error))
          };
     //

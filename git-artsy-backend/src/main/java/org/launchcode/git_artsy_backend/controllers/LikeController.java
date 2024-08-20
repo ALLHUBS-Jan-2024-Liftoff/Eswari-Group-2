@@ -33,6 +33,7 @@ public class LikeController {
   public ResponseEntity<String> liked(@RequestParam Long artworkId, @RequestParam Integer count) {
     LikeModel like = likeRepository.getReferenceById(artworkId);
     like.setCount(like.getCount() + 1);
+    likeRepository.save(like);
     return ResponseEntity.ok("Artwork liked");
   }
 

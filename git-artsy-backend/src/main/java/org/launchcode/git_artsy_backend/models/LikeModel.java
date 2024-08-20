@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Entity
 public class LikeModel {
     @Id
-    @Column(name = "artwork_id")
+    @Column(name = "product_id")
     private Long artworkId;
 
     private Integer count = 0;
