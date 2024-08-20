@@ -5,21 +5,25 @@ import org.launchcode.git_artsy_backend.repositories.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
-
 public class LikeModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likeId;
+    @Column(name = "artwork_id")
+    private Long artworkId;
 
-    private Integer count;
+    private Integer count = 0;
 
-
-    public LikeModel(Long likeId, Integer count) {
-        this.likeId = likeId;
-        this.count = 0;
+    public LikeModel(Long artworkId, Integer count) {
+        this.artworkId = artworkId;
+        this.count = count;
     }
 
-    public LikeModel() {}
+    public Long getArtworkId() {
+        return artworkId;
+    }
+
+    public void setArtworkId(Long artworkId) {
+        this.artworkId = artworkId;
+    }
 
     public Integer getCount() {
         return count;
@@ -27,13 +31,5 @@ public class LikeModel {
 
     public void setCount(Integer count) {
         this.count = count;
-    }
-
-    public Long getLikeId() {
-        return likeId;
-    }
-
-    public void setLikeId(Long likeId) {
-        this.likeId = likeId;
     }
 }

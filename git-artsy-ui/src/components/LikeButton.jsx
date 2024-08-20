@@ -1,45 +1,24 @@
 import React, { useState, useEffect} from "react";
-import Button from "react-bootstrap/Button"
+import Button from "react-bootstrap/Button";
+//import api from '../services/likeService';
+import axios from "axios";
 
 
 const likeButton = () => {
     //state
-    const [like, setLike] = useState();
-    const [currentLike, setCurrentLike] = useState(null);
+
     const [count, setCount] = useState(0);
     
     //fetch Likes from server
     useEffect(() => {
-        const fetchLikes = async () => {
-            try {
-                const response = await api.getAllLikes();
-                console.log(response);
-                setLike(response);
-            } catch (error) {
-                console.error('Error in fetching likes')
-            }
-        };
-        fetchLikes();
-    }, []); //runs once
-
-
+       axios.get('http://localhost:8082/gitartsy/api/likes').then(response => setCount(response.data.count))
+        .catch(error => console.error('Error fetching like count:', error))}, []);
+        
     const handleChange = async (e) => {
         e.preventDefault();
-        try {
-            if (currentLike) {
-                await api.updateLike(currentLike, count);
-
-            } else {
-                await api.createLike(count);
-                alert('Liked!');
-            }
-            setCount(count + 1); 
-        } catch (error) {
-            console.error('Error in liking artwork');
-        }
-        
-
-    };
+        axios.post('http://localhost:8082/gitartsy/api/likes').then(response => setCount(response.data.count))
+            .catch(error => console.error('Error in adding like', error))
+         };
     //
 
 

@@ -2,66 +2,59 @@ package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.LikeModel;
 
-import java.util.Optional;
-import java.util.stream.Collectors;
+import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.launchcode.git_artsy_backend.models.dto.LikeDTO;
 import org.launchcode.git_artsy_backend.repositories.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/likes")
+@RequestMapping("gitartsy/api/likes")
 @CrossOrigin(origins = "http://localhost:5173")
 public class LikeController {
 
   @Autowired
   private LikeRepository likeRepository;
 
-  @GetMapping
-  public List<LikeDTO> getAllLikes() {
-    List<LikeModel> likes = (List<LikeModel>) likeRepository.findAll();
-    return likes.stream().map(this::convertToDTO).collect(Collectors.toList());
+  @Autowired
+  private ArtworksRepo artworksRepo;
+
+  //creates the like button for the artwork
+  @PostMapping("/new")
+  public ResponseEntity<String> createLike(@RequestParam Long artworkId, @RequestParam Integer count) {
+    LikeModel like = new LikeModel(artworkId, count);
+    likeRepository.save(like);
+    return ResponseEntity.ok("Artwork Liked");
   }
 
+  @PostMapping("/liked")
+  public ResponseEntity<String> liked(@RequestParam Long artworkId, @RequestParam Integer count) {
+    LikeModel like = likeRepository.getReferenceById(artworkId);
+    like.setCount(like.getCount() + 1);
+    return ResponseEntity.ok("Artwork liked");
+  }
 
-  @GetMapping("/{id}")
-  public LikeDTO getLikeById(@PathVariable Long id) {
-      LikeModel likeModel = likeRepository.findById(id).orElse(null);
-      return likeModel != null ? convertToDTO(likeModel) : null;
-    }
+  @GetMapping("likes/{id}")
+  public ResponseEntity<String> findByArtworkId(@PathVariable Long artworkId) {
+    LikeModel like = likeRepository.findById(artworkId).orElse(null);
+      return ResponseEntity.ok("Artwork found");
+  }
 
-    @PostMapping
-    public LikeDTO createLike(@RequestBody LikeDTO likeDTO) {
-      LikeModel likeModel = new LikeModel();
-      likeModel.setLikeId(likeDTO.getLikeId());
-      likeModel.setCount(likeDTO.getCount());
-      LikeModel savedLike = likeRepository.save(likeModel);
-      return convertToDTO(savedLike);
-    }
-
-    @PutMapping("/{id}")
-    public LikeDTO incrementLike(@PathVariable Long id, @RequestBody LikeDTO likeDTO) {
-      Optional<LikeModel> savedLike = likeRepository.findById(id);
-      if (savedLike.isPresent()) {
-        LikeModel likeModel = savedLike.get();
-        likeModel.setCount(likeDTO.getCount() + 1);
-        LikeModel updatedLike = likeRepository.save(likeModel);
-        return convertToDTO(updatedLike);
-      }
-      return null;
-      }
-
-    private LikeDTO convertToDTO(LikeModel likeModel) {
-      LikeDTO likeDTO = new LikeDTO();
-      likeDTO.setLikeId(likeModel.getLikeId());
-      likeDTO.setCount(likeModel.getCount());
-      return likeDTO;
+  @GetMapping
+  public ResponseEntity<String> getAllLikes() {
+    List<LikeModel> likes = (List<LikeModel>) likeRepository.findAll();
+    return ResponseEntity.ok("Likes found");
   }
 }
+
+
+
+
+
+
+
 
 
 
