@@ -16,7 +16,7 @@ const likeButton = () => {
         
     const handleChange = async (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8082/gitartsy/api/likes').then(response => setCount(response.data.count))
+        axios.put('http://localhost:8082/gitartsy/api/likes').then(response => setCount(response.data.count + 1))
             .catch(error => console.error('Error in adding like', error))
          };
     //
