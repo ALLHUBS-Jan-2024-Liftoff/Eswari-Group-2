@@ -2,6 +2,7 @@ package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.FollowArtist;
 import org.launchcode.git_artsy_backend.models.Profile;
+import org.launchcode.git_artsy_backend.models.User;
 import org.launchcode.git_artsy_backend.repositories.FollowArtistRepository;
 import org.launchcode.git_artsy_backend.repositories.ProfileRepo;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
@@ -10,9 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/follow")
@@ -59,4 +59,40 @@ public class FollowArtistController {
         response.put("isFollowing", isFollowing);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/following")
+    public ResponseEntity<List<String>> getFollowingArtistNames(@RequestParam Long userId) {
+        // Get the list of followed user IDs for the given user ID
+        List<FollowArtist> followList = followArtistRepository.findByUserId(userId);
+
+        // Initialize a list to hold the artist names
+        List<String> artistNames = new ArrayList<>();
+
+        // Loop through the followList to find each followed artist's name
+        for (FollowArtist follow : followList) {
+            // Find the User object for the followed user ID
+            Optional<User> followedUserOptional = userRepository.findById(follow.getFollowedUserId());
+
+            if (followedUserOptional.isPresent()) {
+                // Find the Profile associated with the followed User
+                Optional<Profile> profileOptional = profileRepository.findByUser(followedUserOptional.get());
+
+                if (profileOptional.isPresent()) {
+                    // If the profile exists, add the  name to the artistNames list
+                    artistNames.add(profileOptional.get().getName());
+                } else {
+                    // If the profile does not exist, add "Unknown Artist" to the list
+                    artistNames.add("Unknown Artist");
+                }
+            } else {
+                // If the user does not exist, add "Unknown Artist" to the list
+                artistNames.add("Unknown Artist");
+            }
+        }
+
+        // Return the list of artist names as a response
+        return ResponseEntity.ok(artistNames);
+    }
+
+
 }
