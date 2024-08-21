@@ -188,7 +188,9 @@ public class ArtworksController {
             artworksGetDtoDto.setFileDownloadUri(oneartwork.getFileDownloadUri());
             artworksGetDtoDto.setFileType(oneartwork.getFileType());
             artworksGetDtoDto.setSize(oneartwork.getSize());
+            artworksGetDtoDto.setId(oneartwork.getProductId());
             allArtworks.add(artworksGetDtoDto);
+
 
         }
 
@@ -297,5 +299,19 @@ public class ArtworksController {
         }
 
         return ResponseEntity.ok(allArtworks);
+    }
+
+    // Endpoint to delete an artwork by ID
+    @DeleteMapping("deleteartwork/{artworkId}")
+    public ResponseEntity<Void> deleteArtwork(@PathVariable Integer artworkId) {
+
+        Optional<Artworks> optionalArtwork = artworkRepo.findById(artworkId);
+        if (!optionalArtwork.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Artworks artwork = optionalArtwork.get();
+        artworkRepo.delete(artwork);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

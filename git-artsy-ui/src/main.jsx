@@ -16,8 +16,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import PatronCommissionRequest from './components/PatronCommissionRequest/PatronCommissionRequest.jsx';
 import ViewProfile from './components/ProfilePage/ViewProfile.jsx';
 
-
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -66,8 +64,11 @@ const router = createBrowserRouter([
   {
     path: '/profile/:profileId',
     element: <ViewProfile />
-  }
-
+  },
+  {
+    path:'/artworkslist',
+    element: <ArtworkList />
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
