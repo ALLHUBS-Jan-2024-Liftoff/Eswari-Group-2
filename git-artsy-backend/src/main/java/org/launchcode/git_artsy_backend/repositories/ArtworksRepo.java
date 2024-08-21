@@ -12,9 +12,7 @@ import java.util.List;
 @Repository
 public interface ArtworksRepo extends JpaRepository<Artworks, Integer> {
     // Search by title or description containing keywords
-    static List<Artworks> findByTitleContainingOrDescriptionContaining(String titleKeyword, String descriptionKeyword) {
-        return null;
-    }
+    List<Artworks> findByTitleContainingOrDescriptionContaining(String titleKeyword, String descriptionKeyword);
 
     // Search artworks by profile ID
     List<Artworks> findByProfileId(Integer profileId);
