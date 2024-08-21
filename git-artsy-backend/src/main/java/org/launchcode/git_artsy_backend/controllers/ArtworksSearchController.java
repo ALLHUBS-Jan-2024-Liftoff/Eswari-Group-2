@@ -41,6 +41,16 @@ public class ArtworksSearchController {
             combinedResults.addAll(artworksByTags);
         }
 
+        // Update fileDownloadUri to include the full URL if needed
+        String baseUrl = "http://localhost:8082/api/uploads/"; // Change this to your actual base URL
+        combinedResults.forEach(artwork -> {
+            if (artwork.getFilename() != null) {
+                artwork.setFileDownloadUri(baseUrl + artwork.getFilename());
+            } else {
+                artwork.setFileDownloadUri(baseUrl + "default.jpg"); // Optional: set a default image if none is available
+            }
+        });
+
         return new ArrayList<>(combinedResults);
     }
 }
