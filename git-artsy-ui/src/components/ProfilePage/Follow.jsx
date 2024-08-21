@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { followArtist, unfollowArtist, isUserFollowed } from '../../services/userService';
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export const Follow = () => {
     const [message, setMessage] = useState(null);
     const [isFollowing, setIsFollowing] = useState(false);
 
-    const [searchParams] = useSearchParams();
-    const followedUserId = searchParams.get('userId'); // Get user id of the user whose profile we are on
+    const { profileId } = useParams(); // Get user id of the profile that we are on
 
     useEffect(() => {
         const checkIfFollowing = async () => {
@@ -15,7 +14,7 @@ export const Follow = () => {
                 const userData = localStorage.getItem('user');
                 const userId = JSON.parse(userData).userid; // Get the logged-in user's id
 
-                const followingStatus = await isUserFollowed(userId, followedUserId);
+                const followingStatus = await isUserFollowed(userId, profileId);
                 setIsFollowing(followingStatus); // Set the following status
             } catch (error) {
                 console.error("Error checking following status", error);
@@ -23,7 +22,7 @@ export const Follow = () => {
         };
 
         checkIfFollowing();
-    }, [followedUserId]);
+    }, [profileId]);
 
     const handleFollow = async (e) => {
         e.preventDefault();
@@ -31,12 +30,15 @@ export const Follow = () => {
             const userData = localStorage.getItem('user');
             const userId = JSON.parse(userData).userid; // Get the logged-in user's id
 
+            console.log("userId: " + userId);
+            console.log("profileId: " + profileId);
+            
             if (isFollowing) {
-                await unfollowArtist(userId, followedUserId);
+                await unfollowArtist(userId, profileId);
                 setIsFollowing(false);
                 setMessage("User unfollowed.");
             } else {
-                await followArtist(userId, followedUserId);
+                await followArtist(userId, profileId);
                 setIsFollowing(true);
                 setMessage("User followed!");
             }
@@ -58,3 +60,5 @@ export const Follow = () => {
         </div>
     )
 };
+
+export default Follow;

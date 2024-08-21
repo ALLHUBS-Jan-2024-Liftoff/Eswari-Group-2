@@ -17,6 +17,8 @@ public class FollowArtist {
         this.followedUserId = followedUserId;
     }
 
+    public FollowArtist() {}
+
     public Long getUserId() {
         return userId;
     }
