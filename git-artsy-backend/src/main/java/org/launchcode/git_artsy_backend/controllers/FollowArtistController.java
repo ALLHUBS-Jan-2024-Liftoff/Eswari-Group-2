@@ -30,7 +30,7 @@ public class FollowArtistController {
     @PostMapping("/follow")
     public ResponseEntity<String> follow(@RequestParam Long userId, @RequestParam Integer profileId) {
         Profile profile = profileRepository.getById(profileId);
-        Long followedUserId = profile.getUser().getUser_id();
+        Long followedUserId = profile.getUser().getUser_id(); //gets the userId the user's profile that we are on
         FollowArtist follow = new FollowArtist(userId, followedUserId);
         followArtistRepository.save(follow);
 
@@ -40,7 +40,7 @@ public class FollowArtistController {
     @PostMapping("/unfollow")
     public ResponseEntity<String> unfollow(@RequestParam Long userId, @RequestParam int profileId) {
         Profile profile = profileRepository.getById(profileId);
-        Long followedUserId = profile.getUser().getUser_id();
+        Long followedUserId = profile.getUser().getUser_id(); //gets the userId the user's profile that we are on
         Optional<FollowArtist> follow = followArtistRepository.findByUserIdAndFollowedUserId(userId, followedUserId);
         if (follow.isPresent()) {
             followArtistRepository.delete(follow.get());
@@ -53,9 +53,7 @@ public class FollowArtistController {
     @GetMapping("/status")
     public ResponseEntity<Map<String, Boolean>> isUserFollowed(@RequestParam Long userId, @RequestParam int profileId) {
         Profile profile = profileRepository.getById(profileId);
-        Long followedUserId = profile.getUser().getUser_id();
-        System.out.println("Profile ID: " + profileId);
-        System.out.println("User ID: " + userId);
+        Long followedUserId = profile.getUser().getUser_id(); //gets the userId the user's profile that we are on
         boolean isFollowing = followArtistRepository.existsByUserIdAndFollowedUserId(userId, followedUserId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("isFollowing", isFollowing);

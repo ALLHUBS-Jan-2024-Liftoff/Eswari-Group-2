@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // To get profileId from the URL
+import { useParams } from 'react-router-dom'; // to get profileId from the URL
 import profileService from '../../services/profileService'; 
 import Banner from "../Banner";
 import Follow from './Follow';
 
 const ViewProfile = () => {
-  const { profileId } = useParams(); // Fetch profileId from the route parameters
+  const { profileId } = useParams(); // fetches profileId from the route parameters
   const [profile, setProfile] = useState(null); 
   const [error, setError] = useState("");
   const [preview, setPreview] = useState(''); 
   const currentUser = JSON.parse(localStorage.getItem('user'));
 
-  // Fetch profile data when profileId changes
+  // fetches profile data when profileId changes
   useEffect(() => {
     if (profileId) {
       fetchUserProfile(profileId);
     }
   }, [profileId]);
 
-  // Function to fetch the user's profile data
+  // fetches the user's profile data
   const fetchUserProfile = async (profileId) => {
     try {
       const profileData = await profileService.getProfile(profileId);
       if (profileData) {
         setProfile(profileData);
-        setPreview(profileData.fileDownloadUri); // Set profile picture as preview
+        setPreview(profileData.fileDownloadUri); // sets profile picture as preview
       } else {
         setError('No profile found for this user.');
       }
