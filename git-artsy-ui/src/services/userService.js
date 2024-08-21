@@ -36,6 +36,42 @@ export const registerUser = async (
         console.error("Incorrect email or password.", error);
         throw error;
       }
+ };
+
+ export const isUserFollowed = async (userId, profileId) => {
+  try {
+    const response = await axios.get(`${BASEAPIURL}/api/follow/status`, {
+      params: { userId, profileId },
+    });
+    return response.data.isFollowing;
+  } catch (error) {
+    console.error("Error checking follow status", error);
+    throw error;
+  }
+};
+
+ export const followArtist = async (userId, profileId) => {
+    try {
+      const response = await axios.post(`${BASEAPIURL}/api/follow/follow`, null, {
+        params: { userId, profileId },
+    });
+        return response.data;
+      } catch (error) {
+        console.error("Follow failed", error);
+        throw error;
+      }
+  };
+
+  export const unfollowArtist = async (userId, profileId) => {
+    try {
+      const response = await axios.post(`${BASEAPIURL}/api/follow/unfollow`, null, {
+        params: { userId, profileId }
+    });
+      return response.data;
+    } catch (error) {
+      console.error("Unfollow failed", error);
+      throw error;
+    }
   };
 
   export const userLogout = async () => {
