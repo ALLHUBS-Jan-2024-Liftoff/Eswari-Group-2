@@ -1,23 +1,33 @@
 import './styling.css';
 import { Link } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import { userLogout } from '../services/userService';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 //Header & Navigation
 
     
 
-const Banner = ( user ) => {
+const Banner = () => {
     
     const [error, setError] = useState(null);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        // Retrieve user from localStorage
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser)); // Parse and set user state if exists
+        }
+    }, []);
 
     const handleLogout = async (e) => {
         e.preventDefault();
         try {
             const response = await userLogout();
+            localStorage.removeItem('user');
+            setUser(null);
             // redirect to homepage login after logout
             window.location.href = "/";
         } catch (error) {
