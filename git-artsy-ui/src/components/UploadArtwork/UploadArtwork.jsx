@@ -146,7 +146,7 @@ const UploadArtwork = ({onUploadSuccess}) => {
                 onUploadSuccess();
             }
             
-            //navigate('/artworkslist'); 
+            navigate('/artworkslist'); 
         } catch (error) {
             setError('Failed to upload artwork');
             console.error("Error uploading artwork:", error);

@@ -57,6 +57,7 @@ const Banner = () => {
                         <Dropdown.Item href="/notifications">Notifications</Dropdown.Item>
                         <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
                         <Dropdown.Item href="/commissions">Patron Commissions</Dropdown.Item>
+                        <Dropdown.Item href="/uploadartwork">Upload Artworks</Dropdown.Item>
                         <Dropdown.Item onClick={handleLogout} href='/'>Logout</Dropdown.Item>
                        
                     </Dropdown.Menu>
