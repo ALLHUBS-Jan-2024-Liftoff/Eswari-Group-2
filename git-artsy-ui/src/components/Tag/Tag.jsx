@@ -67,7 +67,7 @@ const TagPage = () => {
             setFormData({ name: '' });
             setCurrentTagId(null);
             const response = await api.getAllTags();
-            setTags(response.data);
+            setTags(response);
         } catch (error) {
             setErrorMessage('Failed to save tag');
             console.error('Error saving tag:', error);
