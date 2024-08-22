@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Banner from "../Banner";
-import ArtworksSearch from "./ArtworksSearch";
+import ArtworkSearch from "./ArtworkSearch";
 import ArtistSearch from "./ArtistSearch";
 
 const SearchPage = () => {
@@ -40,7 +40,7 @@ const SearchPage = () => {
                     Artists
                 </label>
 
-                {searchType === 'artworks' && <ArtworksSearch />}
+                {searchType === 'artworks' && <ArtworkSearch />}
                 {searchType === 'artists' && <ArtistSearch />}
             </div>
         </>
