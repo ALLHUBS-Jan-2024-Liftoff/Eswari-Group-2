@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Banner from "../Banner";
 import '../NotificationPage/NotificationPage.css';
+import { Link } from "react-router-dom";
 
 const NotificationPage = () => {
   const [user, setUser] = useState(null); // State for storing user data
@@ -123,7 +124,10 @@ const NotificationPage = () => {
             {followedArtists.length > 0 ? (
               <ul className="followed-artists-list"> 
                 {followedArtists.map((artist, index) => (
-                  <li key={index}>{artist}</li> 
+                  // <li key={index}>{artist}</li> 
+                  <li key={index}>
+                    <Link to={`/profile/${artist.profileId}`}>{artist.name}</Link>
+                  </li>
                 ))}
               </ul>
             ) : (

@@ -61,38 +61,47 @@ public class FollowArtistController {
     }
 
     @GetMapping("/following")
-    public ResponseEntity<List<String>> getFollowingArtistNames(@RequestParam Long userId) {
-        // Get the list of followed user IDs for the given user ID
+    public ResponseEntity<List<Map<String, Object>>> getFollowingArtistNames(@RequestParam Long userId) {
+        // get the list of followed user
         List<FollowArtist> followList = followArtistRepository.findByUserId(userId);
 
-        // Initialize a list to hold the artist names
-        List<String> artistNames = new ArrayList<>();
+        // initialize a list to save artist names and profile IDs
+        List<Map<String, Object>> artistProfiles = new ArrayList<>();
 
-        // Loop through the followList to find each followed artist's name
+        // loop through the followList to find each followed artist's name and profile ID
         for (FollowArtist follow : followList) {
-            // Find the User object for the followed user ID
+            // find the User from userrepo
             Optional<User> followedUserOptional = userRepository.findById(follow.getFollowedUserId());
 
             if (followedUserOptional.isPresent()) {
-                // Find the Profile associated with the followed User
+                // the Profile associated with the User
                 Optional<Profile> profileOptional = profileRepository.findByUser(followedUserOptional.get());
 
+                Map<String, Object> artistData = new HashMap<>();
                 if (profileOptional.isPresent()) {
-                    // If the profile exists, add the  name to the artistNames list
-                    artistNames.add(profileOptional.get().getName());
+                    // if the profile exists, add the name and profile ID to the map
+                    artistData.put("name", profileOptional.get().getName());
+                    artistData.put("profileId", profileOptional.get().getId());
                 } else {
-                    // If the profile does not exist, add "Unknown Artist" to the list
-                    artistNames.add("Unknown Artist");
+
+                    artistData.put("name", "Unknown Artist");
+                    artistData.put("profileId", null);
                 }
+
+                artistProfiles.add(artistData);
             } else {
-                // If the user does not exist, add "Unknown Artist" to the list
-                artistNames.add("Unknown Artist");
+
+                Map<String, Object> unknownArtist = new HashMap<>();
+                unknownArtist.put("name", "Unknown Artist");
+                unknownArtist.put("profileId", null);
+                artistProfiles.add(unknownArtist);
             }
         }
 
-        // Return the list of artist names as a response
-        return ResponseEntity.ok(artistNames);
+        // Return the list of artist profiles as a response
+        return ResponseEntity.ok(artistProfiles);
     }
+
 
 
 }
