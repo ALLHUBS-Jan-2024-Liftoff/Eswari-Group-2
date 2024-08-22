@@ -1,15 +1,13 @@
-import Banner from "../Banner";
-
 import React, { useEffect, useState } from 'react';
 import api from "../../services/artworkService";
-
+import Banner from "../Banner";
 
 const ArtworkList = () => {
     const [artworks, setArtworks] = useState([]);
     const [error, setError] = useState("");
     const [user, setUser] = useState(null);
     const [profileId, setProfileId] = useState(null);
-
+    
     const fetchProfileId = async (userId) => {
         try {
             const response = await fetch(`http://localhost:8082/gitartsy/api/profiles/profileid/${userId}`);
@@ -26,7 +24,6 @@ const ArtworkList = () => {
             setError('Error fetching profile ID');
         }
     };
-    
 
     useEffect(() => {
         const fetchUserData = () => {
@@ -61,13 +58,22 @@ const ArtworkList = () => {
         };
 
         getAllArts();
-    }, [profileId]); // Wait until profileId is set before calling getAllArts
+    }, [profileId]);
+
+    const handleDelete = async (artworkId) => {
+        console.log("Artwork Id from Delete : " +artworkId)
+        try {
+            await api.deleteArtwork(artworkId);
+            setArtworks(artworks.filter(artwork => artwork.id !== artworkId));
+        } catch (error) {
+            console.error("Error deleting artwork:", error);
+            setError("Failed to delete artwork");
+        }
+    };
 
     return (
-      <div className="app-container">
-          <Banner />
-
-          <div>
+        <div className="app-container">
+            <Banner />
             <h1>Artwork List</h1>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <ul>
@@ -78,19 +84,17 @@ const ArtworkList = () => {
                             {artwork.fileDownloadUri && (
                                 <img src={artwork.fileDownloadUri} alt={artwork.title} style={{ width: '200px', height: 'auto' }} />
                             )}
-                           
+                            <div>
+                                <button onClick={() => handleDelete(artwork.id)}>Delete</button>
+                            </div>
                         </li>
                     ))
                 ) : (
-                    <p>No artworks available</p>
+                    <p>No artworks found</p>
                 )}
             </ul>
         </div>
-
-      </div> 
-      
-      
     );
 };
 
-export default ArtworkList
+export default ArtworkList;
