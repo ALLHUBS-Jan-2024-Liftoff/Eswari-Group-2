@@ -41,7 +41,7 @@ const ArtistSearch = () => {
                     <ul>
                         {results.map((user, index) => (
                             <li key={index}>
-                                <a href={`/profile/${profileId}`}>
+                                <a href={`/profile/${user.profileId}`}>
                                     {user.username}
                                 </a>
                             </li>

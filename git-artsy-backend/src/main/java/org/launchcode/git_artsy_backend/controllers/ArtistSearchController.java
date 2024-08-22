@@ -29,6 +29,9 @@ public class ArtistSearchController {
             for (User user : usersByUserName.get()) {
                 // checks if user role is artist and makes sure that the user ID is not a duplicate
                 if (user.getRole().equals("ARTIST") && seenUserIds.add(user.getUser_id())) {
+                    // get the profileId and add it to the user
+                    Profile profile = profileRepo.findByUser(user).orElse(null);
+                    user.setProfileId(profile.getId());
                     users.add(user);
                 }
             }
@@ -41,6 +44,8 @@ public class ArtistSearchController {
                 User user = userRepository.findById(profile.getUser().getUser_id()).orElse(null);
                 // checks if user role is artist and makes sure that the user ID is not a duplicate
                 if (user != null && user.getRole().equals("ARTIST") && seenUserIds.add(user.getUser_id())) {
+                    // get the profileId and add it to the user
+                    user.setProfileId(profile.getId());
                     users.add(user);
                 }
             }
