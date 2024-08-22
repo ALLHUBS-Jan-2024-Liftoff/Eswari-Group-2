@@ -28,7 +28,7 @@
 .create-profile-container textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px; /* Increased margin for better spacing */
+    margin-bottom: 15px; 
     border: 1px solid #ccc;
     border-radius: 4px;
 }
