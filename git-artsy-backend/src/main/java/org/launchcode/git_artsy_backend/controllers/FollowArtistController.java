@@ -97,11 +97,6 @@ public class FollowArtistController {
                 artistProfiles.add(unknownArtist);
             }
         }
-
-        // Return the list of artist profiles as a response
         return ResponseEntity.ok(artistProfiles);
     }
-
-
-
 }
