@@ -44,6 +44,50 @@ const getAllArtwork = async () => {
       });
 };
 
+// export const getArtworkById = async () => {
+//   return axios.get(`${BASE_URL}/${id}`);
+  
+// }
+
+//liked methods
+
+export const isArtworkLiked = async (userId, artworkId) => {
+  try {
+    const response = await axios.get('http://localhost:8082/gitartsy/api/like/status', {
+      params: { userId, artworkId},
+    });
+    return response;
+  } catch (error)
+{
+  console.error("Error checking the following status", error);
+  throw error;
+}};
+
+export const likeArtwork = async (userId, artworkId) => {
+  try {
+    const response = await axios.get('http://localhost:8082/gitartsy/api/like', null, {
+      params: { userId, artworkId},
+    });
+    console.log(response)
+    return response;
+  } catch (error)
+{
+  console.error("Error in liking artwork", error);
+  throw error;
+}};
+
+export const unlikeArtwork = async (userId, artworkId) => {
+  try {
+    const response = await axios.post('http://localhost:8082/gitartsy/api/like/unlike', null, {
+      params: { userId, artworkId},
+    });
+    return response;
+  } catch (error)
+{
+  console.error("Error in unliking artwork", error);
+  throw error;
+}};
+
 export default {
   
   uploadArtwork,

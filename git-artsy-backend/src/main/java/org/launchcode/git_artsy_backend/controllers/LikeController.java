@@ -1,7 +1,8 @@
 package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Artworks;
-import org.launchcode.git_artsy_backend.models.Like;
+
+import org.launchcode.git_artsy_backend.models.Likes;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
 import org.launchcode.git_artsy_backend.repositories.LikeRepo;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
@@ -31,17 +32,17 @@ public class LikeController {
     public ResponseEntity<String> like(@RequestParam Long userId, @RequestParam Integer artworkId) {
         Artworks artwork = artworksRepo.getById(artworkId);
         Integer likedArtworkId = artwork.getProductId(); //gets the id of the artwork
-        Like like = new Like(userId, likedArtworkId);
+        Likes like = new Likes(userId, likedArtworkId);
         likeRepo.save(like);
 
         return ResponseEntity.ok("Artwork Liked");
     }
 
     @PostMapping("/unlike")
-    public ResponseEntity<String> unlike(@RequestParam Long userId, @RequestParam int artworkId) {
+    public ResponseEntity<String> unlike(@RequestParam Long userId, @RequestParam Integer artworkId) {
         Artworks artwork = artworksRepo.getById(artworkId);
         Integer likedArtworkId = artwork.getProductId();
-        Optional<Like> like = likeRepo.findByUserIdAndLikedArtworkId(userId, likedArtworkId);
+        Optional<Likes> like = likeRepo.findByUserIdAndLikedArtworkId(userId, likedArtworkId);
         if (like.isPresent()) {
             likeRepo.delete(like.get());
             return ResponseEntity.ok("Artwork Unliked");
@@ -51,10 +52,10 @@ public class LikeController {
     }
 
     @GetMapping("/status")
-    public ResponseEntity<Map<String, Boolean>> isArtworkLiked(@RequestParam Long userId, @RequestParam int artworkId) {
+    public ResponseEntity<Map<String, Boolean>> isArtworkLiked(@RequestParam Long userId, @RequestParam Integer artworkId) {
         Artworks artwork = artworksRepo.getById(artworkId);
         Integer likedArtworkId = artwork.getProductId();
-        boolean isLiked = likeRepo.existsByUserIdAndFollowedUserId(userId, artworkId);
+        boolean isLiked = likeRepo.existsByUserIdAndLikedArtworkId(userId, likedArtworkId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("isFollowing", isLiked);
         return ResponseEntity.ok(response);

@@ -33,7 +33,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController// Indicates that this class handles RESTful requests
 @RequestMapping("gitartsy/api/artworks")// Base URL for all endpoints in this controller
@@ -288,6 +287,7 @@ public class ArtworksController {
         for (Artworks index : artworks)
         {
             ArtworksGetDto artworksGetDtoDto = new ArtworksGetDto();
+            artworksGetDtoDto.setId(index.getProductId());
             artworksGetDtoDto.setTitle(index.getTitle());
             artworksGetDtoDto.setFileDownloadUri(index.getFileDownloadUri());
             artworksGetDtoDto.setFileType(index.getFileType());
@@ -298,4 +298,12 @@ public class ArtworksController {
 
         return ResponseEntity.ok(allArtworks);
     }
+
+    //endpoint for artwork ids
+
+//    @GetMapping("artworks/${id}")
+//    public ResponseEntity<Integer> getArtworkById(@PathVariable Integer id) {
+//        Optional<Artworks> artwork = artworkRepo.findById(id);
+//        return ResponseEntity.ok(artwork.get().getProductId());
+//    }
 }

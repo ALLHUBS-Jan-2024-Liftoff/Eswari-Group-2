@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface ArtworksRepo  extends JpaRepository<Artworks, Integer> {
     List<Artworks> findByProfileId(Integer profileId);
+
+
 }

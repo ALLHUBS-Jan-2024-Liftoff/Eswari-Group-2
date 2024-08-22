@@ -1,13 +1,13 @@
 package org.launchcode.git_artsy_backend.repositories;
 
-import org.launchcode.git_artsy_backend.models.Like;
+import org.launchcode.git_artsy_backend.models.Likes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface LikeRepo extends JpaRepository<Like, Long> {
+public interface LikeRepo extends JpaRepository<Likes, Long> {
 
-    Optional<Like> findByUserIdAndLikedArtworkId(Long userId, Integer likedArtworkId);
+    Optional<Likes> findByUserIdAndLikedArtworkId(Long userId, Integer likedArtworkId);
 
-    boolean existsByUserIdAndFollowedUserId(Long userId, int artworkId);
+    boolean existsByUserIdAndLikedArtworkId(Long userId, Integer artworkId);
 }

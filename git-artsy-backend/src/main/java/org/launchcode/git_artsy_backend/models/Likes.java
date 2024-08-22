@@ -5,15 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Like {
+public class Likes {
     @Id
     @Column(name = "user_id")
     private Long userId;
 
     @Column(name = "liked_artwork_id")
-    private Long likedArtworkId;
+    private Integer likedArtworkId;
 
-    public Like(Long userId, Integer likedArtworkId) {
+    public Likes(Long userId, Integer likedArtworkId) {
         this.userId = userId;
         this.likedArtworkId = likedArtworkId;
     }
@@ -26,11 +26,11 @@ public class Like {
         this.userId = userId;
     }
 
-    public Long getLikedArtworkId() {
+    public Integer getLikedArtworkId() {
         return likedArtworkId;
     }
 
-    public void setLikedArtworkId(Long likedArtworkId) {
+    public void setLikedArtworkId(Integer likedArtworkId) {
         this.likedArtworkId = likedArtworkId;
     }
 }
