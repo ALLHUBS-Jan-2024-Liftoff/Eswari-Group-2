@@ -9,5 +9,5 @@ public interface LikesRepo extends JpaRepository<Likes, Long> {
 
     Optional<Likes> findByUserIdAndLikedArtworkId(Long userId, Integer likedArtworkId);
 
-    boolean existsByUserIdAndLikedArtworkId(Long userId, Integer artworkId);
+    boolean existsByUserIdAndLikedArtworkId(Long userId, Integer likedArtworkId);
 }

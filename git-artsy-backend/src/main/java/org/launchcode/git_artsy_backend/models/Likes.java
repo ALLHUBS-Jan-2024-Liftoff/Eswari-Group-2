@@ -18,6 +18,8 @@ public class Likes {
         this.likedArtworkId = likedArtworkId;
     }
 
+    public Likes(){};
+
     public Long getUserId() {
         return userId;
     }

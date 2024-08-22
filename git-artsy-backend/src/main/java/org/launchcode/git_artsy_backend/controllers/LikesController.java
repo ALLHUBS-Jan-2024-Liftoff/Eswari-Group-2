@@ -29,7 +29,7 @@ public class LikesController {
     @Autowired
     private LikesRepo likeRepo;
 
-    @PostMapping("likes/like")
+    @PostMapping("/like")
     public ResponseEntity<String> like(@RequestParam Long userId, @RequestParam Integer artworkId) {
         Artworks artwork = artworksRepo.getById(artworkId);
         Integer likedArtworkId = artwork.getProductId(); //gets the id of the artwork
@@ -39,7 +39,7 @@ public class LikesController {
         return ResponseEntity.ok("Artwork Liked");
     }
 
-    @PostMapping("likes/unlike")
+    @PostMapping("/unlike")
     public ResponseEntity<String> unlike(@RequestParam Long userId, @RequestParam Integer artworkId) {
         Artworks artwork = artworksRepo.getById(artworkId);
         Integer likedArtworkId = artwork.getProductId();
@@ -58,7 +58,7 @@ public class LikesController {
         Integer likedArtworkId = artwork.getProductId();
         boolean isLiked = likeRepo.existsByUserIdAndLikedArtworkId(userId, likedArtworkId);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("isFollowing", isLiked);
+        response.put("isLiked", isLiked);
         return ResponseEntity.ok(response);
     }
 
