@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //import './cssforpages/Login.css'
 import { userLogin } from "../../services/userService";
 import { Link } from "react-router-dom";
@@ -10,6 +10,14 @@ export const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState(null);
+
+    useEffect(() => {
+        // Retrieve user from localStorage
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            window.location.href = "/notifications";
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
