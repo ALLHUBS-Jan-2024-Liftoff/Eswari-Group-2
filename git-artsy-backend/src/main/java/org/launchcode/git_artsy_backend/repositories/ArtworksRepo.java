@@ -14,4 +14,6 @@ public interface ArtworksRepo  extends JpaRepository<Artworks, Integer> {
     List<Artworks> findByProfileId(Integer profileId);
 
 
+    List<Artworks> findByTitleContainingOrDescriptionContaining(String titleKeyword, String descriptionKeyword);
+
 }
