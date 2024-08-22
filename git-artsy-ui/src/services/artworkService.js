@@ -44,10 +44,7 @@ const getAllArtwork = async () => {
       });
 };
 
-// export const getArtworkById = async () => {
-//   return axios.get(`${BASE_URL}/${id}`);
-  
-// }
+
 
 //getByID method 
 
@@ -101,14 +98,30 @@ export const unlikeArtwork = async (userId, artworkId) => {
   throw error;
 }};
 
+// Delete an artwork by its ID
+export const deleteArtwork = async (artworkId) => {
+  try {
+    await axios.delete(`${BASE_URL}/deleteartwork/${artworkId}`, {
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.error("There was an error deleting the artwork!", error);
+    throw error;
+  }
+};
+
+
 export default {
   
   uploadArtwork,
   fetchArtworksByProfile,
   getAllArtwork,
+
   getArtworkById,
   isArtworkLiked,
   likeArtwork,
   unlikeArtwork
+
+  deleteArtwork
 
 };
