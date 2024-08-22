@@ -7,12 +7,13 @@ import { useParams } from 'react-router-dom';
 
 const like = () => {
     const[liked, setLiked] = useState(false);
+    const[artwork, setArtwork] = useState()
     const[message, setMessage] = useState(null);
     
     // const handleClick = () => {
     //     setLiked(!liked);
     // };
-    const { artworkId } = useParams();
+    const { Id } = useParams(); //get the artwork
 
     useEffect(() => {
         const checkIfLiked = async () => {
@@ -20,7 +21,7 @@ const like = () => {
                 const userData = localStorage.getItem('user');
                 const userId = JSON.parse(userData).userId; // gets logged in user's id
 
-                const likeStatus = await isArtworkLiked(userId, artworkId);
+                const likeStatus = await isArtworkLiked(userId, Id);
                 setLiked[likeStatus]; // sets the like status
             } catch (error) {
                 console.error("Error checking like status", error);
@@ -28,7 +29,7 @@ const like = () => {
         };
 
         checkIfLiked();
-    }, [artworkId]);
+    }, [Id]);
     
     const handleLike = async (e) => {
         e.preventDefault();
@@ -37,11 +38,11 @@ const like = () => {
             const userId = JSON.parse(userData).userId; // gets logged in user's id
             
             if (isArtworkLiked) {
-                await unlikeArtwork(userId, artworkId);
+                await unlikeArtwork(userId, Id);
                 setLiked(false);
                 setMessage("Artwork Unliked.");
             } else {
-                await likeArtwork(userId, artworkId);
+                await likeArtwork(userId, Id);
                 setLiked(true);
                 setMessage("Artwork is Liked!");
             }

@@ -49,24 +49,36 @@ const getAllArtwork = async () => {
   
 // }
 
+//getByID method 
+
+export const getArtworkById = async (Id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/singleartworksdetails/${Id}`);
+    return response;
+  } catch {
+    console.error("Artwork Id not found", error);
+    throw error;
+  }
+}
+
 //liked methods
 
-export const isArtworkLiked = async (userId, artworkId) => {
+export const isArtworkLiked = async (userId, Id) => {
   try {
     const response = await axios.get('http://localhost:8082/gitartsy/api/like/status', {
-      params: { userId, artworkId},
+      params: { userId, Id},
     });
-    return response;
+    return response.data;
   } catch (error)
 {
-  console.error("Error checking the following status", error);
+  console.error("Error checking the liked status", error);
   throw error;
 }};
 
-export const likeArtwork = async (userId, artworkId) => {
+export const likeArtwork = async (userId, Id) => {
   try {
-    const response = await axios.get('http://localhost:8082/gitartsy/api/like', null, {
-      params: { userId, artworkId},
+    const response = await axios.post('http://localhost:8082/gitartsy/api/like', null, {
+      params: { userId, Id},
     });
     console.log(response)
     return response;
@@ -76,10 +88,10 @@ export const likeArtwork = async (userId, artworkId) => {
   throw error;
 }};
 
-export const unlikeArtwork = async (userId, artworkId) => {
+export const unlikeArtwork = async (userId, Id) => {
   try {
     const response = await axios.post('http://localhost:8082/gitartsy/api/like/unlike', null, {
-      params: { userId, artworkId},
+      params: { userId, Id},
     });
     return response;
   } catch (error)
