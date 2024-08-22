@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface LikeRepo extends JpaRepository<Likes, Long> {
-
+    // This method finds a Like entity by userId and likedArtworkId
     Optional<Likes> findByUserIdAndLikedArtworkId(Long userId, Integer likedArtworkId);
 
-    boolean existsByUserIdAndLikedArtworkId(Long userId, Integer artworkId);
+    // This method checks if a Like entity exists for a given userId and likedArtworkId
+    boolean existsByUserIdAndLikedArtworkId(Long userId, Integer likedArtworkId);
 }
+

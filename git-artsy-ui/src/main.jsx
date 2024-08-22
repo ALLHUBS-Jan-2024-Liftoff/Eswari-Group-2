@@ -15,6 +15,7 @@ import Tag from './components/Tag/Tag.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import PatronCommissionRequest from './components/PatronCommissionRequest/PatronCommissionRequest.jsx';
 import ViewProfile from './components/ProfilePage/ViewProfile.jsx';
+import Like from './components/ArtGallery/Like.jsx';
 
 
 
@@ -66,6 +67,16 @@ const router = createBrowserRouter([
   {
     path: '/profile/:profileId',
     element: <ViewProfile />
+  },
+
+  {
+    path: '/like', // New route for Like component
+    element: <Like />
+  },
+
+  {
+    path: '/artwork/:Id', // This defines the route with the :Id parameter
+    element: <ArtworkList /> // This is the component where Like.jsx might be used
   }
 
 ]);
