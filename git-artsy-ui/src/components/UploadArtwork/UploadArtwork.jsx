@@ -51,7 +51,7 @@ const UploadArtwork = ({onUploadSuccess}) => {
             try {
                 const response = await tagservice.getAllTags();
                 
-                setTags(response.data);
+                setTags(response);
             } catch (error) {
                 console.error("Error fetching tags:", error);
                 setTags([]);
@@ -184,27 +184,27 @@ const UploadArtwork = ({onUploadSuccess}) => {
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <br />
                 <label>
-    Tags:
-    <div>
-        {tags.length > 0 ? (
-            tags.map(tag => (
-                <div key={tag.tagId} className="checkbox-item">
-                    <input
-                        type="checkbox"
-                        id={`tag-${tag.tagId}`} // Unique id for each checkbox
-                        value={tag.tagId}
-                        checked={formData.tagIds.includes(tag.tagId)}
-                        onChange={handleTagChange}
-                    />
-                    <label htmlFor={`tag-${tag.tagId}`} className="checkbox-label">
-                        {tag.name}
-                    </label>
-                </div>
-            ))
-        ) : (
-            <p>No tags available</p>
-        )}
-    </div>
+  Tags:
+  <div>
+    {Array.isArray(tags) && tags.length > 0 ? (
+      tags.map(tag => (
+        <div key={tag.tagId} className="checkbox-item">
+          <input
+            type="checkbox"
+            id={`tag-${tag.tagId}`} // Unique id for each checkbox
+            value={tag.tagId}
+            checked={formData.tagIds.includes(tag.tagId)}
+            onChange={handleTagChange}
+          />
+          <label htmlFor={`tag-${tag.tagId}`} className="checkbox-label">
+            {tag.name}
+          </label>
+        </div>
+      ))
+    ) : (
+      <p>No tags available</p>
+    )}
+  </div>
 </label>
                 <br />
                 <button type="submit">Upload Artwork</button>
