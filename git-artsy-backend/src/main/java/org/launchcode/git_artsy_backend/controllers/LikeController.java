@@ -1,9 +1,7 @@
 package org.launchcode.git_artsy_backend.controllers;
 
 import org.launchcode.git_artsy_backend.models.Artworks;
-import org.launchcode.git_artsy_backend.models.FollowArtist;
 import org.launchcode.git_artsy_backend.models.Like;
-import org.launchcode.git_artsy_backend.models.Profile;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
 import org.launchcode.git_artsy_backend.repositories.LikeRepo;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
