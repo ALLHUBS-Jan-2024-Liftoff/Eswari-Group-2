@@ -1,3 +1,7 @@
+
+
+import Like from "../ArtGallery/Like"
+
 import React, { useEffect, useState } from 'react';
 import api from "../../services/artworkService";
 import Banner from "../Banner";
@@ -84,9 +88,13 @@ const ArtworkList = () => {
                             {artwork.fileDownloadUri && (
                                 <img src={artwork.fileDownloadUri} alt={artwork.title} style={{ width: '200px', height: 'auto' }} />
                             )}
+
+                           <Like />
+
                             <div>
                                 <button onClick={() => handleDelete(artwork.id)}>Delete</button>
                             </div>
+
                         </li>
                     ))
                 ) : (

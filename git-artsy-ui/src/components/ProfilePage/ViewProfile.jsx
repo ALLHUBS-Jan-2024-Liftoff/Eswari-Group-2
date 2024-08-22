@@ -4,6 +4,7 @@ import profileService from '../../services/profileService';
 import Banner from "../Banner";
 import Follow from './Follow';
 
+
 const ViewProfile = () => {
   const { profileId } = useParams(); // fetches profileId from the route parameters
   const [profile, setProfile] = useState(null); 

@@ -33,7 +33,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController// Indicates that this class handles RESTful requests
 @RequestMapping("gitartsy/api/artworks")// Base URL for all endpoints in this controller
@@ -290,6 +289,7 @@ public class ArtworksController {
         for (Artworks index : artworks)
         {
             ArtworksGetDto artworksGetDtoDto = new ArtworksGetDto();
+            artworksGetDtoDto.setId(index.getProductId());
             artworksGetDtoDto.setTitle(index.getTitle());
             artworksGetDtoDto.setFileDownloadUri(index.getFileDownloadUri());
             artworksGetDtoDto.setFileType(index.getFileType());
@@ -300,6 +300,30 @@ public class ArtworksController {
 
         return ResponseEntity.ok(allArtworks);
     }
+
+
+    // Endpoint to get detailed artwork by ID
+    @GetMapping("/singleartworksdetails/{id}")
+    public ResponseEntity<ArtworksGetDto> getArtworkById(@PathVariable Integer id) {
+        Optional<Artworks> artwork = artworkRepo.findById(id);
+        if (artwork.isPresent()) {
+            Artworks artworkEntity = artwork.get();
+            ArtworksGetDto artworksGetDto = new ArtworksGetDto();
+            artworksGetDto.setId(artworkEntity.getProductId());
+            artworksGetDto.setTitle(artworkEntity.getTitle());
+            artworksGetDto.setDescription(artworkEntity.getDescription());
+            artworksGetDto.setPrice(artworkEntity.getPrice());
+            artworksGetDto.setFileDownloadUri(artworkEntity.getFileDownloadUri());
+            artworksGetDto.setFileType(artworkEntity.getFileType());
+            artworksGetDto.setSize(artworkEntity.getSize());
+
+            return ResponseEntity.ok(artworksGetDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Return 404 if artwork is not found
+        }
+    }
+
+
 
     // Endpoint to delete an artwork by ID
     @DeleteMapping("deleteartwork/{artworkId}")
@@ -314,4 +338,5 @@ public class ArtworksController {
         artworkRepo.delete(artwork);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 }
