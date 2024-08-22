@@ -1,0 +1,98 @@
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .artworks-search {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .tag-select {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .artwork-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .artwork-item {
+    flex: 1 1 calc(33.333% - 20px);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .artwork-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .artwork-details {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .artwork-title {
+    font-size: 1.25em;
+    margin: 10px 0;
+  }
+  
+  .artwork-description {
+    color: #666;
+    font-size: 0.9em;
+  }
+/* SearchPage.css */
+.tag-item {
+    cursor: pointer;
+  }
+  
+  .tag-item.selected {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+    margin: 2px;
+  }
+    

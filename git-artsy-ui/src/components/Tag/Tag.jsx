@@ -20,8 +20,8 @@ const TagPage = () => {
         const fetchTags = async () => {
             try {
                 const response = await api.getAllTags();
-                console.log(response.data);
-                setTags(response.data);
+                console.log(response);
+                setTags(response);
             } catch (error) {
                 console.error('Error fetching tags:', error);
             }
@@ -67,7 +67,7 @@ const TagPage = () => {
             setFormData({ name: '' });
             setCurrentTagId(null);
             const response = await api.getAllTags();
-            setTags(response.data);
+            setTags(response);
         } catch (error) {
             setErrorMessage('Failed to save tag');
             console.error('Error saving tag:', error);
