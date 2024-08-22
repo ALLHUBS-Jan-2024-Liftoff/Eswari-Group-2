@@ -4,7 +4,8 @@ import org.launchcode.git_artsy_backend.models.Artworks;
 
 import org.launchcode.git_artsy_backend.models.Likes;
 import org.launchcode.git_artsy_backend.repositories.ArtworksRepo;
-import org.launchcode.git_artsy_backend.repositories.LikeRepo;
+
+import org.launchcode.git_artsy_backend.repositories.LikesRepo;
 import org.launchcode.git_artsy_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,9 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/like")
+@RequestMapping("/api/likes")
 @CrossOrigin(origins = "http://localhost:5173")
-public class LikeController {
+public class LikesController {
     @Autowired
     private UserRepository userRepository;
 
@@ -26,9 +27,9 @@ public class LikeController {
     private ArtworksRepo artworksRepo;
 
     @Autowired
-    private LikeRepo likeRepo;
+    private LikesRepo likeRepo;
 
-    @PostMapping("/like")
+    @PostMapping("likes/like")
     public ResponseEntity<String> like(@RequestParam Long userId, @RequestParam Integer artworkId) {
         Artworks artwork = artworksRepo.getById(artworkId);
         Integer likedArtworkId = artwork.getProductId(); //gets the id of the artwork
@@ -38,7 +39,7 @@ public class LikeController {
         return ResponseEntity.ok("Artwork Liked");
     }
 
-    @PostMapping("/unlike")
+    @PostMapping("likes/unlike")
     public ResponseEntity<String> unlike(@RequestParam Long userId, @RequestParam Integer artworkId) {
         Artworks artwork = artworksRepo.getById(artworkId);
         Integer likedArtworkId = artwork.getProductId();

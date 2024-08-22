@@ -65,9 +65,10 @@ export const getArtworkById = async (Id) => {
 
 export const isArtworkLiked = async (userId, Id) => {
   try {
-    const response = await axios.get('http://localhost:8082/gitartsy/api/like/status', {
+    const response = await axios.get('http://localhost:8082/gitartsy/api/likes/status', {
       params: { userId, Id},
     });
+    console.log(response);
     return response.data;
   } catch (error)
 {
@@ -77,7 +78,7 @@ export const isArtworkLiked = async (userId, Id) => {
 
 export const likeArtwork = async (userId, Id) => {
   try {
-    const response = await axios.post('http://localhost:8082/gitartsy/api/like', null, {
+    const response = await axios.post('http://localhost:8082/gitartsy/api/likes', null, {
       params: { userId, Id},
     });
     console.log(response)
@@ -90,7 +91,7 @@ export const likeArtwork = async (userId, Id) => {
 
 export const unlikeArtwork = async (userId, Id) => {
   try {
-    const response = await axios.post('http://localhost:8082/gitartsy/api/like/unlike', null, {
+    const response = await axios.post('http://localhost:8082/gitartsy/api/likes/unlike', null, {
       params: { userId, Id},
     });
     return response;

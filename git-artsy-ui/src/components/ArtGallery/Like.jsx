@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 
 const like = () => {
     const[liked, setLiked] = useState(false);
-    const[artwork, setArtwork] = useState()
+    
     const[message, setMessage] = useState(null);
     
     // const handleClick = () => {
@@ -61,7 +61,7 @@ const like = () => {
 //             onClick={handleLike}/>)  
     return(
         <div>
-            <button onClick={handleLike}>{isArtworkLiked ? "Unlike" : "Like"}</button>
+            <button onSubmit={handleLike}>{isArtworkLiked ? "Unlike" : "Like"}</button>
         </div>
     )
 

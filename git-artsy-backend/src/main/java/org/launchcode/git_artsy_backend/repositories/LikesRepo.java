@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface LikeRepo extends JpaRepository<Likes, Long> {
+public interface LikesRepo extends JpaRepository<Likes, Long> {
 
     Optional<Likes> findByUserIdAndLikedArtworkId(Long userId, Integer likedArtworkId);
 
