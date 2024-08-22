@@ -299,11 +299,26 @@ public class ArtworksController {
         return ResponseEntity.ok(allArtworks);
     }
 
-    //endpoint for artwork ids
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Integer> getArtworkById(@PathVariable Integer id) {
+    // Endpoint to get detailed artwork by ID
+    @GetMapping("/singleartworksdetails/{id}")
+    public ResponseEntity<ArtworksGetDto> getArtworkById(@PathVariable Integer id) {
         Optional<Artworks> artwork = artworkRepo.findById(id);
-        return ResponseEntity.ok(artwork.get().getProductId());
+        if (artwork.isPresent()) {
+            Artworks artworkEntity = artwork.get();
+            ArtworksGetDto artworksGetDto = new ArtworksGetDto();
+            artworksGetDto.setId(artworkEntity.getProductId());
+            artworksGetDto.setTitle(artworkEntity.getTitle());
+            artworksGetDto.setDescription(artworkEntity.getDescription());
+            artworksGetDto.setPrice(artworkEntity.getPrice());
+            artworksGetDto.setFileDownloadUri(artworkEntity.getFileDownloadUri());
+            artworksGetDto.setFileType(artworkEntity.getFileType());
+            artworksGetDto.setSize(artworkEntity.getSize());
+
+            return ResponseEntity.ok(artworksGetDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Return 404 if artwork is not found
+        }
     }
+
+
 }
