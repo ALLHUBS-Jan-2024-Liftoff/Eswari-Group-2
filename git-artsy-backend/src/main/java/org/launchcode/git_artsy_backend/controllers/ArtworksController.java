@@ -279,7 +279,7 @@ public class ArtworksController {
             }
         }
         // Return the filtered list
-        return ResponseEntity.ok(recentArtworks); }
+        return ResponseEntity.ok(recentArtworks);}
 
     @GetMapping
     public ResponseEntity<List<ArtworksGetDto>> getAllArtworks() {

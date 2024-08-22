@@ -17,7 +17,7 @@ public class Config {
         return new AuthFilter();
     }
 
-    // Register the filter with the Spring container
+     //Register the filter with the Spring container
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor( authenticationFilter() );
     }

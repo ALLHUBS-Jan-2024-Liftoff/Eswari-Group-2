@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,6 +94,35 @@ public class PatronCommissionRequestController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    // Fetch all commission requests for a particular artist by user ID
+    @GetMapping("/artist/{artistId}")
+    public ResponseEntity<List<PatronDTO>> getRequestsByArtistId(@PathVariable Long artistId) {
+        // Find the artist by ID
+        Optional<User> artistOptional = userRepository.findById(artistId);
+
+        if (artistOptional.isPresent()) {
+            // Get commission requests for the artist
+            List<PatronCommissionRequest> requests = patronCommissionRequestRepository.findByArtist(artistOptional.get());
+
+            // Convert to PatronDTO list without using map
+            List<PatronDTO> dtoList = new ArrayList<>();
+            for (PatronCommissionRequest request : requests) {
+                PatronDTO dto = new PatronDTO(
+                        request.getId(),  // ID of the request
+                        //request.getArtist().getUser_id(),  // ID of the artist
+                        request.getSubject(),  // Subject of the request
+                        request.getDetails(),  // Details of the request
+                        request.getDescription()  // Description of the request
+                );
+                dtoList.add(dto);
+            }
+
+            return ResponseEntity.ok(dtoList);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }
