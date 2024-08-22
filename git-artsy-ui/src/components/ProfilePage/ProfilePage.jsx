@@ -2,6 +2,7 @@ import Banner from "../Banner";
 import React, { useState, useEffect } from 'react';
 import profileService from '../../services/profileService'; 
 import '../ProfilePage/ProfilePage.css'; 
+import ArtworkList from '../UploadArtwork/ArtworkList'
 
 // ProfilePage component manages profile creation and editing.
 const ProfilePage = () => {

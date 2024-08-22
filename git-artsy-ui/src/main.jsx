@@ -13,8 +13,8 @@ import UploadArtwork from './components/UploadArtwork/UploadArtwork.jsx';
 import ArtworkList from './components/UploadArtwork/ArtworkList.jsx';
 import Tag from './components/Tag/Tag.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
-
-
+import PatronCommissionRequest from './components/PatronCommissionRequest/PatronCommissionRequest.jsx';
+import ViewProfile from './components/ProfilePage/ViewProfile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -56,8 +56,19 @@ const router = createBrowserRouter([
   {
     path:'/tag',
     element: <Tag />
-  }
-
+  },
+  {
+    path: '/commissions',
+    element: <PatronCommissionRequest />
+  },
+  {
+    path: '/profile/:profileId',
+    element: <ViewProfile />
+  },
+  {
+    path:'/artworkslist',
+    element: <ArtworkList />
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

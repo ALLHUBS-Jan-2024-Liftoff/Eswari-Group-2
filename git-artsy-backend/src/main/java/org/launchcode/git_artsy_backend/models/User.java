@@ -41,6 +41,9 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Profile profile;
 
+    // used to store profileId when pulled from profile
+    private Integer profileId;
+
     //Initiates user_id count
     public User() {}
 
@@ -105,6 +108,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Integer getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Integer profileId) {
+        this.profileId = profileId;
     }
 
     //    equals, hashcode, and toString methods if needed

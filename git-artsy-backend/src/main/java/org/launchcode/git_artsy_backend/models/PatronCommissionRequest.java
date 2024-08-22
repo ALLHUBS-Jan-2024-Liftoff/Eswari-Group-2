@@ -1,38 +1,50 @@
 package org.launchcode.git_artsy_backend.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-//Represents a commission request in the application.
+// PatronCommissionRequest.java
 @Entity
 public class PatronCommissionRequest {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Should I keep fromUserId, toUserId, requestt?
-    private Long fromUserId;
-    private Long toUserId;
-    private String request;
+    // Reference to the artist's user ID instead of an email
+    @ManyToOne
+    @JoinColumn(name = "artist_id",  referencedColumnName = "user_id", nullable = false)
+    private User artist;
 
-    private String detail;
-    private String description;
+    // The subject of the commission request.
     private String subject;
 
-    // Constructors
-    public PatronCommissionRequest() {}
+    // The type of commission (e.g., Painting, Drawing, Mural).
+    private String details;
 
-    public PatronCommissionRequest(String detail, String description, String subject, Long fromUserId, Long toUserId, String request) {
-        this.detail = detail;
-        this.description = description;
-        this.subject = subject;
-        this.fromUserId = fromUserId;
-        this.toUserId = toUserId;
-        this.request = request;
-    }
+    // The description of the commission request.
+    private String description;
 
     // Getters and setters
+
+
+    public PatronCommissionRequest(String subject, String details, String description) {
+        this.subject = subject;
+        this.details = details;
+        this.description = description;
+    }
+
+    public PatronCommissionRequest(Long id, User artist, String subject, String details, String description) {
+        this.id = id;
+        this.artist = artist;
+        this.subject = subject;
+        this.details = details;
+        this.description = description;
+    }
+
+    public PatronCommissionRequest() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -41,20 +53,12 @@ public class PatronCommissionRequest {
         this.id = id;
     }
 
-    public String getDetail() {
-        return detail;
+    public User getArtist() {
+        return artist;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setArtist(User artist) {
+        this.artist = artist;
     }
 
     public String getSubject() {
@@ -65,27 +69,23 @@ public class PatronCommissionRequest {
         this.subject = subject;
     }
 
-    public Long getFromUserId() {
-        return fromUserId;
+    public String getDetails() {
+        return details;
     }
 
-    public void setFromUserId(Long fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
-    public Long getToUserId() {
-        return toUserId;
+    public String getDescription() {
+        return description;
     }
 
-    public void setToUserId(Long toUserId) {
-        this.toUserId = toUserId;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getRequest() {
-        return request;
-    }
-
-    public void setRequest(String request) {
-        this.request = request;
-    }
+    
 }
+
+

@@ -5,13 +5,16 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:8082/gitartsy/api/tags';
 
 // API methods for tag operations
-const getAllTags = () => {
-    return axios.get(BASE_URL)
-        .catch(error => {
-            console.error("Error fetching tags:", error);
-            throw error;
-        });
-};
+const getAllTags = async () => {
+    try {
+      const response = await axios.get(BASE_URL);
+      
+      return Array.isArray(response.data) ? response.data : [];
+    } catch (error) {
+      console.error('Error fetching tags:', error);
+      return [];
+    }
+  };
 
 const getTagById = (id) => {
     return axios.get(`${BASE_URL}/${id}`)

@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import api from '../../services/artworkService';
+import Like from '../ArtGallery/Like';
 import axios from 'axios';
 
 //TODO ADD PROFILE LINK
@@ -43,8 +44,9 @@ const UserArt = () => {
                             
                             {artwork.fileDownloadUri && (
                                 <img className='col-md-6' src={artwork.fileDownloadUri} alt={artwork.title} />
-                            )}
+                            )} 
                            <h3 className='col-md-4 text-center'>{artwork.title}</h3>
+                          <Like productId={artwork.id}/>
                         </li>
                     ))
                 ) : (

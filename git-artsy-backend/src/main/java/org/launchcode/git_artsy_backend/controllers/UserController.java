@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-//    creates user session and matches user id with session key
+    //creates user session and matches user id with session key
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getUser_id());
     }

@@ -42,7 +42,7 @@ public class Profile {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "profile")
     private Set<Artworks> artworks = new HashSet<>();
 
     public Profile() {

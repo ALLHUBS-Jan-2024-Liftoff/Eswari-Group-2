@@ -19,7 +19,7 @@ public class Artworks {
     private String description;
     private Float price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
