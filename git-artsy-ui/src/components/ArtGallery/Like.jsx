@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 
 
-const Like = () => {
+const Like = ({productId}) => {
     const[isLiked, setIsLiked] = useState(false);
     
     const[message, setMessage] = useState(null);
@@ -13,15 +13,15 @@ const Like = () => {
     // const handleClick = () => {
     //     setLiked(!isLiked);
     // };
-    const { artworkId } = useParams(); //get the artwork
+  
 
     useEffect(() => {
         const checkIfLiked = async () => {
             try {
                 const userData = localStorage.getItem('user');
-                const userId = JSON.parse(userData).userid; // gets logged in user's id
+                const userId = parseInt(JSON.parse(userData).userid); // gets logged in user's id
                 //console.log(userId);
-                const likeStatus = await isArtworkLiked(userId, artworkId);
+                const likeStatus = await isArtworkLiked(userId, productId);
                 console.log(likeStatus);
                 setIsLiked(likeStatus); // sets the like status
             } catch (error) {
@@ -30,20 +30,20 @@ const Like = () => {
         };
 
         checkIfLiked();
-    }, [artworkId]);
+    }, [productId]);
     
     const handleLike = async (e) => {
         e.preventDefault();
         try {
             const userData = localStorage.getItem('user');
-            const userId = JSON.parse(userData).userId; // gets logged in user's id
+            const userId = JSON.parse(userData).userid; // gets logged in user's id
             
             if (isLiked) {
-                await unlikeArtwork(userId, artworkId);
-                setLiked(false);
+                await unlikeArtwork(userId, productId);
+                setIsLiked(false);
                 setMessage("Artwork Unliked.");
             } else {
-                await likeArtwork(userId, artworkId);
+                await likeArtwork(userId, productId);
                 setIsLiked(true);
                 setMessage("Artwork is Liked!");
             }
@@ -62,13 +62,13 @@ const Like = () => {
 //             onClick={handleLike}/>)  
     return(
         <div>
-        <form onSubmit={handleLike}>
+        
             <div className="submit-container">
-                <button type="submit" className="submit">
+                <button type="submit" className="submit" onClick={handleLike}>
                     {isLiked ? "UnLike" : "Like"} 
                 </button>
             </div>
-        </form>
+       
     </div>
     )
 

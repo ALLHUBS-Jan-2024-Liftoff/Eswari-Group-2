@@ -65,7 +65,7 @@ export const getArtworkById = async (Id) => {
 
 export const isArtworkLiked = async (userId, artworkId) => {
   try {
-    const response = await axios.get('http://localhost:8082/gitartsy/api/likes/status', {
+    const response = await axios.get('http://localhost:8082/api/likes/status', {
       params: { userId, artworkId},
     });
     console.log(response.data);
@@ -78,11 +78,11 @@ export const isArtworkLiked = async (userId, artworkId) => {
 
 export const likeArtwork = async (userId, artworkId) => {
   try {
-    const response = await axios.post('http://localhost:8082/gitartsy/api/likes/like', null, {
+    const response = await axios.post('http://localhost:8082/api/likes/like', null, {
       params: { userId, artworkId},
     });
     console.log(response)
-    return response.data;
+    return response;
   } catch (error)
 {
   console.error("Error in liking artwork", error);
@@ -91,10 +91,10 @@ export const likeArtwork = async (userId, artworkId) => {
 
 export const unlikeArtwork = async (userId, artworkId) => {
   try {
-    const response = await axios.post('http://localhost:8082/gitartsy/api/likes/unlike', null, {
+    const response = await axios.post('http://localhost:8082/api/likes/unlike', null, {
       params: { userId, artworkId},
     });
-    return response.data;
+    return response;
   } catch (error)
 {
   console.error("Error in unliking artwork", error);

@@ -46,7 +46,7 @@ const UserArt = () => {
                                 <img className='col-md-6' src={artwork.fileDownloadUri} alt={artwork.title} />
                             )} 
                            <h3 className='col-md-4 text-center'>{artwork.title}</h3>
-                          <Like />
+                          <Like productId={artwork.id}/>
                         </li>
                     ))
                 ) : (
