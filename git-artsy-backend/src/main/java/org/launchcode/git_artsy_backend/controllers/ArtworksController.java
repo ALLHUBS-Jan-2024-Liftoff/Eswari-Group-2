@@ -301,9 +301,9 @@ public class ArtworksController {
 
     //endpoint for artwork ids
 
-//    @GetMapping("artworks/${id}")
-//    public ResponseEntity<Integer> getArtworkById(@PathVariable Integer id) {
-//        Optional<Artworks> artwork = artworkRepo.findById(id);
-//        return ResponseEntity.ok(artwork.get().getProductId());
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Integer> getArtworkById(@PathVariable Integer id) {
+        Optional<Artworks> artwork = artworkRepo.findById(id);
+        return ResponseEntity.ok(artwork.get().getProductId());
+    }
 }
